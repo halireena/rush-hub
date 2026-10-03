@@ -1,0 +1,367 @@
+<!DOCTYPE html><html lang="en-GB"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🌐 Your website: publish it, change it, grow it</title><style>body{max-width:860px;margin:0 auto;padding:24px 16px;font:10.5pt/1.55 'Segoe UI',Roboto,Arial,sans-serif;color:#1f2430;background:#fff}
+h1{color:#2e7d32;border-bottom:3px solid #2e7d32}h2{color:#1f6fb2;border-bottom:1px solid #e3e6ec;margin-top:1.6em}h3{color:#6a3fa0}
+table{border-collapse:collapse;width:100%;font-size:9.3pt;margin:8px 0}th,td{border:1px solid #e3e6ec;padding:4px 6px;vertical-align:top}th{background:#eef0f4}
+code{background:#f3f4f7;padding:1px 4px;border-radius:4px;font-size:9pt}pre{background:#f3f4f7;padding:10px;border-radius:8px;overflow-x:auto;white-space:pre-wrap}
+blockquote{border-left:4px solid #d9730d;background:#fdf3e8;margin:8px 0;padding:6px 12px}details{border:1px solid #e3e6ec;border-radius:6px;padding:4px 8px;margin:4px 0}
+.contains-task-list{list-style:none;padding-left:8px}.task-list-item-checkbox{margin-right:6px}a{color:#1f6fb2;overflow-wrap:anywhere}
+@media print{details{display:block}details>*{display:block}a{color:#1f2430}}@page{size:A4;margin:12mm}html{-webkit-print-color-adjust:exact;print-color-adjust:exact}</style></head><body><p><a href="index.html">← Home Base</a></p><h1>🌐 Your website: publish it, change it, grow it</h1>
+<p><strong>What this is:</strong> your apps (Home Base, Sprout, Project Compass, Book Nook, The Gentle Path) as a real website, free on <strong>GitHub Pages</strong>. It works on your phone and Mac like any website, and it doesn't need Claude.</p>
+<p><strong>Time:</strong> about 45 minutes the first time, then 2 minutes per change.</p>
+<hr />
+<h2>0. Understand what you're publishing (5 minutes, read this first)</h2>
+<h3>0.1 What's in the folder</h3>
+<table>
+<thead>
+<tr>
+<th>File / folder</th>
+<th>What it is</th>
+<th>When you'd touch it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>index.html</code></td>
+<td><strong>Home Base</strong>, the front page. Its address is just your site's address</td>
+<td>Change links, the app list, the free-books list, the credit tips</td>
+</tr>
+<tr>
+<td><code>sprout.html</code></td>
+<td>Sprout: today's blocks, the plan, the paper track, the study guide</td>
+<td>Change the timetable, weeks, tasks</td>
+</tr>
+<tr>
+<td><code>compass.html</code></td>
+<td>Project Compass: all projects + Code School</td>
+<td>Rarely (it's big; see section 5.4)</td>
+</tr>
+<tr>
+<td><code>books.html</code></td>
+<td>Book Nook: <strong>public version, free books only</strong></td>
+<td>Add a free book or fix a card</td>
+</tr>
+<tr>
+<td><code>path.html</code></td>
+<td>The Gentle Path timeline</td>
+<td>Change chapter text or calm tips</td>
+</tr>
+<tr>
+<td><code>cs/</code></td>
+<td>Pictures used by the Code School lessons inside Compass</td>
+<td>Only if you add lesson images</td>
+</tr>
+<tr>
+<td><code>tools/edit_data.py</code></td>
+<td>A helper that lets you edit an app's content safely</td>
+<td>Every time you change content</td>
+</tr>
+<tr>
+<td><code>.nojekyll</code></td>
+<td>An empty file that tells GitHub &quot;serve these files exactly as they are&quot;</td>
+<td>Never (don't delete it)</td>
+</tr>
+<tr>
+<td><code>WEBSITE_GUIDE.md</code></td>
+<td>This guide</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>How each page works (the one idea you need):</strong> every app is <strong>one HTML file</strong> with three parts:</p>
+<ol>
+<li><strong><code>&lt;style&gt;</code></strong>: how it looks (colours, fonts, spacing).</li>
+<li><strong>A data block</strong>, <code>&lt;script type=&quot;application/json&quot; id=&quot;data&quot;&gt;…&lt;/script&gt;</code>: the content (weeks, tasks, books, links). Sprout's block is called <code>id=&quot;plan&quot;</code> and Gentle Path's is <code>id=&quot;weeks&quot;</code>.</li>
+<li><strong><code>&lt;script&gt;</code></strong>: the code that turns the data into what you see.</li>
+</ol>
+<p>Most changes you'll ever make are to <strong>part 2, the content</strong>, and the helper tool makes that safe.</p>
+<h3>0.2 Public vs private: decide before you publish</h3>
+<p>A GitHub Pages site on a <strong>free</strong> account must come from a <strong>public</strong> repository. That means anyone with the link can see the site and the files behind it. I built this public version carefully:</p>
+<table>
+<thead>
+<tr>
+<th>Included ✅</th>
+<th>Left out on purpose 🔒 (kept in your folder → <code>10_APPS</code>)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Home Base, Sprout, Compass + Code School, Gentle Path</td>
+<td><strong>Career Garden</strong>: it contains researchers' emails and phone numbers and your application plans</td>
+</tr>
+<tr>
+<td>Book Nook with the <strong>25 free, legally shared books</strong></td>
+<td>Book Nook with <strong>your 14 PDF books</strong>: study notes from copyrighted textbooks shouldn't be put on the public internet</td>
+</tr>
+</tbody>
+</table>
+<p>Things still in the public version that you might want to edit out first:</p>
+<ul>
+<li><strong>Sprout and Gentle Path mention your paper plans and the first names &quot;Lindsey&quot; and &quot;Jack&quot;.</strong> If you'd rather not show those, follow section 5.2 and change the text to &quot;supervisor&quot; and &quot;collaborator&quot;.</li>
+<li><strong>Each page has a &quot;noindex&quot; line</strong>, so Google won't list it and only people with the link will find it. To make it a portfolio site that shows up in search, see section 6.3.</li>
+</ul>
+<blockquote>
+<p><strong>Ticks and progress on the website</strong> are saved <strong>in each browser</strong> (your phone and Mac each keep their own). Syncing between devices only works in the <a target="_blank" rel="noopener" href="http://claude.ai">claude.ai</a> versions. That's fine: use the website for reading and planning, and Notion for anything you must keep.</p>
+</blockquote>
+<hr />
+<h2>1. One-time setup on your Mac (10 minutes)</h2>
+<p>You need two free things:</p>
+<ol>
+<li><strong>A GitHub account.</strong> You have one: <strong><a target="_blank" rel="noopener" href="http://github.com/halireena">github.com/halireena</a></strong>.</li>
+<li><strong>GitHub Desktop</strong> (easiest, no typing commands): download from <strong><a target="_blank" rel="noopener" href="http://desktop.github.com">desktop.github.com</a></strong>, install, open it and sign in with your GitHub account.</li>
+</ol>
+<p><em>(If you'd rather use Terminal, the commands are in section 7. Both routes do exactly the same thing.)</em></p>
+<p>Also install <strong>VS Code</strong> (<a target="_blank" rel="noopener" href="http://code.visualstudio.com">code.visualstudio.com</a>) if you haven't already. You'll edit files with it, and it highlights mistakes.</p>
+<hr />
+<h2>2. Publish the website (15 minutes)</h2>
+<h3>Step 1: Create the repository (the website's home on GitHub)</h3>
+<ol>
+<li>Go to <strong><a target="_blank" rel="noopener" href="http://github.com">github.com</a></strong> → the <strong>＋</strong> at the top right → <strong>New repository</strong>.</li>
+<li><strong>Repository name:</strong> <code>rush-hub</code>. The name becomes part of your web address, so keep it short, with no spaces.</li>
+<li><strong>Public</strong> (needed for free GitHub Pages).</li>
+<li>Leave &quot;Add a README&quot; <strong>unticked</strong> (we already have files).</li>
+<li>Click <strong>Create repository</strong>.</li>
+</ol>
+<h3>Step 2: Put the files in it</h3>
+<p><strong>Option A: GitHub Desktop (recommended)</strong></p>
+<ol>
+<li>GitHub Desktop → <strong>File → Clone repository</strong> → choose <code>halireena/rush-hub</code> → pick a place on your Mac (e.g. <code>Documents/GitHub/rush-hub</code>) → <strong>Clone</strong>.</li>
+<li>Open that folder in Finder (GitHub Desktop: <strong>Repository → Show in Finder</strong>).</li>
+<li>Copy <strong>everything inside</strong> the <code>rush-hub-site</code> folder into it, including the hidden <code>.nojekyll</code> file. To see hidden files in Finder, press <strong>⌘ + Shift + .</strong> (full stop).</li>
+<li>Back in GitHub Desktop you'll see all the files listed. Bottom left, write a <strong>Summary</strong>: <code>First version of my website</code>. Click <strong>Commit to main</strong>.</li>
+<li>Click <strong>Push origin</strong> (top bar).</li>
+</ol>
+<p><strong>Option B: upload in the browser (no installs)</strong></p>
+<ol>
+<li>On your new repository page, click <strong>uploading an existing file</strong>.</li>
+<li>Drag in all the files and folders from <code>rush-hub-site</code>.
+<ul>
+<li>The browser uploader handles folders in Chrome. If the <code>cs</code> folder doesn't upload, use Option A.</li>
+<li><code>.nojekyll</code> is hidden: press ⌘ + Shift + . in Finder to see it, then drag it in too.</li>
+</ul>
+</li>
+<li>Write <code>First version of my website</code> → <strong>Commit changes</strong>.</li>
+</ol>
+<h3>Step 3: Switch on GitHub Pages</h3>
+<ol>
+<li>In the repository: <strong>Settings</strong> (top tab) → <strong>Pages</strong> (left menu).</li>
+<li><strong>Source:</strong> <em>Deploy from a branch</em>. <strong>Branch:</strong> <code>main</code>, folder <code>/ (root)</code> → <strong>Save</strong>.</li>
+<li>Wait 1–3 minutes, then refresh the page. It will say <strong>&quot;Your site is live at <a target="_blank" rel="noopener" href="https://halireena.github.io/rush-hub/">https://halireena.github.io/rush-hub/</a>&quot;</strong>.</li>
+</ol>
+<h3>Step 4: Check it works</h3>
+<p>Open <strong><a target="_blank" rel="noopener" href="https://halireena.github.io/rush-hub/">https://halireena.github.io/rush-hub/</a></strong> and check:</p>
+<ul class="contains-task-list">
+<li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox"> Home Base loads and shows this week's 3 things.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox"> Each app card opens (Sprout, Compass, Book Nook, Gentle Path).</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox"> Compass → Learn Python → lesson 09 shows pictures.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox"> On your phone: open the address in Chrome → ⋮ → <strong>Add to home screen</strong>. It now looks like an app icon.</li>
+</ul>
+<p><strong>If you see a 404 page:</strong> wait 5 more minutes (the first build can be slow). Check that <code>index.html</code> is in the <em>top level</em> of the repository, not inside a subfolder.</p>
+<hr />
+<h2>3. The change cycle (memorise this; every change works this way)</h2>
+<pre><code> 1. Edit a file on your Mac (VS Code)
+ 2. Check it locally: open the page in your browser
+ 3. GitHub Desktop: write a summary → Commit to main → Push origin
+ 4. Wait ~1 minute → refresh your website
+</code></pre>
+<p><strong>Check locally properly:</strong> some browsers limit pages opened by double-clicking. The proper way is a tiny local web server:</p>
+<pre><code class="language-bash">cd ~/Documents/GitHub/rush-hub        # the folder with index.html
+python3 -m http.server 8000
+</code></pre>
+<p>Then open <strong><a target="_blank" rel="noopener" href="http://localhost:8000">http://localhost:8000</a></strong> in your browser. Press <strong>Ctrl + C</strong> in Terminal to stop the server.</p>
+<p><strong>Made a mess? Undo:</strong></p>
+<ul>
+<li><strong>Before committing:</strong> GitHub Desktop → right-click the file → <strong>Discard changes</strong>.</li>
+<li><strong>After pushing:</strong> GitHub Desktop → <strong>History</strong> tab → right-click the commit → <strong>Revert changes in commit</strong> → <strong>Push origin</strong>. Nothing is ever truly lost; GitHub keeps every version.</li>
+</ul>
+<hr />
+<h2>4. The safe way to change content: <code>tools/edit_data.py</code></h2>
+<p>Editing the data block inside the HTML directly is risky: one missing comma and the whole page goes blank. So use the helper:</p>
+<pre><code class="language-bash">cd ~/Documents/GitHub/rush-hub
+python3 tools/edit_data.py list                # which pages have content blocks
+python3 tools/edit_data.py extract index.html  # makes data/index.json
+</code></pre>
+<ol>
+<li>Open <code>data/index.json</code> in <strong>VS Code</strong>. It's neatly indented, and VS Code underlines mistakes in red.</li>
+<li>Change what you want and <strong>save</strong>.</li>
+<li>Put it back:<pre><code class="language-bash">python3 tools/edit_data.py inject index.html
+</code></pre>
+If your JSON has a mistake, the tool tells you the <strong>line and column</strong> and <strong>changes nothing</strong>. If it worked, it keeps a backup (<code>index.html.bak</code>).</li>
+<li>Check locally (section 3), then commit and push.</li>
+<li>Delete the <code>.bak</code> file and the <code>data/</code> folder before committing. They're only working copies.</li>
+</ol>
+<p><strong>JSON rules in 30 seconds (the format the content is in):</strong></p>
+<table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Text goes in <strong>double quotes</strong></td>
+<td><code>&quot;name&quot;: &quot;Sprout&quot;</code></td>
+</tr>
+<tr>
+<td>Items are separated by <strong>commas</strong>, but <strong>no comma after the last one</strong></td>
+<td><code>[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</code> ✅ · <code>[&quot;a&quot;, &quot;b&quot;,]</code> ❌</td>
+</tr>
+<tr>
+<td><code>{ }</code> = an object (named fields), <code>[ ]</code> = a list</td>
+<td><code>{&quot;name&quot;: &quot;x&quot;, &quot;url&quot;: &quot;y&quot;}</code></td>
+</tr>
+<tr>
+<td>Numbers and true/false have <strong>no quotes</strong></td>
+<td><code>&quot;fit&quot;: 5</code>, <code>&quot;free&quot;: true</code></td>
+</tr>
+<tr>
+<td>A quote mark inside text needs a backslash</td>
+<td><code>&quot;She said \&quot;hi\&quot;&quot;</code></td>
+</tr>
+</tbody>
+</table>
+<p>Run <code>python3 tools/edit_data.py check</code> at any time to test every page.</p>
+<hr />
+<h2>5. Recipes: the changes you'll actually want</h2>
+<h3>5.1 Home Base (<code>index.html</code>)</h3>
+<p><code>extract index.html</code>, then edit <code>data/index.json</code>:</p>
+<table>
+<thead>
+<tr>
+<th>To change…</th>
+<th>Edit this part of the JSON</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The app cards</td>
+<td><code>&quot;appList&quot;</code>: each card is <code>{&quot;name&quot;, &quot;e&quot; (emoji), &quot;c&quot; (background colour), &quot;d&quot; (description), &quot;url&quot;}</code>. Add a new card by copying one <code>{…}</code> block, pasting it after a comma, and changing the values</td>
+</tr>
+<tr>
+<td>The project buttons</td>
+<td><code>&quot;chips&quot;</code>: each is <code>[&quot;P1&quot;, &quot;🥔 P1 GWAS&quot;]</code>. The first value is the Compass project code (S0, CR, CP, CL, M0, P1–P7, T1, T2), the second is the label</td>
+</tr>
+<tr>
+<td>The free-books list</td>
+<td><code>&quot;free&quot;</code>: groups <code>{&quot;t&quot;: title, &quot;items&quot;: [ {title, org, why, url}, … ]}</code></td>
+</tr>
+<tr>
+<td>The $250 credit text and prompts</td>
+<td><code>&quot;credit&quot;</code>: <code>intro</code>, <code>steps</code> (a list of text), <code>prompts</code> (a list of <code>[title, prompt]</code>)</td>
+</tr>
+<tr>
+<td>Which project &quot;this week&quot; points to</td>
+<td><code>&quot;weekProject&quot;</code>: <code>&quot;5&quot;: &quot;M0&quot;</code> means week 5 opens the M0 project</td>
+</tr>
+</tbody>
+</table>
+<h3>5.2 Sprout's plan (<code>sprout.html</code>)</h3>
+<p><code>extract sprout.html</code> → <code>data/sprout.json</code>:</p>
+<ul>
+<li><code>&quot;weeks&quot;</code>: one entry per week:
+<ul>
+<li><code>w</code> (number), <code>s</code>/<code>e</code> (start/end date <code>YYYY-MM-DD</code>), <code>ph</code> (phase name), <code>c</code> (phase colour)</li>
+<li><code>kh</code>/<code>ph_h</code> (kit/paper hours), <code>f</code> (kit focus), <code>files</code>, <code>d</code> (done when)</li>
+<li><code>p</code> (paper task), <code>rd</code> (reading), <code>cr</code> (computational reading), <code>ap</code> (applications)</li>
+</ul>
+</li>
+<li><code>&quot;routine&quot;</code>: the daily blocks, as <code>[&quot;19:00&quot;, &quot;21:00&quot;, &quot;kit&quot;, &quot;label&quot;]</code>. The kinds are <code>paper</code>, <code>kit</code>, <code>read</code>, <code>jobs</code> and <code>review</code>, and each kind has its own colour and icon.</li>
+<li><code>&quot;ritual&quot;</code>: the daily ritual lines.</li>
+<li><code>&quot;targets&quot;</code>: the job-target lists.</li>
+<li><strong>To remove names</strong> (for example &quot;Lindsey&quot; or &quot;Jack&quot;): use VS Code's <strong>Find and Replace (⌘ + Option + F)</strong> inside <code>data/sprout.json</code>. Also change them in <code>path.html</code> (5.4) and <code>index.html</code>.</li>
+<li><strong>Moving the whole plan by a week</strong> (if life happens): change every <code>s</code> and <code>e</code> date, plus <code>&quot;start&quot;</code>. It's easier to ask free Claude: &quot;Here is my JSON; shift every date by 7 days and give it back&quot;.</li>
+</ul>
+<h3>5.3 Book Nook: add a free book (<code>books.html</code>)</h3>
+<p><code>extract books.html</code> → in <code>data/books.json</code>, add a book to <code>&quot;books&quot;</code>:</p>
+<pre><code class="language-json">{
+  &quot;slug&quot;: &quot;my_new_book&quot;, &quot;short&quot;: &quot;Short name&quot;, &quot;emoji&quot;: &quot;📗&quot;, &quot;color&quot;: &quot;#2f855a&quot;,
+  &quot;title&quot;: &quot;Full title&quot;, &quot;authors&quot;: &quot;Who wrote it&quot;, &quot;edition&quot;: &quot;2024&quot;,
+  &quot;url&quot;: &quot;https://the-publisher-page&quot;, &quot;licence&quot;: &quot;Free from the publisher&quot;,
+  &quot;overview&quot;: &quot;Two sentences about it.&quot;, &quot;how&quot;: &quot;How to read it.&quot;, &quot;warn&quot;: &quot;&quot;, &quot;free&quot;: true, &quot;file&quot;: &quot;&quot;,
+  &quot;chapters&quot;: [
+    {&quot;n&quot;: 1, &quot;title&quot;: &quot;Chapter title&quot;, &quot;pdf_pages&quot;: &quot;1-20&quot;, &quot;minutes&quot;: 40, &quot;priority&quot;: &quot;core&quot;,
+     &quot;summary&quot;: [&quot;Point one&quot;, &quot;Point two&quot;],
+     &quot;terms&quot;: [{&quot;term&quot;: &quot;EC&quot;, &quot;def&quot;: &quot;Electrical conductivity: how salty the solution is&quot;}],
+     &quot;cards&quot;: [{&quot;q&quot;: &quot;Question?&quot;, &quot;a&quot;: &quot;Answer.&quot;}],
+     &quot;for_rush&quot;: &quot;Why it matters to you&quot;}
+  ]
+}
+</code></pre>
+<p>Then add its <code>slug</code> to one of the <code>&quot;shelves&quot;</code> lists, or the book won't appear on a shelf. <code>priority</code> must be <code>core</code>, <code>useful</code> or <code>skim</code>.</p>
+<p><strong>Never change a book's <code>slug</code> or the order of its cards after you've started reviewing.</strong> Your progress is stored against those, so changing them resets that book's progress.</p>
+<h3>5.4 The Gentle Path (<code>path.html</code>)</h3>
+<ul>
+<li>Its weekly data is in the <code>id=&quot;weeks&quot;</code> block (use the tool).</li>
+<li>The <strong>chapter cards</strong> (titles, &quot;how you'll feel&quot;, skills lists) and <strong>calm tips</strong> are written directly in the code. In VS Code, search for <code>const CH=[</code> and <code>const tips=[</code>: each chapter is one <code>{…}</code> line with <code>em</code> (emoji), <code>t</code> (title), <code>s</code>/<code>e</code> (dates), <code>why</code>, <code>kit</code> (a list), <code>paper</code> (a list) and <code>feel</code>. Edit the text <strong>inside the quotes</strong> only.</li>
+</ul>
+<h3>5.5 Colours and fonts (any page)</h3>
+<p>At the top of each file, in <code>&lt;style&gt;</code>, the colours are named &quot;tokens&quot;:</p>
+<pre><code class="language-css">:root{ --bg:#fbf6ef; --card:#fffdf9; --fg:#3a3140; --leaf:#5cb85c; ... }
+</code></pre>
+<ul>
+<li>Change a hex value (e.g. <code>--leaf:#5cb85c</code> → <code>#7c4dff</code> for purple) and the whole page follows.</li>
+<li><strong>Each colour appears three times</strong>: once for light mode and twice for dark mode (the <code>prefers-color-scheme: dark</code> block and the <code>[data-theme=&quot;dark&quot;]</code> block). Change all three so both modes look right.</li>
+<li>Fonts come from Google Fonts in the <code>&lt;link …fonts.googleapis.com…&gt;</code> line near the top. To change one, pick a font on <a target="_blank" rel="noopener" href="http://fonts.google.com">fonts.google.com</a>, copy its link, and replace <code>Fredoka</code>/<code>Nunito</code> in the CSS.</li>
+</ul>
+<h3>5.6 Add a brand-new page (for example your CV or a project write-up)</h3>
+<ol>
+<li>In VS Code, make <code>cv.html</code>. Easiest start: copy <code>path.html</code>, delete everything inside <code>&lt;body&gt;…&lt;/body&gt;</code>, and write your own content with simple HTML:<pre><code class="language-html">&lt;div style=&quot;max-width:720px;margin:0 auto;padding:24px 16px&quot;&gt;
+  &lt;h1&gt;Rush · CV&lt;/h1&gt;
+  &lt;p&gt;MSc Bioinformatics, University of Birmingham Dubai (2026)&lt;/p&gt;
+  &lt;h2&gt;Projects&lt;/h2&gt;
+  &lt;ul&gt;&lt;li&gt;&lt;a href=&quot;https://github.com/halireena/...&quot;&gt;Potato GWAS&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;/div&gt;
+</code></pre>
+</li>
+<li>Link to it from Home Base: add an <code>appList</code> card (5.1) with <code>&quot;url&quot;: &quot;cv.html&quot;</code>.</li>
+<li>Check locally → commit → push.</li>
+</ol>
+<h3>5.7 Compass and Code School content</h3>
+<p>Compass holds <strong>all the lessons as HTML inside its data block</strong>, so it's 3 MB. Small fixes (a typo, a link) are fine with the tool:</p>
+<ol>
+<li><code>extract compass.html</code>.</li>
+<li>Search <code>data/compass.json</code> for the text and fix it.</li>
+<li><code>inject</code>.</li>
+</ol>
+<p>For <strong>big changes</strong> (a new lesson or project), edit the Markdown file in your kit folder instead, and ask a cloud session (see the credit guide) to rebuild Compass. Or simply add a link to a new page (5.6).</p>
+<hr />
+<h2>6. Extras</h2>
+<h3>6.1 Your own short address (optional, costs money)</h3>
+<p>A domain like <code>rushbio.com</code> costs about USD 10–15 a year from a registrar (e.g. Cloudflare, Namecheap). After buying it, go to GitHub → <strong>Settings → Pages → Custom domain</strong>, type it in, then follow GitHub's on-screen DNS instructions. Not needed: <code>halireena.github.io/rush-hub</code> works forever for free.</p>
+<h3>6.2 Make it private</h3>
+<p>GitHub Pages from a <strong>private</strong> repository needs a paid GitHub plan. The free alternative is to keep sensitive apps offline (as they are now) and only publish the public set.</p>
+<h3>6.3 Turn it into a public portfolio</h3>
+<ul>
+<li>Remove <code>&lt;meta name=&quot;robots&quot; content=&quot;noindex, nofollow&quot;&gt;</code> from the pages you want Google to find.</li>
+<li>Better: build your <strong>Quarto portfolio site</strong> (Code School / M0 week 7) as a separate repository, <code>halireena.github.io</code>, which becomes your main address. Then link this planner from it, or keep the planner unlisted.</li>
+</ul>
+<h3>6.4 Something broke: checklist</h3>
+<ol>
+<li>A page is <strong>blank</strong>: run <code>python3 tools/edit_data.py check</code>. It names the broken page; fix the JSON line it reports.</li>
+<li><strong>Old version still showing</strong>: hard refresh (Mac <strong>⌘ + Shift + R</strong>; phone: close the tab and reopen it). GitHub can take 1–5 minutes.</li>
+<li><strong>Images missing in Compass</strong>: is the <code>cs/</code> folder in the repository, next to <code>compass.html</code>?</li>
+<li><strong>404</strong>: <code>index.html</code> must be at the top level, and Pages must be set to <code>main</code> / <code>(root)</code>.</li>
+<li><strong>Still stuck</strong>: GitHub Desktop → History. Find the last version that worked and revert to it (section 3).</li>
+</ol>
+<hr />
+<h2>7. Terminal version (if you prefer commands)</h2>
+<pre><code class="language-bash"># one-time: tell git who you are (use your GitHub no-reply email from GitHub → Settings → Emails)
+git config --global user.name &quot;Halireena&quot;
+git config --global user.email &quot;ID+halireena@users.noreply.github.com&quot;
+
+# first publish (after creating the empty repo on github.com)
+cd ~/Documents/GitHub
+git clone https://github.com/halireena/rush-hub.git
+cp -R ~/path/to/rush-hub-site/. rush-hub/      # the /. copies hidden files too
+cd rush-hub
+git add .
+git commit -m &quot;First version of my website&quot;
+git push
+
+# every change afterwards
+git status                  # what changed?
+git add index.html          # or: git add .
+git commit -m &quot;Update app links&quot;
+git push
+</code></pre>
+<p><code>git log --oneline</code> lists your history; <code>git revert &lt;id&gt;</code> undoes one commit safely.</p>
+</body></html>

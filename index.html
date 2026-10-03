@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Rush's Home Base</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+
+
+
+<style>
+:root{--bg:#fbf6ef;--bg2:#f1e8dc;--card:#fffdf9;--fg:#3a3140;--muted:#867a8a;--line:#eadfd2;--leaf:#5cb85c;--sun:#ffc857;--pink:#ff8fab;--shadow:0 6px 0 rgba(110,80,60,.07),0 12px 26px rgba(110,80,60,.08)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.55 Nunito,ui-rounded,system-ui,sans-serif;margin:0}
+.wrap{max-width:760px;margin:0 auto;padding-inline:16px;padding-block:18px 50px}
+h1,h2,h3,.fr{font-family:Fredoka,Nunito,sans-serif;text-wrap:balance}
+h1{font-size:1.75rem;margin:0}h2{font-size:1.15rem;margin:22px 4px 10px}
+.muted{color:var(--muted)}
+.top{display:flex;gap:10px;align-items:flex-start}.top .g{flex:1;min-width:0}
+.ibtn{border:0;background:var(--bg2);color:var(--fg);border-radius:12px;width:38px;height:38px;font-size:1.05rem;cursor:pointer}
+.card{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:16px;box-shadow:var(--shadow)}
+.today{border-color:var(--sun);margin-top:14px;position:relative;overflow:hidden}
+.today .lbl{font-size:.7rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.three{display:grid;gap:8px;margin-top:10px}
+.three a{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:14px;background:var(--bg2);color:var(--fg);text-decoration:none;transition:transform .15s}
+.three a:active{transform:scale(.98)}.three .n{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:700 .9rem Fredoka;color:#fff;flex:none}
+.three .tx{min-width:0;flex:1}
+.apps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.app{display:flex;gap:12px;align-items:center;padding:14px;border-radius:20px;background:var(--card);border:2px solid var(--line);box-shadow:var(--shadow);color:var(--fg);text-decoration:none;transition:transform .2s cubic-bezier(.2,1.6,.4,1);opacity:0;animation:pop .5s cubic-bezier(.2,1.4,.4,1) forwards}
+.app:hover{transform:translateY(-3px)}.app:active{transform:scale(.97)}
+.app .e{width:50px;height:50px;border-radius:16px;display:grid;place-items:center;font-size:1.6rem;flex:none}
+.app .tx{min-width:0}.app b{display:block;font-family:Fredoka;font-size:1rem}
+.app span.d{font-size:.78rem;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips a{display:inline-flex;gap:6px;align-items:center;padding:8px 12px;border-radius:999px;background:var(--card);border:2px solid var(--line);color:var(--fg);text-decoration:none;font-weight:800;font-size:.85rem;transition:transform .15s}
+.chips a:active{transform:scale(.95)}
+details.card{margin-top:12px}
+details summary{cursor:pointer;font-family:Fredoka;font-weight:700;font-size:1.05rem;list-style:none}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:" ＋";color:var(--muted)}details[open] summary::after{content:" －"}
+details[open]>*:not(summary){animation:rise .3s}
+.bk{padding:10px 0;border-bottom:2px dashed var(--line)}.bk:last-child{border:0}
+.bk a{color:var(--fg);font-weight:800}.bk .m{font-size:.8rem;color:var(--muted)}
+ol li,ul li{margin:4px 0}
+.prompt{background:var(--bg2);border-radius:14px;padding:10px 12px;font-size:.85rem;margin:6px 0;position:relative;padding-right:70px}
+.prompt button{position:absolute;right:8px;top:8px;border:0;border-radius:10px;padding:4px 10px;font:800 .75rem Nunito;background:var(--card);color:var(--fg);cursor:pointer}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--fg);color:var(--bg);padding:8px 16px;border-radius:999px;font-weight:800;opacity:0;transition:all .3s;pointer-events:none}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.heart{text-align:center;margin-top:24px;font-size:.88rem;color:var(--muted)}
+@keyframes pop{0%{opacity:0;transform:scale(.7)}100%{opacity:1;transform:scale(1)}}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (max-width:480px){.apps{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.app{opacity:1}}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div class="g"><div class="muted fr" id="date" style="font-size:.85rem">&nbsp;</div><h1>🏡 Rush's Home Base</h1>
+    <div class="muted" style="font-size:.9rem">Everything in one place. Tap a card to go deeper.</div></div>
+    <button class="ibtn" id="themeBtn" aria-label="Toggle theme">🌙</button>
+  </header>
+
+  <div class="card today" id="today"></div>
+
+  <h2>📱 Your apps</h2>
+  <div class="apps" id="apps"></div>
+
+  <h2>🧭 Jump straight into a project</h2>
+  <div class="chips" id="chips"></div>
+
+  <details class="card" id="books"><summary>📚 Books &amp; free downloads</summary><div id="bookBody"></div></details>
+  <details class="card"><summary>💳 Your $250 cloud credit: how to use it well</summary><div id="credit"></div></details>
+  <details class="card"><summary>🧳 If the apps ever stop working</summary>
+    <ul>
+      <li>Every app has an <b>offline copy</b> in your <b>everything needed final print</b> folder → <code>10_APPS</code>. Double-click to open them in a browser; no internet or Claude needed.</li>
+      <li>Your <b>Notion HQ</b> (plan, paper, jobs) and <b>Google Calendar</b> don't depend on Claude.</li>
+      <li>All guides are printable: <code>09_PRINTABLE_HTML</code> → open → Print → Save as PDF.</li>
+      <li>Free Claude can still <i>explain</i> things: paste a lesson section and ask "explain this like I'm 16".</li>
+    </ul>
+  </details>
+  <div class="heart">You built this plan. Now you walk it, one small step at a time. 🌱</div>
+</div>
+<div class="toast" id="toast"></div>
+<script type="application/json" id="data">{"start": "2026-10-12", "weeks": [{"w": 1, "f": "Setup: Mac (conda, R, Python, Jupyter), GitHub SSH, Anki; BlueBEAR access check", "p": "Count images/samples per class, per variety, per plant/plot; email Jack (draft ready)"}, {"w": 2, "f": "Bash refresher", "p": "One-page plan to Lindsey: question, data counts, analyses, target venue"}, {"w": 3, "f": "Git + GitHub; fix GitHub profile (README, pinned repos, study board)", "p": "Grouped validation: split by plant/plot (no leakage) and re-score macro-F1"}, {"w": 4, "f": "Python + 3 biology mini-projects (sequence toolkit · FASTA stats CLI · phenotype CSV plotter)", "p": "Vegetation-index (VI) baseline model, same grouped splits"}, {"w": 5, "f": "Python + 3 biology mini-projects (sequence toolkit · FASTA stats CLI · phenotype CSV plotter)", "p": "Maturity/stage check: does accuracy hold within each stage?"}, {"w": 6, "f": "Python + 3 biology mini-projects (sequence toolkit · FASTA stats CLI · phenotype CSV plotter)", "p": "Variety ranking: per-variety results + confusion matrix"}, {"w": 7, "f": "Quarto portfolio website (GitHub Pages)", "p": "CNN comparison (ResNet transfer learning) vs your thesis model"}, {"w": 8, "f": "R consolidation (your strongest language: go fast)", "p": "CNN comparison: finish, 3 seeds, confidence intervals"}, {"w": 9, "f": "P1 GWAS potato: Phases 0–7", "p": "Figures (4 max) + results table; send to Lindsey for feedback"}, {"w": 10, "f": "P1 GWAS potato: Phases 0–7", "p": "Write the abstract (250 words); decide on IGARSS (deadline 11 Jan 2027, optional)"}, {"w": 11, "f": "P1 GWAS potato: Phases 0–7", "p": "Draft the short paper (IGARSS: 4 pages) or extended abstract"}, {"w": 12, "f": "Holiday week: rest. Optional: one LinkedIn post", "p": ""}, {"w": 13, "f": "Statistics for omics (incl. SPSS→R table)", "p": "Submit IGARSS by 11 Jan 2027 (optional) · otherwise start the journal draft"}, {"w": 14, "f": "Snakemake (first time: go slowly)", "p": "Journal draft: Methods"}, {"w": 15, "f": "P7 variant calling: test run on Mac, Phases 0–3", "p": "Journal draft: Results"}, {"w": 16, "f": "P7 variant calling: test run on Mac, Phases 0–3", "p": "Journal draft: Introduction + Discussion"}, {"w": 17, "f": "P7 real Arabidopsis data (BlueBEAR or Mac subset), Phases 4–7", "p": "Supervisor comments → revise"}, {"w": 18, "f": "P7 real Arabidopsis data (BlueBEAR or Mac subset), Phases 4–7", "p": "Check EAPR 2027 / ECPP 2027 abstract deadlines [verify] and submit"}, {"w": 19, "f": "P2 DIA proteomics", "p": "Revise draft with co-author comments"}, {"w": 20, "f": "P2 DIA proteomics", "p": "Pick a journal; format references"}, {"w": 21, "f": "P4 multi-omics (mixOmics)", "p": "Final checks (data + code availability statement)"}, {"w": 22, "f": "P4 multi-omics (mixOmics)", "p": "Submit the paper 🎉"}, {"w": 23, "f": "P3 metabolomics (Python)", "p": "Buffer for reviewer/supervisor delays"}, {"w": 24, "f": "P3 metabolomics (Python)", "p": "Prepare poster/talk if accepted"}, {"w": 25, "f": "P5 plant microbiome", "p": "Prepare poster/talk"}, {"w": 26, "f": "P5 plant microbiome", "p": "Respond to reviews if back"}, {"w": 27, "f": "SQL module, then P6 wheat text mining", "p": "Respond to reviews"}, {"w": 28, "f": "SQL module, then P6 wheat text mining", "p": "Respond to reviews"}, {"w": 29, "f": "Independence ladder: rebuild 3 projects blank; apply 2 to NEW datasets", "p": ""}, {"w": 30, "f": "Independence ladder: rebuild 3 projects blank; apply 2 to NEW datasets", "p": ""}, {"w": 31, "f": "Independence ladder: rebuild 3 projects blank; apply 2 to NEW datasets", "p": ""}, {"w": 32, "f": "Expert consolidation: Q&A out loud; scope your own original project", "p": ""}, {"w": 33, "f": "Expert consolidation: Q&A out loud; scope your own original project", "p": ""}], "weekProject": {"1": "S0", "2": "F01", "3": "F04", "8": "F02", "13": "F05", "14": "F06", "4": "M0", "5": "M0", "6": "M0", "7": "M0", "9": "P1", "10": "P1", "11": "P1", "15": "P7", "16": "P7", "17": "P7", "18": "P7", "19": "P2", "20": "P2", "21": "P4", "22": "P4", "23": "P3", "24": "P3", "25": "P5", "26": "P5", "27": "P6", "28": "P6", "29": "T2", "30": "T2", "31": "T2", "32": "T2", "33": "T2"}, "apps": {"sprout": "sprout.html", "compass": "compass.html", "path": "path.html", "nook": "books.html", "notion": "https://app.notion.com/p/3ed2257f9805816ba18be83033b086f9", "garden": "#"}, "appList": [{"name": "Sprout", "e": "🌱", "c": "#dff3e2", "d": "Today's blocks, ticks, hours, study guide", "url": "sprout.html"}, {"name": "Project Compass", "e": "🧭", "c": "#e6e1ff", "d": "Every project + Code School, step by step", "url": "compass.html"}, {"name": "Book Nook", "e": "📚", "c": "#efe4ff", "d": "39 books: chapter guides + daily flashcards", "url": "books.html"}, {"name": "The Gentle Path", "e": "🌷", "c": "#ffe1ea", "d": "Calm timeline: just this week", "url": "path.html"}, {"name": "Notion HQ", "e": "🗂️", "c": "#e3eef7", "d": "Weekly plan, paper track, job targets", "url": "https://app.notion.com/p/3ed2257f9805816ba18be83033b086f9"}, {"name": "Website guide", "e": "🛠️", "c": "#e8f0e3", "d": "Publish, edit and grow this site", "url": "website-guide.html"}, {"name": "$250 credit guide", "e": "💳", "c": "#fdebd3", "d": "How to use your cloud-session credit", "url": "credit-guide.html"}], "chips": [["S0", "💻 Mac setup"], ["CR", "📊 Learn R"], ["CP", "🐍 Learn Python"], ["CL", "🔬 Paper labs"], ["M0", "🧰 Mini-projects"], ["P1", "🥔 P1 GWAS"], ["P7", "🧬 P7 Variants"], ["P2", "🧪 P2 Proteomics"], ["P4", "🔗 P4 Multi-omics"], ["P3", "⚗️ P3 Metabolomics"], ["P5", "🦠 P5 Microbiome"], ["P6", "🌾 P6 Text mining"], ["T1", "🆘 Stuck?"], ["T2", "🏅 Am I competent?"]], "free": [{"t": "💧 Hydroponics & controlled-environment farming", "items": [{"title": "Hydroponic Spinach Production Handbook", "org": "Cornell CEA, 2013", "why": "Floating-raft spinach: oxygen, Pythium, nutrient A/B, EC/pH. Perfect for your home setup", "url": "https://cea.cals.cornell.edu/files/2019/06/Cornell-CEA-baby-spinach-handbook.pdf"}, {"title": "Cornell CEA Hydroponic Lettuce Handbook", "org": "Cornell CEA, 2013", "why": "The classic 35-day raft lettuce protocol", "url": "https://cea.cals.cornell.edu/files/2019/06/Cornell-CEA-Lettuce-Handbook-.pdf"}, {"title": "'Set It and Forget It' Hydroponic Lettuce (HS1488)", "org": "UF/IFAS Extension, 2025", "why": "The cheap Kratky method for beginners", "url": "https://ask.ifas.ufl.edu/publication/HS1488"}, {"title": "Water and Nutrient Management for Greenhouse Hydroponic Vegetables (HS1274)", "org": "UF/IFAS Extension, 2016 (rev. 2025)", "why": "Nutrient recipes, EC/pH targets", "url": "https://ask.ifas.ufl.edu/publication/HS1274"}, {"title": "Soilless agriculture guidelines (raft & drip hydroponics)", "org": "IUCN West Asia, 2023", "why": "Arid-region hydroponics with solar power; very relevant to the UAE", "url": "https://portals.iucn.org/library/sites/library/files/documents/2023-026-En.pdf"}, {"title": "Good Agricultural Practices for greenhouse vegetable crops (PPP 217)", "org": "FAO, 2013", "why": "The core greenhouse textbook for hot climates", "url": "https://www.fao.org/4/i3284e/i3284e.pdf"}, {"title": "Good Agricultural Practices for greenhouse vegetable production in SE Europe (PPP 230)", "org": "FAO, 2017", "why": "Updated companion to PPP 217", "url": "https://www.fao.org/4/i6787e/i6787e.pdf"}, {"title": "Small-scale aquaponic food production (Tech. Paper 589)", "org": "FAO, 2014", "why": "Complete fish + plant soilless manual (large PDF, 30 MB+)", "url": "https://www.fao.org/4/i4021e/i4021e.pdf"}, {"title": "Controlled Environment Agriculture for Sustainable Development", "org": "UNDP, 2025", "why": "Vertical farms and greenhouses, incl. a UAE GigaFarm case study", "url": "https://www.undp.org/sites/g/files/zskgke326/files/2025-01/controlled_environment_agriculture_for_sustainable_development.pdf"}]}, {"t": "🌾 Sustainable farming, soil & saline agriculture", "items": [{"title": "Building Soils for Better Crops (4th ed.)", "org": "SARE, 2021", "why": "The best free soil-health textbook", "url": "https://www.sare.org/resources/building-soils-for-better-crops/"}, {"title": "Managing Cover Crops Profitably (3rd ed.)", "org": "SARE, 2007", "why": "Cover crops background", "url": "https://www.sare.org/resources/managing-cover-crops-profitably-3rd-edition/"}, {"title": "Handbook for Saline Soil Management", "org": "FAO, 2018", "why": "Diagnose and reclaim salt-affected soils", "url": "https://www.fao.org/4/i7318en/I7318EN.pdf"}, {"title": "The use of saline waters for crop production (I&D Paper 48)", "org": "FAO, 1992", "why": "Irrigating with brackish water; crop salt tolerance", "url": "https://www.fao.org/4/t0667e/t0667e00.htm"}, {"title": "Water Quality for Agriculture (I&D Paper 29)", "org": "FAO, 1985", "why": "Salinity, SAR and boron guidelines", "url": "https://www.fao.org/4/t0234e/t0234e00.htm"}, {"title": "Crop evapotranspiration (I&D Paper 56)", "org": "FAO, 1998", "why": "The global standard for crop water needs", "url": "https://www.fao.org/4/x0490e/x0490e00.htm"}, {"title": "Crop yield response to water (I&D Paper 66)", "org": "FAO, 2012", "why": "Deficit irrigation and the AquaCrop model", "url": "https://www.fao.org/4/i2800e/i2800e.pdf"}, {"title": "Agricultural drainage water management in arid areas (I&D Paper 61)", "org": "FAO, 2002", "why": "Saline drainage water reuse in drylands", "url": "https://www.fao.org/4/ap103e/ap103e.pdf"}, {"title": "Save and Grow", "org": "FAO, 2011", "why": "Sustainable intensification framework", "url": "https://www.fao.org/4/i2215e/i2215e.pdf"}, {"title": "How much water do date palms need?", "org": "ICBA, 2023", "why": "UAE field data on date-palm irrigation", "url": "https://www.biosaline.org/sites/default/files/2023-11/date-palm-guideline.pdf"}, {"title": "Family farming tips (English/Arabic)", "org": "ICBA, 2020", "why": "Growing vegetables at home in the UAE", "url": "https://www.biosaline.org/sites/default/files/2022-04/family_farming_tips_vegs_8_sep_2020_sr_f.pdf"}]}, {"t": "🧬 Free textbooks for your genetics & coding", "items": [{"title": "Modern Statistics for Modern Biology", "org": "Holmes & Huber (CUP) · free online", "why": "Statistics for omics in R", "url": "https://www.huber.embl.de/msmb/"}, {"title": "R for Data Science (2e)", "org": "Wickham et al. · free online", "why": "Tidyverse wrangling and plots", "url": "https://r4ds.hadley.nz/"}, {"title": "Crop Genetics", "org": "Iowa State Univ. Digital Press, 2023 (CC BY-NC)", "why": "Linkage, quantitative inheritance, polyploidy", "url": "https://iastate.pressbooks.pub/cropgenetics/"}, {"title": "Quantitative Methods for Plant Breeding", "org": "Iowa State Univ. Digital Press, 2023", "why": "Experimental design for breeding trials", "url": "https://iastate.pressbooks.pub/quantitativeplantbreeding/"}, {"title": "Quantitative Genetics for Plant Breeding", "org": "Iowa State Univ. Digital Press, 2023", "why": "Heritability, selection; pairs with GWAS", "url": "https://iastate.pressbooks.pub/quantitativegenetics/"}]}], "credit": {"intro": "A one-time $250 credit for Claude cloud sessions (Claude works inside one of your GitHub repos and hands you a pull request to review). From the offer screen: Pro/Max subscribers only; claim by 10:59 AM (UAE) on 8 October; it expires 11:59 AM (UAE) on 5 November; not usable for Projects or Routines. Claim it before your subscription ends, and use the important sessions first. Full guide: the 💳 card above.", "steps": ["Desktop app → 'Sign in again' if the yellow bar shows → Claim credit.", "Connect GitHub (halireena) and choose a repository; create 'rush-hub' first.", "Start a cloud session and paste ONE prompt below (one job per session).", "Review the pull request: Files changed → read → Merge. Then write 3 lines in learning-notes."], "prompts": [["1 · Publish your website (repo rush-hub)", "I've uploaded my personal study website (static HTML: index.html, sprout.html, compass.html, books.html, path.html, cs/ images, .nojekyll, tools/edit_data.py) to this repository. Please check every page loads and every link works when served from GitHub Pages at https://halireena.github.io/rush-hub/, run python3 tools/edit_data.py check, fix only real problems, and add a short README linking to WEBSITE_GUIDE.md. Explain every change in plain English for a beginner. Don't redesign anything."], ["2 · Your function libraries (repo rushtools)", "This repo will hold my R package rushtools and my Python package rushtools from my Code School (I'll upload both). Put them in r/ and python/, add GitHub Actions running devtools::test() and pytest on every push, and add a README showing how to install each from GitHub. Don't write new functions. Explain each file you create."], ["3 · Thesis paper project (repo lateblight-paper)", "Set up a reproducible project for my potato late-blight UAV + ML paper: folders, environment.yml, README, and empty well-commented script templates for sample counts, grouped cross-validation by plot (no leakage), a vegetation-index baseline, and a ResNet comparison with 3 seeds. Leave TODOs for the core code I must write and explain each script. Don't invent results."], ["4 · Portfolio website (repo halireena.github.io)", "Create a Quarto portfolio website (About, Projects, Blog, CV) that publishes to https://halireena.github.io with a GitHub Action, one project page template and one blog post template, plus a beginner HOW_TO_EDIT.md."], ["5 · Weekly code review (repeat)", "Review only the commits I pushed this week, as a strict but kind teacher: bugs, unclear names, missing tests, and WHY for each. Don't rewrite my code; give me a numbered list of fixes to make myself."], ["6 · Stuck on a lab", "I'm doing [Paper Lab N / project step]. Here's my script and the full error. Explain the error, give ONE hint, and show the fix only if I reply 'show fix'."]], "note": "Make it last: small, specific sessions. Use free Claude for explanations; spend credit on building and checking inside your repos."}, "booksNote": "Book Nook (public version) has 25 free, legal books with chapter guides and flashcards. Your own PDF library and the Career Garden stay private in your folder (10_APPS)."}</script>
+<script>
+(function(){
+"use strict";
+const D=JSON.parse(document.getElementById("data").textContent);
+const h=(tag,a,...k)=>{const e=document.createElement(tag);for(const x in (a||{})){if(x==="class")e.className=a[x];else if(x==="style")e.style.cssText=a[x];else if(x.startsWith("on"))e.addEventListener(x.slice(2),a[x]);else e.setAttribute(x,a[x]);}for(const c of k){if(c==null)continue;e.append(c.nodeType?c:document.createTextNode(c));}return e;};
+const ext=(href,...k)=>h("a",href.startsWith("http")?{href,target:"_blank",rel:"noopener"}:{href},...k);
+const P=s=>{const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
+const n=new Date(),T=new Date(n.getFullYear(),n.getMonth(),n.getDate());
+document.getElementById("date").textContent=T.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long"});
+// today
+const wk=Math.floor((T-P(D.start))/864e5/7)+1; const w=D.weeks.find(x=>x.w===wk);
+const td=document.getElementById("today");
+td.append(h("div",{class:"lbl"},w?`This week · week ${wk} of 33`:(T<P(D.start)?(T>=P("2026-10-05")?"This week · your busy week":"Before week 1"):"Journey complete")));
+if(!w){td.append(h("h3",{style:"margin:6px 0 0"},T<P(D.start)?"🛋️ Rest. Week 1 starts Monday 12 October.":"🌸 You did it!"));
+  if(T<P(D.start)) td.append(h("div",{class:"muted",style:"font-size:.9rem;margin-top:4px"},"When it starts, this card will only ever show you 3 things."));}
+else{const three=h("div",{class:"three"});
+  const proj=D.weekProject[wk];
+  three.append(ext(D.apps.compass+(proj?"#"+proj:""),h("span",{class:"n",style:"background:#7c6cf0"},"1"),h("div",{class:"tx"},h("b",{},"💻 "),w.f)));
+  if(w.p) three.append(ext(D.apps.sprout,h("span",{class:"n",style:"background:#ff8fab"},"2"),h("div",{class:"tx"},h("b",{},"📝 "),w.p)));
+  three.append(ext(D.apps.nook,h("span",{class:"n",style:"background:#f2a93b"},w.p?"3":"2"),h("div",{class:"tx"},h("b",{},"📚 "),"Read a little + 20 flashcards (Book Nook)")));
+  td.append(three);}
+// apps
+const A=document.getElementById("apps");
+D.appList.forEach((a,i)=>A.append(Object.assign(ext(a.url,h("div",{class:"e",style:"background:"+a.c},a.e),h("div",{class:"tx"},h("b",{},a.name),h("span",{class:"d"},a.d))),{className:"app",style:`animation-delay:${i*60}ms`})));
+// chips
+const C=document.getElementById("chips");
+D.chips.forEach(c=>C.append(ext(D.apps.compass+"#"+c[0],c[1])));
+// books
+const B=document.getElementById("bookBody");
+B.append(h("p",{class:"muted",style:"font-size:.88rem"},D.booksNote));
+D.free.forEach(g=>{B.append(h("h3",{style:"margin:14px 0 4px;font-size:1rem"},g.t));
+  g.items.forEach(b=>B.append(h("div",{class:"bk"},ext(b.url,b.title),h("div",{class:"m"},b.org+" · "+b.why))));});
+// credit
+const Cr=document.getElementById("credit");
+Cr.append(h("p",{style:"font-size:.9rem"},D.credit.intro),h("ol",{},...D.credit.steps.map(s=>h("li",{},s))),h("p",{style:"font-size:.9rem;font-weight:800;margin-bottom:4px"},"Best uses, in order (copy a prompt into a cloud session):"));
+D.credit.prompts.forEach(p=>{const b=h("button",{},"copy");b.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(p[1]);toast("Copied ✓");}catch(e){toast("Select and copy the text");}});Cr.append(h("div",{class:"prompt"},h("b",{},p[0]),h("div",{},p[1]),b));});
+Cr.append(h("p",{class:"muted",style:"font-size:.82rem"},D.credit.note));
+function toast(t){const el=document.getElementById("toast");el.textContent=t;el.classList.add("on");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("on"),1600);}
+const tb=document.getElementById("themeBtn");
+function applyTheme(t){if(t)document.documentElement.setAttribute("data-theme",t);else document.documentElement.removeAttribute("data-theme");const dark=t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches;tb.textContent=dark?"☀️":"🌙";}
+let th=null;try{th=localStorage.getItem("hub-theme")}catch(e){} applyTheme(th);
+tb.addEventListener("click",()=>{const a=document.documentElement.getAttribute("data-theme");const dark=a?a==="dark":matchMedia("(prefers-color-scheme: dark)").matches;const nn=dark?"light":"dark";applyTheme(nn);try{localStorage.setItem("hub-theme",nn)}catch(e){}});
+})();
+</script>
+
+</body>
+</html>

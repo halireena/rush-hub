@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Sprout Study Planner</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
+<style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+</head>
+<body>
+
+
+
+<style>
+:root{
+  --bg:#fff8f1; --bg2:#fdeee3; --card:#ffffff; --fg:#3a2e3f; --muted:#8a7a8f; --line:#f1e2d8;
+  --leaf:#5cb85c; --leaf2:#2f8f5b; --pink:#ff8fab; --lilac:#b39ddb; --sun:#ffc857; --sky:#7ec8e3; --coral:#ff7b6b;
+  --paper:#ff8fab; --kit:#7c6cf0; --read:#4fb6a8; --jobs:#f2a93b; --review:#5cb85c;
+  --shadow:0 6px 0 rgba(120,80,90,.08),0 10px 24px rgba(120,80,90,.08); --soil:#a9744f;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1d1a26; --bg2:#262233; --card:#2b2739; --fg:#f4ecf6; --muted:#a99fb6; --line:#3a3449;
+  --leaf:#7bd389; --leaf2:#9be3a8; --pink:#ff9fb8; --lilac:#c3b1f0; --sun:#ffd27a; --sky:#8fd3ea; --coral:#ff8f80;
+  --paper:#ff9fb8; --kit:#9d90ff; --read:#6fd0c2; --jobs:#ffbf5e; --review:#7bd389;
+  --shadow:0 6px 0 rgba(0,0,0,.25),0 10px 24px rgba(0,0,0,.25); --soil:#c08a63; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1d1a26; --bg2:#262233; --card:#2b2739; --fg:#f4ecf6; --muted:#a99fb6; --line:#3a3449;
+  --leaf:#7bd389; --leaf2:#9be3a8; --pink:#ff9fb8; --lilac:#c3b1f0; --sun:#ffd27a; --sky:#8fd3ea; --coral:#ff8f80;
+  --paper:#ff9fb8; --kit:#9d90ff; --read:#6fd0c2; --jobs:#ffbf5e; --review:#7bd389;
+  --shadow:0 6px 0 rgba(0,0,0,.25),0 10px 24px rgba(0,0,0,.25); --soil:#c08a63; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.5 Nunito,ui-rounded,"Segoe UI",system-ui,sans-serif;margin:0}
+.wrap{max-width:760px;margin:0 auto;padding-inline:16px;padding-block:14px 110px}
+h1,h2,h3,.fred{font-family:Fredoka,Nunito,system-ui,sans-serif;text-wrap:balance}
+h1{font-size:1.7rem;margin:0}h2{font-size:1.25rem;margin:4px 0 10px}h3{font-size:1.05rem;margin:0 0 6px}
+.muted{color:var(--muted)} .tab-num{font-variant-numeric:tabular-nums}
+.top{display:flex;align-items:center;gap:12px}
+.top .grow{flex:1;min-width:0}
+.badge{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;font-weight:700;padding:3px 10px;border-radius:999px;background:var(--bg2);color:var(--muted)}
+.badge.on::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--leaf);animation:pulse 2s infinite}
+.card{background:var(--card);border-radius:22px;padding:16px;box-shadow:var(--shadow);border:2px solid var(--line)}
+.stack{display:grid;gap:14px}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.hero{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:center;background:linear-gradient(135deg,var(--bg2),var(--card));overflow:hidden;position:relative}
+.hero .txt{min-width:0}
+.big{font-family:Fredoka,sans-serif;font-size:2.2rem;line-height:1;font-weight:700}
+.bar{height:14px;border-radius:999px;background:var(--bg2);overflow:hidden;border:2px solid var(--line)}
+.bar>i{display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--leaf),var(--sun));transition:width 1s cubic-bezier(.2,1.4,.4,1)}
+/* sprout */
+.sprout{width:120px;height:130px;overflow:visible}
+.sprout .stem{stroke:var(--leaf2);stroke-width:5;stroke-linecap:round;fill:none;transition:stroke-dashoffset 1.2s cubic-bezier(.2,1.2,.4,1)}
+.sprout .lf{fill:var(--leaf);transform-box:fill-box;transition:transform .9s cubic-bezier(.2,1.6,.4,1) }
+.sprout .lf.l{transform-origin:100% 100%}.sprout .lf.r{transform-origin:0% 100%}
+.sprout .pot{fill:var(--coral)}.sprout .soil{fill:var(--soil)}
+.sprout .flower{transform-box:fill-box;transform-origin:center;transition:transform 1s cubic-bezier(.2,1.6,.4,1)}
+.sway{animation:sway 4s ease-in-out infinite;transform-origin:60px 112px}
+/* blocks */
+.blk{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:16px;background:var(--bg2);border:2px solid transparent;cursor:pointer;transition:transform .15s,border-color .2s,background .2s;user-select:none}
+.blk:active{transform:scale(.97)}
+.blk .ic{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;font-size:1.25rem;flex:none;color:#fff}
+.blk .t{flex:1;min-width:0}.blk .t b{display:block}
+.blk .tm{font-size:.8rem;color:var(--muted)}
+.chk{width:30px;height:30px;border-radius:50%;border:3px solid var(--line);display:grid;place-items:center;flex:none;transition:all .25s}
+.done .chk{background:var(--leaf);border-color:var(--leaf);animation:pop .4s}
+.done .chk::after{content:"✓";color:#fff;font-weight:800}
+.blk.done{border-color:var(--leaf)}
+.blk.done .t b{text-decoration:line-through;text-decoration-color:var(--leaf);text-decoration-thickness:2px}
+.blk.now{border-color:var(--sun);animation:glow 2s infinite}
+.k-paper{background:var(--paper)}.k-kit{background:var(--kit)}.k-read{background:var(--read)}.k-jobs{background:var(--jobs)}.k-review{background:var(--review)}
+/* nav */
+nav.tabs{position:fixed;left:0;right:0;bottom:0;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--card) 88%,transparent);backdrop-filter:blur(10px);border-top:2px solid var(--line);display:flex;justify-content:center;z-index:5}
+nav.tabs .in{display:flex;gap:4px;max-width:760px;width:100%;justify-content:space-between}
+nav.tabs button{flex:1;border:0;background:none;color:var(--muted);font:700 .68rem Nunito,sans-serif;display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 2px;border-radius:14px;cursor:pointer;transition:all .2s}
+nav.tabs button span{font-size:1.3rem;transition:transform .3s cubic-bezier(.2,1.8,.4,1)}
+nav.tabs button.on{color:var(--fg);background:var(--bg2)}
+nav.tabs button.on span{transform:translateY(-3px) scale(1.15)}
+section.view{display:none;animation:rise .45s cubic-bezier(.2,1.2,.4,1)}
+section.view.on{display:block}
+.pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.75rem;font-weight:800;color:#fff}
+.btn{border:0;border-radius:14px;padding:9px 14px;font:800 .9rem Nunito,sans-serif;cursor:pointer;background:var(--bg2);color:var(--fg);transition:transform .15s}
+.btn:active{transform:scale(.95)} .btn.pri{background:var(--leaf);color:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat{text-align:center;padding:12px}.stat .big{font-size:1.8rem}
+.cd{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:2px dashed var(--line)}
+.cd:last-child{border:0}.cd .n{font-family:Fredoka;font-size:1.5rem;font-weight:700;min-width:58px;text-align:center;color:var(--pink)}
+.wk{border-radius:18px;padding:12px;border:2px solid var(--line);background:var(--card);display:grid;gap:6px}
+.wk.cur{border-color:var(--sun);box-shadow:0 0 0 4px color-mix(in srgb,var(--sun) 30%,transparent)}
+.wk.fin{opacity:.75}
+.wk summary{list-style:none;cursor:pointer;display:flex;gap:10px;align-items:center}
+.wk summary::-webkit-details-marker{display:none}
+.wnum{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:#fff;font-family:Fredoka;font-weight:700;flex:none}
+.wk .meta{flex:1;min-width:0}
+.dl{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:.88rem;margin-top:8px}
+.dl dt{font-weight:800;color:var(--muted)}.dl dd{margin:0;min-width:0}
+.tick{display:flex;gap:10px;align-items:flex-start;padding:8px 0;cursor:pointer}
+.tick .chk{width:24px;height:24px;border-width:2px;margin-top:1px}
+.tick.done .chk::after{font-size:.8rem}
+input[type=number],input[type=text],select{font:inherit;color:var(--fg);background:var(--bg2);border:2px solid var(--line);border-radius:12px;padding:6px 10px;max-width:100%}
+input[type=range]{width:100%;accent-color:var(--leaf)}
+.guide{font-size:.92rem;min-width:0}
+.guide h1{font-size:1.4rem;color:var(--leaf2)}
+.guide h2{background:linear-gradient(90deg,var(--leaf),var(--lilac));color:#fff;padding:6px 12px;border-radius:12px;font-size:1.05rem;margin-top:22px}
+.guide h3{color:var(--kit);margin-top:14px}
+.guide table{display:block;overflow-x:auto;border-collapse:collapse;font-size:.8rem;max-width:100%}
+.guide .scroll table{display:table}.guide .scroll{overflow-x:auto}
+.guide th,.guide td{border:1px solid var(--line);padding:4px 6px;vertical-align:top;text-align:left}
+.guide th{background:var(--bg2)}
+.guide blockquote{margin:10px 0;padding:8px 12px;border-left:5px solid var(--sun);background:var(--bg2);border-radius:0 12px 12px 0}
+.guide code{background:var(--bg2);padding:1px 5px;border-radius:6px;font-size:.85em}
+.guide pre{background:var(--bg2);padding:10px;border-radius:12px;overflow-x:auto}
+.guide .chip{display:inline-block;color:#fff;border-radius:999px;padding:1px 7px;font-size:.7rem;font-weight:700;white-space:nowrap}
+.guide .sm{font-size:.75rem;color:var(--muted)}
+.toc{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.toc a{font-size:.75rem;font-weight:800;padding:4px 10px;border-radius:999px;background:var(--bg2);color:var(--fg);text-decoration:none}
+.daygrid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.dcol{background:var(--bg2);border-radius:14px;padding:6px 4px;min-height:120px;display:flex;flex-direction:column;gap:4px}
+.dcol.today{outline:3px solid var(--sun)}
+.dcol h4{margin:0;text-align:center;font:700 .8rem Fredoka}
+.dot{border-radius:9px;padding:3px 4px;font-size:.62rem;font-weight:800;color:#fff;line-height:1.2;overflow-wrap:anywhere}
+.job{display:flex;gap:10px;align-items:center;padding:8px 0;border-bottom:2px dashed var(--line)}
+.job:last-child{border:0}.job .nm{flex:1;min-width:0;font-weight:700;font-size:.9rem}
+.st{border:0;border-radius:999px;padding:5px 10px;font:800 .72rem Nunito;cursor:pointer;color:#fff;white-space:nowrap}
+.confetti{position:fixed;pointer-events:none;z-index:50;font-size:18px;will-change:transform,opacity}
+.floaty{position:absolute;font-size:1.2rem;opacity:.35;animation:float 7s ease-in-out infinite}
+.empty{text-align:center;padding:18px}
+.empty .e{font-size:3rem;animation:bob 2.4s ease-in-out infinite;display:inline-block}
+.toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%) translateY(20px);background:var(--fg);color:var(--bg);padding:8px 16px;border-radius:999px;font-weight:800;opacity:0;transition:all .3s;z-index:60;pointer-events:none;max-width:calc(100% - 32px);text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.themebtn{border:0;background:var(--bg2);border-radius:12px;width:38px;height:38px;font-size:1.1rem;cursor:pointer}
+@keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
+@keyframes sway{0%,100%{transform:rotate(-2.5deg)}50%{transform:rotate(2.5deg)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+@keyframes glow{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--sun) 50%,transparent)}50%{box-shadow:0 0 0 6px color-mix(in srgb,var(--sun) 0%,transparent)}}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-10px) rotate(12deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@media (max-width:520px){.hero{grid-template-columns:90px 1fr}.sprout{width:90px;height:100px}.big{font-size:1.8rem}.daygrid{grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}.dot{font-size:.55rem;padding:2px}.dcol{padding:4px 2px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+  <header class="top" style="margin-bottom:14px">
+    <div class="grow">
+      <div class="muted fred" id="dateline" style="font-size:.85rem">&nbsp;</div>
+      <h1 id="hello">Hi Rush 🌱</h1>
+    </div>
+    <span class="badge" id="sync">local only</span>
+    <button class="themebtn" id="themeBtn" aria-label="Toggle theme">🌙</button>
+  </header>
+
+  <!-- TODAY -->
+  <section class="view on" id="v-today">
+    <div class="stack">
+      <div class="card hero">
+        <span class="floaty" style="top:8px;right:14px">🍃</span><span class="floaty" style="bottom:10px;right:60px;animation-delay:-3s">✨</span>
+        <svg class="sprout" viewBox="0 0 120 130" aria-hidden="true">
+          <g class="sway">
+            <path class="stem" id="stem" d="M60 112 C60 90 56 70 60 30" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100"/>
+            <path class="lf l" id="lf1" d="M59 88 C44 86 34 76 32 66 C46 66 56 74 59 88Z" style="transform:scale(0)"/>
+            <path class="lf r" id="lf2" d="M61 74 C76 72 86 62 88 52 C74 52 64 60 61 74Z" style="transform:scale(0)"/>
+            <path class="lf l" id="lf3" d="M59 56 C47 54 40 46 39 38 C50 38 57 45 59 56Z" style="transform:scale(0)"/>
+            <g class="flower" id="flw" style="transform:scale(0)">
+              <circle cx="60" cy="24" r="7" fill="var(--pink)"/><circle cx="51" cy="30" r="7" fill="var(--pink)"/><circle cx="69" cy="30" r="7" fill="var(--pink)"/><circle cx="54" cy="19" r="7" fill="var(--pink)"/><circle cx="66" cy="19" r="7" fill="var(--pink)"/><circle cx="60" cy="25" r="5" fill="var(--sun)"/>
+            </g>
+          </g>
+          <path class="soil" d="M30 110 h60 v6 h-60z"/>
+          <path class="pot" d="M28 114 h64 l-7 16 h-50z"/>
+        </svg>
+        <div class="txt">
+          <div class="muted fred" id="heroLabel">Overall progress</div>
+          <div class="big tab-num" id="heroPct">0%</div>
+          <div class="bar" style="margin:8px 0 6px"><i id="heroBar"></i></div>
+          <div class="muted" id="heroSub" style="font-size:.85rem"></div>
+        </div>
+      </div>
+
+      <div class="card" id="todayCard">
+        <div class="row" style="justify-content:space-between"><h2 id="todayTitle">Today</h2><span class="pill" id="todayWk" style="background:var(--lilac)"></span></div>
+        <div class="stack" id="blocks" style="gap:8px"></div>
+      </div>
+
+      <div class="card">
+        <h2>☀️ Daily ritual</h2>
+        <div id="ritual"></div>
+      </div>
+
+      <div class="grid2">
+        <div class="card stat"><div class="muted fred">Streak</div><div class="big tab-num" id="streak">0</div><div class="muted" style="font-size:.8rem">days with a ticked block</div></div>
+        <div class="card stat"><div class="muted fred">Hours logged</div><div class="big tab-num" id="hoursTot">0</div><div class="muted" style="font-size:.8rem">of <span id="hoursPlan">0</span> planned</div></div>
+      </div>
+
+      <div class="card">
+        <h2>⏳ Countdowns</h2>
+        <div id="countdowns"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEEK -->
+  <section class="view" id="v-week">
+    <div class="stack">
+      <div class="card">
+        <div class="row" style="justify-content:space-between">
+          <button class="btn" id="prevW" aria-label="Previous week">◀</button>
+          <div style="text-align:center;flex:1;min-width:0"><h2 id="wTitle" style="margin:0"></h2><div class="muted" id="wDates"></div></div>
+          <button class="btn" id="nextW" aria-label="Next week">▶</button>
+        </div>
+      </div>
+      <div class="card" id="wBody"></div>
+      <div class="card">
+        <h2>🗓️ My week at a glance</h2>
+        <div class="muted" id="glanceLabel" style="font-size:.8rem;margin-bottom:8px"></div>
+        <div class="daygrid" id="glance"></div>
+        <div class="row" style="margin-top:10px;font-size:.75rem">
+          <span class="pill k-paper">📝 paper</span><span class="pill k-kit">💻 kit</span><span class="pill k-read">📖 read</span><span class="pill k-jobs">💼 jobs</span><span class="pill k-review">✅ review</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLAN -->
+  <section class="view" id="v-plan">
+    <div class="stack">
+      <div class="card"><h2>🌿 The 33-week journey</h2><div class="muted" style="font-size:.85rem">12 Oct 2026 → 30 May 2027. Tap a week to see it and tick it off.</div>
+      <div class="bar" style="margin-top:10px"><i id="planBar"></i></div></div>
+      <div class="stack" id="planList" style="gap:8px"></div>
+    </div>
+  </section>
+
+  <!-- PAPER -->
+  <section class="view" id="v-paper">
+    <div class="stack">
+      <div class="card"><h2>📝 Paper track</h2><div class="muted" style="font-size:.85rem">Thesis → conference abstract → paper. Tick each step as you finish it.</div>
+        <div class="bar" style="margin-top:10px"><i id="paperBar"></i></div></div>
+      <div class="card" id="paperList"></div>
+    </div>
+  </section>
+
+  <!-- GROW (reading + jobs) -->
+  <section class="view" id="v-grow">
+    <div class="stack">
+      <div class="card"><h2>📚 Reading</h2><div id="books"></div></div>
+      <div class="card"><h2>💼 Job targets</h2><div class="muted" style="font-size:.8rem;margin-bottom:6px">Tap the status to cycle it: idea → researched → applied → interview → offer 🎉</div><div id="jobs"></div>
+        <div class="row" style="margin-top:10px"><input type="text" id="newJob" placeholder="Add an organisation…" style="flex:1;min-width:0"><button class="btn pri" id="addJob">Add</button></div></div>
+    </div>
+  </section>
+
+  <!-- GUIDE -->
+  <section class="view" id="v-guide">
+    <div class="card"><div class="toc" id="toc"></div><div class="guide" id="guide"></div></div>
+  </section>
+</div>
+
+<nav class="tabs"><div class="in">
+  <button data-v="today" class="on"><span>🌱</span>Today</button>
+  <button data-v="week"><span>🗓️</span>Week</button>
+  <button data-v="plan"><span>🌿</span>Plan</button>
+  <button data-v="paper"><span>📝</span>Paper</button>
+  <button data-v="grow"><span>📚</span>Grow</button>
+  <button data-v="guide"><span>📖</span>Guide</button>
+</div></nav>
+<div class="toast" id="toast"></div>
+
+<script type="application/json" id="plan">{"start": "2026-10-12", "busy": ["2026-10-05", "2026-10-11"], "weeks": [{"w": 1, "s": "2026-10-12", "e": "2026-10-18", "ph": "A · Restart", "c": "#7c4dff", "kh": 8, "ph_h": 6, "f": "Setup: Mac (conda, R, Python, Jupyter), GitHub SSH, Anki; BlueBEAR access check", "files": "01_SETUP/01, 01_SETUP/02", "d": "Setup steps 1–9 work", "p": "Count images/samples per class, per variety, per plant/plot; email Jack (draft ready)", "rd": "Taiz, Plant Physiology & Development (cover to cover)", "cr": "", "ap": "Build the target list (Gulf + Netherlands) in a spreadsheet"}, {"w": 2, "s": "2026-10-19", "e": "2026-10-25", "ph": "A · Restart", "c": "#7c4dff", "kh": 8, "ph_h": 6, "f": "Bash refresher", "files": "02_FOUNDATIONS/01_Bash_and_Linux", "d": "All exercises without peeking", "p": "One-page plan to Lindsey: question, data counts, analyses, target venue", "rd": "Taiz, Plant Physiology & Development (cover to cover)", "cr": "Bioinformatics Data Skills (Unix chapters)", "ap": "1–2 tailored applications/week (CV = verified skills only)"}, {"w": 3, "s": "2026-10-26", "e": "2026-11-01", "ph": "A · Restart", "c": "#7c4dff", "kh": 8, "ph_h": 6, "f": "Git + GitHub; fix GitHub profile (README, pinned repos, study board)", "files": "02_FOUNDATIONS/04 + GitHub_Fix/", "d": "Profile live · learning-notes repo pushed", "p": "Grouped validation: split by plant/plot (no leakage) and re-score macro-F1", "rd": "Taiz, Plant Physiology & Development (cover to cover)", "cr": "", "ap": "1–2 tailored applications/week (CV = verified skills only)"}, {"w": 4, "s": "2026-11-02", "e": "2026-11-08", "ph": "A · Restart", "c": "#7c4dff", "kh": 8, "ph_h": 6, "f": "Python + 3 biology mini-projects (sequence toolkit · FASTA stats CLI · phenotype CSV plotter)", "files": "02_FOUNDATIONS/03 + Mini_projects", "d": "(continue)", "p": "Vegetation-index (VI) baseline model, same grouped splits", "rd": "Taiz, Plant Physiology & Development (cover to cover)", "cr": "Python for Data Analysis 3e (pandas chapters)", "ap": "1–2 tailored applications/week (CV = verified skills only)"}, {"w": 5, "s": "2026-11-09", "e": "2026-11-15", "ph": "A · Restart", "c": "#7c4dff", "kh": 8, "ph_h": 6, "f": "Python + 3 biology mini-projects (sequence toolkit · FASTA stats CLI · phenotype CSV plotter)", "files": "02_FOUNDATIONS/03 + Mini_projects", "d": "(continue)", "p": "Maturity/stage check: does accuracy hold within each stage?", "rd": "Taiz, Plant Physiology & Development (cover to cover)", "cr": "", "ap": "1–2 tailored applications/week (CV = verified skills only)"}, {"w": 6, "s": "2026-11-16", "e": "2026-11-22", "ph": "A · Restart", "c": "#7c4dff", "kh": 8, "ph_h": 6, "f": "Python + 3 biology mini-projects (sequence toolkit · FASTA stats CLI · phenotype CSV plotter)", "files": "02_FOUNDATIONS/03 + Mini_projects", "d": "3 small repos public, each with README + tests", "p": "Variety ranking: per-variety results + confusion matrix", "rd": "Taiz, Plant Physiology & Development (cover to cover)", "cr": "", "ap": "1–2 tailored applications/week (CV = verified skills only)"}, {"w": 7, "s": "2026-11-23", "e": "2026-11-29", "ph": "A · Restart", "c": "#7c4dff", "kh": 8, "ph_h": 6, "f": "Quarto portfolio website (GitHub Pages)", "files": "Mini_projects/Quarto_site", "d": "Site live with 3 project pages", "p": "CNN comparison (ResNet transfer learning) vs your thesis model", "rd": "Taiz, Plant Physiology & Development (cover to cover)", "cr": "", "ap": "1–2 tailored applications/week (CV = verified skills only)"}, {"w": 8, "s": "2026-11-30", "e": "2026-12-06", "ph": "B · Core skills", "c": "#2e7d32", "kh": 8, "ph_h": 6, "f": "R consolidation (your strongest language: go fast)", "files": "02_FOUNDATIONS/02_R_for_bioinformatics", "d": "Module checklist ✅", "p": "CNN comparison: finish, 3 seeds, confidence intervals", "rd": "Taiz, Plant Physiology & Development (cover to cover)", "cr": "R for Data Science 2e (wrangling + ggplot)", "ap": "1–2 tailored applications/week (CV = verified skills only)"}, {"w": 9, "s": "2026-12-07", "e": "2026-12-13", "ph": "B · Core skills", "c": "#2e7d32", "kh": 8, "ph_h": 6, "f": "P1 GWAS potato: Phases 0–7", "files": "03_PROJECTS/P1_GWAS_potato/TODO_step_by_step", "d": "(continue)", "p": "Figures (4 max) + results table; send to Lindsey for feedback", "rd": "Taiz, Plant Physiology & Development (cover to cover)", "cr": "", "ap": "1–2/week + message 1 person per week on LinkedIn"}, {"w": 10, "s": "2026-12-14", "e": "2026-12-20", "ph": "B · Core skills", "c": "#2e7d32", "kh": 8, "ph_h": 6, "f": "P1 GWAS potato: Phases 0–7", "files": "03_PROJECTS/P1_GWAS_potato/TODO_step_by_step", "d": "(continue)", "p": "Write the abstract (250 words); decide on IGARSS (deadline 11 Jan 2027, optional)", "rd": "Taiz, Plant Physiology & Development (cover to cover)", "cr": "", "ap": "1–2/week + message 1 person per week on LinkedIn"}, {"w": 11, "s": "2026-12-21", "e": "2026-12-27", "ph": "B · Core skills", "c": "#2e7d32", "kh": 8, "ph_h": 6, "f": "P1 GWAS potato: Phases 0–7", "files": "03_PROJECTS/P1_GWAS_potato/TODO_step_by_step", "d": "P1 repo public · quiz ≥12/15", "p": "Draft the short paper (IGARSS: 4 pages) or extended abstract", "rd": "Taiz, Plant Physiology & Development (cover to cover)", "cr": "", "ap": "1–2/week + message 1 person per week on LinkedIn"}, {"w": 12, "s": "2026-12-28", "e": "2027-01-03", "ph": "BUFFER", "c": "#9e9e9e", "kh": 2, "ph_h": 0, "f": "Holiday week: rest. Optional: one LinkedIn post", "files": "—", "d": "Rested", "p": "", "rd": "Taiz, Plant Physiology & Development (cover to cover)", "cr": "", "ap": "1–2/week + message 1 person per week on LinkedIn"}, {"w": 13, "s": "2027-01-04", "e": "2027-01-10", "ph": "B · Core skills", "c": "#2e7d32", "kh": 12, "ph_h": 4, "f": "Statistics for omics (incl. SPSS→R table)", "files": "02_FOUNDATIONS/05_Statistics_for_omics", "d": "All exercises ✅", "p": "Submit IGARSS by 11 Jan 2027 (optional) · otherwise start the journal draft", "rd": "Taiz, Plant Physiology & Development (cover to cover)", "cr": "Modern Statistics for Modern Biology ch. 1–6", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 14, "s": "2027-01-11", "e": "2027-01-17", "ph": "B · Core skills", "c": "#2e7d32", "kh": 12, "ph_h": 3, "f": "Snakemake (first time: go slowly)", "files": "02_FOUNDATIONS/06_Snakemake_and_reproducibility", "d": "Your own 3-rule pipeline runs", "p": "Journal draft: Methods", "rd": "Taiz, Plant Physiology & Development (cover to cover)", "cr": "Snakemake docs tutorial", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 15, "s": "2027-01-18", "e": "2027-01-24", "ph": "C · Pipelines", "c": "#8d6e00", "kh": 12, "ph_h": 3, "f": "P7 variant calling: test run on Mac, Phases 0–3", "files": "03_PROJECTS/P7…/TODO_step_by_step", "d": "(continue)", "p": "Journal draft: Results", "rd": "Taiz, Plant Physiology & Development (cover to cover)", "cr": "Bioinformatics Data Skills (alignment/variant chapters)", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 16, "s": "2027-01-25", "e": "2027-01-31", "ph": "C · Pipelines", "c": "#8d6e00", "kh": 12, "ph_h": 3, "f": "P7 variant calling: test run on Mac, Phases 0–3", "files": "03_PROJECTS/P7…/TODO_step_by_step", "d": "Recall ≈0.979 / precision ≈0.951 reproduced", "p": "Journal draft: Introduction + Discussion", "rd": "Taiz, Plant Physiology & Development (cover to cover)", "cr": "", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 17, "s": "2027-02-01", "e": "2027-02-07", "ph": "C · Pipelines", "c": "#8d6e00", "kh": 12, "ph_h": 3, "f": "P7 real Arabidopsis data (BlueBEAR or Mac subset), Phases 4–7", "files": "P7 REAL_DATA_PLAN + TODO", "d": "(continue)", "p": "Supervisor comments → revise", "rd": "Taiz, Plant Physiology & Development (cover to cover)", "cr": "", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 18, "s": "2027-02-08", "e": "2027-02-14", "ph": "C · Pipelines", "c": "#8d6e00", "kh": 12, "ph_h": 3, "f": "P7 real Arabidopsis data (BlueBEAR or Mac subset), Phases 4–7", "files": "P7 REAL_DATA_PLAN + TODO", "d": "P7 repo public · Level 1 self-test ✅", "p": "Check EAPR 2027 / ECPP 2027 abstract deadlines [verify] and submit", "rd": "Taiz, Plant Physiology & Development (cover to cover)", "cr": "", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 19, "s": "2027-02-15", "e": "2027-02-21", "ph": "D · Omics breadth", "c": "#6a3fa0", "kh": 13, "ph_h": 2, "f": "P2 DIA proteomics", "files": "03_PROJECTS/P2_Proteomics_DIA/TODO", "d": "(continue)", "p": "Revise draft with co-author comments", "rd": "Acquaah, Principles of Plant Genetics & Breeding", "cr": "", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 20, "s": "2027-02-22", "e": "2027-02-28", "ph": "D · Omics breadth", "c": "#6a3fa0", "kh": 13, "ph_h": 2, "f": "P2 DIA proteomics", "files": "03_PROJECTS/P2_Proteomics_DIA/TODO", "d": "P2 repo public", "p": "Pick a journal; format references", "rd": "Acquaah, Principles of Plant Genetics & Breeding", "cr": "", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 21, "s": "2027-03-01", "e": "2027-03-07", "ph": "D · Omics breadth", "c": "#1f6fb2", "kh": 13, "ph_h": 2, "f": "P4 multi-omics (mixOmics)", "files": "03_PROJECTS/P4_MultiOmics_Arabidopsis/TODO", "d": "(continue)", "p": "Final checks (data + code availability statement)", "rd": "Acquaah, Principles of Plant Genetics & Breeding", "cr": "Lê Cao & Welham (PCA, PLS, DIABLO)", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 22, "s": "2027-03-08", "e": "2027-03-14", "ph": "D · Omics breadth", "c": "#1f6fb2", "kh": 13, "ph_h": 2, "f": "P4 multi-omics (mixOmics)", "files": "03_PROJECTS/P4_MultiOmics_Arabidopsis/TODO", "d": "P4 repo public", "p": "Submit the paper 🎉", "rd": "Acquaah, Principles of Plant Genetics & Breeding", "cr": "", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 23, "s": "2027-03-15", "e": "2027-03-21", "ph": "D · Omics breadth", "c": "#d9730d", "kh": 13, "ph_h": 2, "f": "P3 metabolomics (Python)", "files": "03_PROJECTS/P3_Metabolomics_plants/TODO", "d": "(continue)", "p": "Buffer for reviewer/supervisor delays", "rd": "Acquaah, Principles of Plant Genetics & Breeding", "cr": "", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 24, "s": "2027-03-22", "e": "2027-03-28", "ph": "D · Omics breadth", "c": "#d9730d", "kh": 13, "ph_h": 2, "f": "P3 metabolomics (Python)", "files": "03_PROJECTS/P3_Metabolomics_plants/TODO", "d": "P3 repo public", "p": "Prepare poster/talk if accepted", "rd": "Acquaah, Principles of Plant Genetics & Breeding", "cr": "", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 25, "s": "2027-03-29", "e": "2027-04-04", "ph": "D · Omics breadth", "c": "#00796b", "kh": 13, "ph_h": 2, "f": "P5 plant microbiome", "files": "03_PROJECTS/P5_Microbiome_Arabidopsis/TODO", "d": "(continue)", "p": "Prepare poster/talk", "rd": "Acquaah, Principles of Plant Genetics & Breeding", "cr": "Xia et al. (diversity chapters) + phyloseq/vegan vignettes", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 26, "s": "2027-04-05", "e": "2027-04-11", "ph": "D · Omics breadth", "c": "#00796b", "kh": 13, "ph_h": 2, "f": "P5 plant microbiome", "files": "03_PROJECTS/P5_Microbiome_Arabidopsis/TODO", "d": "P5 repo public · Level 2 self-test ✅", "p": "Respond to reviews if back", "rd": "Acquaah, Principles of Plant Genetics & Breeding", "cr": "", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 27, "s": "2027-04-12", "e": "2027-04-18", "ph": "D · Omics breadth", "c": "#c2185b", "kh": 13, "ph_h": 2, "f": "SQL module, then P6 wheat text mining", "files": "02_FOUNDATIONS/07 + P6 TODO", "d": "(continue)", "p": "Respond to reviews", "rd": "Acquaah, Principles of Plant Genetics & Breeding", "cr": "", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 28, "s": "2027-04-19", "e": "2027-04-25", "ph": "D · Omics breadth", "c": "#c2185b", "kh": 13, "ph_h": 2, "f": "SQL module, then P6 wheat text mining", "files": "02_FOUNDATIONS/07 + P6 TODO", "d": "P6 repo public", "p": "Respond to reviews", "rd": "Acquaah, Principles of Plant Genetics & Breeding", "cr": "", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 29, "s": "2027-04-26", "e": "2027-05-02", "ph": "E · Independence", "c": "#37474f", "kh": 15, "ph_h": 0, "f": "Independence ladder: rebuild 3 projects blank; apply 2 to NEW datasets", "files": "Each TODO Phase 5 + 04_SELF_HELP", "d": "(continue)", "p": "", "rd": "Acquaah, Principles of Plant Genetics & Breeding", "cr": "An Introduction to Statistical Learning (CV + trees)", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 30, "s": "2027-05-03", "e": "2027-05-09", "ph": "E · Independence", "c": "#37474f", "kh": 15, "ph_h": 0, "f": "Independence ladder: rebuild 3 projects blank; apply 2 to NEW datasets", "files": "Each TODO Phase 5 + 04_SELF_HELP", "d": "(continue)", "p": "", "rd": "Falconer & Mackay core chapters; then Bernardo", "cr": "", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 31, "s": "2027-05-10", "e": "2027-05-16", "ph": "E · Independence", "c": "#37474f", "kh": 15, "ph_h": 0, "f": "Independence ladder: rebuild 3 projects blank; apply 2 to NEW datasets", "files": "Each TODO Phase 5 + 04_SELF_HELP", "d": "Level 3 self-test ✅", "p": "", "rd": "Falconer & Mackay core chapters; then Bernardo", "cr": "", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 32, "s": "2027-05-17", "e": "2027-05-23", "ph": "E · Independence", "c": "#37474f", "kh": 15, "ph_h": 0, "f": "Expert consolidation: Q&A out loud; scope your own original project", "files": "05_EXPERT_QA + 07 §7 + 08", "d": "(continue)", "p": "", "rd": "Falconer & Mackay core chapters; then Bernardo", "cr": "", "ap": "2–4 tailored applications/week + interview practice"}, {"w": 33, "s": "2027-05-24", "e": "2027-05-30", "ph": "E · Independence", "c": "#37474f", "kh": 15, "ph_h": 0, "f": "Expert consolidation: Q&A out loud; scope your own original project", "files": "05_EXPERT_QA + 07 §7 + 08", "d": "Level 4 checks started", "p": "", "rd": "Falconer & Mackay core chapters; then Bernardo", "cr": "", "ap": "2–4 tailored applications/week + interview practice"}], "routine": {"paper": {"label": "Weeks 1–11 · paper + kit (≈14 h/week)", "days": {"Mon": [["07:30", "08:00", "read", "Taiz 30 min + 3-line summary"], ["19:00", "21:00", "paper", "Paper analysis"]], "Tue": [["07:30", "08:00", "read", "Taiz 30 min"], ["19:00", "21:00", "kit", "Kit: current module/project"]], "Wed": [["07:30", "08:00", "read", "Taiz 30 min"], ["19:00", "21:00", "paper", "Paper analysis/writing"]], "Thu": [["07:30", "08:00", "read", "Taiz 30 min"], ["19:00", "21:00", "kit", "Kit: current module/project"]], "Fri": [["07:30", "08:00", "read", "Taiz 30 min"], ["19:00", "20:30", "jobs", "1 application + Anki"]], "Sat": [["10:00", "13:30", "kit", "Deep kit session · last 30 min = GitHub push"]], "Sun": [["17:00", "18:00", "paper", "Paper: plan next steps"], ["18:00", "19:00", "review", "Weekly review + tick the app"]]}}, "full": {"label": "Weeks 13–33 · kit focus (≈15 h/week)", "days": {"Mon": [["07:30", "08:00", "read", "Biology reading"], ["19:00", "21:00", "kit", "Read 30 / build 75 / notes 15"]], "Tue": [["07:30", "08:00", "read", "Biology reading"], ["19:00", "21:00", "kit", "Read 30 / build 75 / notes 15"]], "Wed": [["07:30", "08:00", "read", "Biology reading"], ["19:00", "21:00", "kit", "Read 30 / build 75 / notes 15"]], "Thu": [["07:30", "08:00", "read", "Biology reading"], ["19:00", "21:00", "kit", "Read 30 / build 75 / notes 15"]], "Fri": [["19:00", "20:30", "jobs", "Applications + Q&A out loud + Anki"]], "Sat": [["10:00", "13:30", "kit", "Deep session · GitHub push / LinkedIn post"]], "Sun": [["17:00", "18:00", "paper", "Paper (until submitted)"], ["18:00", "19:00", "review", "Weekly review + tick the app"]]}}}, "ritual": ["Open the app → look at today's blocks (1 min)", "Before coding: write today's ONE goal in learning-notes (2 min)", "Work the block with your phone in another room", "After: commit + push, even if small ('wip: …') (2 min)", "Tick the block in the app and log hours (1 min)"], "targets": {"UAE / Gulf": ["ICBA (International Center for Biosaline Agriculture, Dubai)", "KCGEB (Khalifa Center for Genetic Engineering & Biotechnology, UAE University)", "MBZUAI Institute for Agriculture and AI (Abu Dhabi)", "NYU Abu Dhabi (plant/genomics labs)", "TII (Technology Innovation Institute, Abu Dhabi)", "AeroFarms (Abu Dhabi, vertical farming)", "KAUST (Saudi Arabia, plant science & bioinformatics)"], "Netherlands": ["Wageningen University & Research", "KeyGene (Wageningen)", "Rijk Zwaan", "Enza Zaden", "Bejo", "Syngenta / BASF vegetable seeds NL sites"]}, "guide_html": "<h1>📅 Study Guide &amp; Master Timetable (v2)<\/h1>\n<p><strong>Rush's Bioinformatics Independence Kit · 12 Oct 2026 → 30 May 2027 (33 weeks) · rebuilt 2 Oct 2026<\/strong><\/p>\n<blockquote>\n<p><strong>What changed in v2<\/strong><\/p>\n<ul>\n<li><strong>5–11 Oct 2026 is blocked as busy.<\/strong> No study that week. Week 1 starts <strong>Monday 12 Oct 2026<\/strong>.<\/li>\n<li>Your thesis is <strong>finished<\/strong>, so the \"thesis-protected\" phase is gone. In its place is a <strong>paper track<\/strong>: thesis → conference abstract → paper.<\/li>\n<li>Merged in from your coding-mentor roadmap: <strong>Python biology mini-projects<\/strong>, a <strong>Quarto portfolio website<\/strong> and a <strong>daily ritual<\/strong>.<\/li>\n<li>The applications track now has <strong>UAE/Gulf<\/strong> and <strong>Netherlands<\/strong> targets.<\/li>\n<li>Everything here is also inside the <strong>Sprout<\/strong> tracker app, which syncs between your phone and your Mac.<\/li>\n<\/ul>\n<\/blockquote>\n<hr />\n<h2>1. The big picture<\/h2>\n<table>\n<thead>\n<tr>\n<th>Phase<\/th>\n<th>Weeks<\/th>\n<th>Dates<\/th>\n<th>Kit h/wk<\/th>\n<th>Paper h/wk<\/th>\n<th>Goal<\/th>\n<\/tr>\n<\/thead>\n<tbody>\n<tr>\n<td><strong>Busy week<\/strong><\/td>\n<td>—<\/td>\n<td>5–11 Oct 2026<\/td>\n<td>0<\/td>\n<td>0<\/td>\n<td>Your own commitments. Nothing from this plan<\/td>\n<\/tr>\n<tr>\n<td><strong>A · Restart<\/strong><\/td>\n<td>1–7<\/td>\n<td>12 Oct – 29 Nov<\/td>\n<td>8<\/td>\n<td>6<\/td>\n<td>Setup, Bash, Git + GitHub fix, Python mini-projects, Quarto site<\/td>\n<\/tr>\n<tr>\n<td><strong>B · Core skills<\/strong><\/td>\n<td>8–11, 13–14<\/td>\n<td>30 Nov – 17 Jan<\/td>\n<td>8–12<\/td>\n<td>3–6<\/td>\n<td>R, <strong>P1 GWAS<\/strong>, statistics, Snakemake<\/td>\n<\/tr>\n<tr>\n<td><strong>Buffer<\/strong><\/td>\n<td>12<\/td>\n<td>28 Dec – 3 Jan<\/td>\n<td>2<\/td>\n<td>0<\/td>\n<td>Holiday. Rest<\/td>\n<\/tr>\n<tr>\n<td><strong>C · Pipelines<\/strong><\/td>\n<td>15–18<\/td>\n<td>18 Jan – 14 Feb<\/td>\n<td>12<\/td>\n<td>3<\/td>\n<td><strong>P7<\/strong> variant calling (test, then real data)<\/td>\n<\/tr>\n<tr>\n<td><strong>D · Omics breadth<\/strong><\/td>\n<td>19–28<\/td>\n<td>15 Feb – 25 Apr<\/td>\n<td>13<\/td>\n<td>2<\/td>\n<td>P2 → P4 → P3 → P5 → SQL + P6<\/td>\n<\/tr>\n<tr>\n<td><strong>E · Independence<\/strong><\/td>\n<td>29–33<\/td>\n<td>26 Apr – 30 May<\/td>\n<td>15<\/td>\n<td>0<\/td>\n<td>Rebuild without help, new datasets, expert-level Q&amp;A<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<p><strong>Why the paper goes first:<\/strong> a paper has a time limit (your data, Jack's availability, conference deadlines). The kit doesn't. So in weeks 1–11 the paper gets about 6 h a week, and it then tapers to 2–3 h while you draft and revise.<\/p>\n<hr />\n<h2>2. The paper track (thesis → abstract → paper)<\/h2>\n<table>\n<thead>\n<tr>\n<th>Week<\/th>\n<th>Task<\/th>\n<th>Why<\/th>\n<\/tr>\n<\/thead>\n<tbody>\n<tr>\n<td>1<\/td>\n<td>Count images/samples per class, per variety and per plant/plot. Email Jack<\/td>\n<td>Lindsey's worry was \"not enough data\". The counts answer that with facts<\/td>\n<\/tr>\n<tr>\n<td>2<\/td>\n<td>One-page plan to Lindsey: question, counts, analyses, target venue<\/td>\n<td>Gets her agreement before you spend weeks on analysis<\/td>\n<\/tr>\n<tr>\n<td>3<\/td>\n<td><strong>Grouped validation<\/strong>: split by plant/plot, never by image<\/td>\n<td>Images of the same plant in both train and test inflate scores (data leakage)<\/td>\n<\/tr>\n<tr>\n<td>4<\/td>\n<td><strong>Vegetation-index baseline<\/strong> on the same splits<\/td>\n<td>A simple baseline proves the deep model is worth it<\/td>\n<\/tr>\n<tr>\n<td>5<\/td>\n<td><strong>Maturity/stage check<\/strong><\/td>\n<td>Is the model detecting the disease, or just the growth stage?<\/td>\n<\/tr>\n<tr>\n<td>6<\/td>\n<td><strong>Variety ranking<\/strong> + confusion matrix<\/td>\n<td>The practical, breeder-facing result<\/td>\n<\/tr>\n<tr>\n<td>7–8<\/td>\n<td><strong>CNN comparison<\/strong> (ResNet transfer learning), 3 seeds, confidence intervals<\/td>\n<td>Your planned improvement to macro-F1, done honestly<\/td>\n<\/tr>\n<tr>\n<td>9<\/td>\n<td>4 figures + 1 results table → Lindsey<\/td>\n<td>Feedback before writing<\/td>\n<\/tr>\n<tr>\n<td>10–11<\/td>\n<td>Abstract (250 words); IGARSS 4-page paper if you go for it<\/td>\n<td><strong>IGARSS 2027 deadline: 11 Jan 2027 (optional)<\/strong><\/td>\n<\/tr>\n<tr>\n<td>13<\/td>\n<td>Submit IGARSS (optional), or start the journal draft<\/td>\n<td><\/td>\n<\/tr>\n<tr>\n<td>14–22<\/td>\n<td>Journal draft → co-author comments → submit (target: week 22, mid-March 2027)<\/td>\n<td><\/td>\n<\/tr>\n<tr>\n<td>18<\/td>\n<td>Check the <strong>EAPR 2027<\/strong> (Edinburgh, 6–10 Jun) and <strong>ECPP 2027<\/strong> (7–9 Sep) abstract deadlines <strong>[verify]<\/strong><\/td>\n<td>Both are real, relevant venues. Their deadlines weren't confirmed when this was built<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<blockquote>\n<p><strong>Rule:<\/strong> never report one lucky split. Always report the mean ± SD over grouped folds or seeds.<\/p>\n<\/blockquote>\n<hr />\n<h2>3. Master timetable (week by week)<\/h2>\n<div class='scroll'><table class='tt'><tr><th>Wk<\/th><th>Dates<\/th><th>Phase<\/th><th>Kit h<\/th><th>Paper h<\/th><th>Kit focus<\/th><th>Done when…<\/th><th>Paper task<\/th><th>Reading<\/th><th>Jobs<\/th><\/tr><tr><td>—<\/td><td class='nw'>5–11 Oct 2026<\/td><td><span class='chip' style='background:#e57373'>🔒 BUSY<\/span><\/td><td>0<\/td><td>0<\/td><td>Busy week: your own commitments, no study<\/td><td><\/td><td><\/td><td><\/td><td><\/td><\/tr><tr><td><b>1<\/b><\/td><td class='nw'>12 Oct–18 Oct 2026<\/td><td><span class='chip' style='background:#7c4dff'>A · Restart<\/span><\/td><td>8<\/td><td>6<\/td><td>Setup: Mac (conda, R, Python, Jupyter), GitHub SSH, Anki; BlueBEAR access check<br><span class='sm'>01_SETUP/01, 01_SETUP/02<\/span><\/td><td class='sm'>Setup steps 1–9 work<\/td><td class='sm'>Count images/samples per class, per variety, per plant/plot; email Jack (draft ready)<\/td><td class='sm'>Taiz, Plant Physiology & Development (cover to cover)<\/td><td class='sm'>Build the target list (Gulf + Netherlands) in a spreadsheet<\/td><\/tr><tr><td><b>2<\/b><\/td><td class='nw'>19 Oct–25 Oct 2026<\/td><td><span class='chip' style='background:#7c4dff'>A · Restart<\/span><\/td><td>8<\/td><td>6<\/td><td>Bash refresher<br><i>📘 Bioinformatics Data Skills (Unix chapters)<\/i><br><span class='sm'>02_FOUNDATIONS/01_Bash_and_Linux<\/span><\/td><td class='sm'>All exercises without peeking<\/td><td class='sm'>One-page plan to Lindsey: question, data counts, analyses, target venue<\/td><td class='sm'>Taiz, Plant Physiology & Development (cover to cover)<\/td><td class='sm'>1–2 tailored applications/week (CV = verified skills only)<\/td><\/tr><tr><td><b>3<\/b><\/td><td class='nw'>26 Oct–01 Nov 2026<\/td><td><span class='chip' style='background:#7c4dff'>A · Restart<\/span><\/td><td>8<\/td><td>6<\/td><td>Git + GitHub; fix GitHub profile (README, pinned repos, study board)<br><span class='sm'>02_FOUNDATIONS/04 + GitHub_Fix/<\/span><\/td><td class='sm'>Profile live · learning-notes repo pushed<\/td><td class='sm'>Grouped validation: split by plant/plot (no leakage) and re-score macro-F1<\/td><td class='sm'>Taiz, Plant Physiology & Development (cover to cover)<\/td><td class='sm'>1–2 tailored applications/week (CV = verified skills only)<\/td><\/tr><tr><td><b>4<\/b><\/td><td class='nw'>02 Nov–08 Nov 2026<\/td><td><span class='chip' style='background:#7c4dff'>A · Restart<\/span><\/td><td>8<\/td><td>6<\/td><td>Python + 3 biology mini-projects (sequence toolkit · FASTA stats CLI · phenotype CSV plotter)<br><i>📘 Python for Data Analysis 3e (pandas chapters)<\/i><br><span class='sm'>02_FOUNDATIONS/03 + Mini_projects<\/span><\/td><td class='sm'>(continue)<\/td><td class='sm'>Vegetation-index (VI) baseline model, same grouped splits<\/td><td class='sm'>Taiz, Plant Physiology & Development (cover to cover)<\/td><td class='sm'>1–2 tailored applications/week (CV = verified skills only)<\/td><\/tr><tr><td><b>5<\/b><\/td><td class='nw'>09 Nov–15 Nov 2026<\/td><td><span class='chip' style='background:#7c4dff'>A · Restart<\/span><\/td><td>8<\/td><td>6<\/td><td>Python + 3 biology mini-projects (sequence toolkit · FASTA stats CLI · phenotype CSV plotter)<br><span class='sm'>02_FOUNDATIONS/03 + Mini_projects<\/span><\/td><td class='sm'>(continue)<\/td><td class='sm'>Maturity/stage check: does accuracy hold within each stage?<\/td><td class='sm'>Taiz, Plant Physiology & Development (cover to cover)<\/td><td class='sm'>1–2 tailored applications/week (CV = verified skills only)<\/td><\/tr><tr><td><b>6<\/b><\/td><td class='nw'>16 Nov–22 Nov 2026<\/td><td><span class='chip' style='background:#7c4dff'>A · Restart<\/span><\/td><td>8<\/td><td>6<\/td><td>Python + 3 biology mini-projects (sequence toolkit · FASTA stats CLI · phenotype CSV plotter)<br><span class='sm'>02_FOUNDATIONS/03 + Mini_projects<\/span><\/td><td class='sm'>3 small repos public, each with README + tests<\/td><td class='sm'>Variety ranking: per-variety results + confusion matrix<\/td><td class='sm'>Taiz, Plant Physiology & Development (cover to cover)<\/td><td class='sm'>1–2 tailored applications/week (CV = verified skills only)<\/td><\/tr><tr><td><b>7<\/b><\/td><td class='nw'>23 Nov–29 Nov 2026<\/td><td><span class='chip' style='background:#7c4dff'>A · Restart<\/span><\/td><td>8<\/td><td>6<\/td><td>Quarto portfolio website (GitHub Pages)<br><span class='sm'>Mini_projects/Quarto_site<\/span><\/td><td class='sm'>Site live with 3 project pages<\/td><td class='sm'>CNN comparison (ResNet transfer learning) vs your thesis model<\/td><td class='sm'>Taiz, Plant Physiology & Development (cover to cover)<\/td><td class='sm'>1–2 tailored applications/week (CV = verified skills only)<\/td><\/tr><tr><td><b>8<\/b><\/td><td class='nw'>30 Nov–06 Dec 2026<\/td><td><span class='chip' style='background:#2e7d32'>B · Core skills<\/span><\/td><td>8<\/td><td>6<\/td><td>R consolidation (your strongest language: go fast)<br><i>📘 R for Data Science 2e (wrangling + ggplot)<\/i><br><span class='sm'>02_FOUNDATIONS/02_R_for_bioinformatics<\/span><\/td><td class='sm'>Module checklist ✅<\/td><td class='sm'>CNN comparison: finish, 3 seeds, confidence intervals<\/td><td class='sm'>Taiz, Plant Physiology & Development (cover to cover)<\/td><td class='sm'>1–2 tailored applications/week (CV = verified skills only)<\/td><\/tr><tr><td><b>9<\/b><\/td><td class='nw'>07 Dec–13 Dec 2026<\/td><td><span class='chip' style='background:#2e7d32'>B · Core skills<\/span><\/td><td>8<\/td><td>6<\/td><td>P1 GWAS potato: Phases 0–7<br><span class='sm'>03_PROJECTS/P1_GWAS_potato/TODO_step_by_step<\/span><\/td><td class='sm'>(continue)<\/td><td class='sm'>Figures (4 max) + results table; send to Lindsey for feedback<\/td><td class='sm'>Taiz, Plant Physiology & Development (cover to cover)<\/td><td class='sm'>1–2/week + message 1 person per week on LinkedIn<\/td><\/tr><tr><td><b>10<\/b><\/td><td class='nw'>14 Dec–20 Dec 2026<\/td><td><span class='chip' style='background:#2e7d32'>B · Core skills<\/span><\/td><td>8<\/td><td>6<\/td><td>P1 GWAS potato: Phases 0–7<br><span class='sm'>03_PROJECTS/P1_GWAS_potato/TODO_step_by_step<\/span><\/td><td class='sm'>(continue)<\/td><td class='sm'>Write the abstract (250 words); decide on IGARSS (deadline 11 Jan 2027, optional)<\/td><td class='sm'>Taiz, Plant Physiology & Development (cover to cover)<\/td><td class='sm'>1–2/week + message 1 person per week on LinkedIn<\/td><\/tr><tr><td><b>11<\/b><\/td><td class='nw'>21 Dec–27 Dec 2026<\/td><td><span class='chip' style='background:#2e7d32'>B · Core skills<\/span><\/td><td>8<\/td><td>6<\/td><td>P1 GWAS potato: Phases 0–7<br><span class='sm'>03_PROJECTS/P1_GWAS_potato/TODO_step_by_step<\/span><\/td><td class='sm'>P1 repo public · quiz ≥12/15<\/td><td class='sm'>Draft the short paper (IGARSS: 4 pages) or extended abstract<\/td><td class='sm'>Taiz, Plant Physiology & Development (cover to cover)<\/td><td class='sm'>1–2/week + message 1 person per week on LinkedIn<\/td><\/tr><tr><td><b>12<\/b><\/td><td class='nw'>28 Dec–03 Jan 2027<\/td><td><span class='chip' style='background:#9e9e9e'>BUFFER<\/span><\/td><td>2<\/td><td>0<\/td><td>Holiday week: rest. Optional: one LinkedIn post<br><span class='sm'>—<\/span><\/td><td class='sm'>Rested<\/td><td class='sm'><\/td><td class='sm'>Taiz, Plant Physiology & Development (cover to cover)<\/td><td class='sm'>1–2/week + message 1 person per week on LinkedIn<\/td><\/tr><tr><td><b>13<\/b><\/td><td class='nw'>04 Jan–10 Jan 2027<\/td><td><span class='chip' style='background:#2e7d32'>B · Core skills<\/span><\/td><td>12<\/td><td>4<\/td><td>Statistics for omics (incl. SPSS→R table)<br><i>📘 Modern Statistics for Modern Biology ch. 1–6<\/i><br><span class='sm'>02_FOUNDATIONS/05_Statistics_for_omics<\/span><\/td><td class='sm'>All exercises ✅<\/td><td class='sm'>Submit IGARSS by 11 Jan 2027 (optional) · otherwise start the journal draft<\/td><td class='sm'>Taiz, Plant Physiology & Development (cover to cover)<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>14<\/b><\/td><td class='nw'>11 Jan–17 Jan 2027<\/td><td><span class='chip' style='background:#2e7d32'>B · Core skills<\/span><\/td><td>12<\/td><td>3<\/td><td>Snakemake (first time: go slowly)<br><i>📘 Snakemake docs tutorial<\/i><br><span class='sm'>02_FOUNDATIONS/06_Snakemake_and_reproducibility<\/span><\/td><td class='sm'>Your own 3-rule pipeline runs<\/td><td class='sm'>Journal draft: Methods<\/td><td class='sm'>Taiz, Plant Physiology & Development (cover to cover)<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>15<\/b><\/td><td class='nw'>18 Jan–24 Jan 2027<\/td><td><span class='chip' style='background:#8d6e00'>C · Pipelines<\/span><\/td><td>12<\/td><td>3<\/td><td>P7 variant calling: test run on Mac, Phases 0–3<br><i>📘 Bioinformatics Data Skills (alignment/variant chapters)<\/i><br><span class='sm'>03_PROJECTS/P7…/TODO_step_by_step<\/span><\/td><td class='sm'>(continue)<\/td><td class='sm'>Journal draft: Results<\/td><td class='sm'>Taiz, Plant Physiology & Development (cover to cover)<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>16<\/b><\/td><td class='nw'>25 Jan–31 Jan 2027<\/td><td><span class='chip' style='background:#8d6e00'>C · Pipelines<\/span><\/td><td>12<\/td><td>3<\/td><td>P7 variant calling: test run on Mac, Phases 0–3<br><span class='sm'>03_PROJECTS/P7…/TODO_step_by_step<\/span><\/td><td class='sm'>Recall ≈0.979 / precision ≈0.951 reproduced<\/td><td class='sm'>Journal draft: Introduction + Discussion<\/td><td class='sm'>Taiz, Plant Physiology & Development (cover to cover)<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>17<\/b><\/td><td class='nw'>01 Feb–07 Feb 2027<\/td><td><span class='chip' style='background:#8d6e00'>C · Pipelines<\/span><\/td><td>12<\/td><td>3<\/td><td>P7 real Arabidopsis data (BlueBEAR or Mac subset), Phases 4–7<br><span class='sm'>P7 REAL_DATA_PLAN + TODO<\/span><\/td><td class='sm'>(continue)<\/td><td class='sm'>Supervisor comments → revise<\/td><td class='sm'>Taiz, Plant Physiology & Development (cover to cover)<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>18<\/b><\/td><td class='nw'>08 Feb–14 Feb 2027<\/td><td><span class='chip' style='background:#8d6e00'>C · Pipelines<\/span><\/td><td>12<\/td><td>3<\/td><td>P7 real Arabidopsis data (BlueBEAR or Mac subset), Phases 4–7<br><span class='sm'>P7 REAL_DATA_PLAN + TODO<\/span><\/td><td class='sm'>P7 repo public · Level 1 self-test ✅<\/td><td class='sm'>Check EAPR 2027 / ECPP 2027 abstract deadlines [verify] and submit<\/td><td class='sm'>Taiz, Plant Physiology & Development (cover to cover)<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>19<\/b><\/td><td class='nw'>15 Feb–21 Feb 2027<\/td><td><span class='chip' style='background:#6a3fa0'>D · Omics breadth<\/span><\/td><td>13<\/td><td>2<\/td><td>P2 DIA proteomics<br><span class='sm'>03_PROJECTS/P2_Proteomics_DIA/TODO<\/span><\/td><td class='sm'>(continue)<\/td><td class='sm'>Revise draft with co-author comments<\/td><td class='sm'>Acquaah, Principles of Plant Genetics & Breeding<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>20<\/b><\/td><td class='nw'>22 Feb–28 Feb 2027<\/td><td><span class='chip' style='background:#6a3fa0'>D · Omics breadth<\/span><\/td><td>13<\/td><td>2<\/td><td>P2 DIA proteomics<br><span class='sm'>03_PROJECTS/P2_Proteomics_DIA/TODO<\/span><\/td><td class='sm'>P2 repo public<\/td><td class='sm'>Pick a journal; format references<\/td><td class='sm'>Acquaah, Principles of Plant Genetics & Breeding<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>21<\/b><\/td><td class='nw'>01 Mar–07 Mar 2027<\/td><td><span class='chip' style='background:#1f6fb2'>D · Omics breadth<\/span><\/td><td>13<\/td><td>2<\/td><td>P4 multi-omics (mixOmics)<br><i>📘 Lê Cao & Welham (PCA, PLS, DIABLO)<\/i><br><span class='sm'>03_PROJECTS/P4_MultiOmics_Arabidopsis/TODO<\/span><\/td><td class='sm'>(continue)<\/td><td class='sm'>Final checks (data + code availability statement)<\/td><td class='sm'>Acquaah, Principles of Plant Genetics & Breeding<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>22<\/b><\/td><td class='nw'>08 Mar–14 Mar 2027<\/td><td><span class='chip' style='background:#1f6fb2'>D · Omics breadth<\/span><\/td><td>13<\/td><td>2<\/td><td>P4 multi-omics (mixOmics)<br><span class='sm'>03_PROJECTS/P4_MultiOmics_Arabidopsis/TODO<\/span><\/td><td class='sm'>P4 repo public<\/td><td class='sm'>Submit the paper 🎉<\/td><td class='sm'>Acquaah, Principles of Plant Genetics & Breeding<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>23<\/b><\/td><td class='nw'>15 Mar–21 Mar 2027<\/td><td><span class='chip' style='background:#d9730d'>D · Omics breadth<\/span><\/td><td>13<\/td><td>2<\/td><td>P3 metabolomics (Python)<br><span class='sm'>03_PROJECTS/P3_Metabolomics_plants/TODO<\/span><\/td><td class='sm'>(continue)<\/td><td class='sm'>Buffer for reviewer/supervisor delays<\/td><td class='sm'>Acquaah, Principles of Plant Genetics & Breeding<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>24<\/b><\/td><td class='nw'>22 Mar–28 Mar 2027<\/td><td><span class='chip' style='background:#d9730d'>D · Omics breadth<\/span><\/td><td>13<\/td><td>2<\/td><td>P3 metabolomics (Python)<br><span class='sm'>03_PROJECTS/P3_Metabolomics_plants/TODO<\/span><\/td><td class='sm'>P3 repo public<\/td><td class='sm'>Prepare poster/talk if accepted<\/td><td class='sm'>Acquaah, Principles of Plant Genetics & Breeding<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>25<\/b><\/td><td class='nw'>29 Mar–04 Apr 2027<\/td><td><span class='chip' style='background:#00796b'>D · Omics breadth<\/span><\/td><td>13<\/td><td>2<\/td><td>P5 plant microbiome<br><i>📘 Xia et al. (diversity chapters) + phyloseq/vegan vignettes<\/i><br><span class='sm'>03_PROJECTS/P5_Microbiome_Arabidopsis/TODO<\/span><\/td><td class='sm'>(continue)<\/td><td class='sm'>Prepare poster/talk<\/td><td class='sm'>Acquaah, Principles of Plant Genetics & Breeding<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>26<\/b><\/td><td class='nw'>05 Apr–11 Apr 2027<\/td><td><span class='chip' style='background:#00796b'>D · Omics breadth<\/span><\/td><td>13<\/td><td>2<\/td><td>P5 plant microbiome<br><span class='sm'>03_PROJECTS/P5_Microbiome_Arabidopsis/TODO<\/span><\/td><td class='sm'>P5 repo public · Level 2 self-test ✅<\/td><td class='sm'>Respond to reviews if back<\/td><td class='sm'>Acquaah, Principles of Plant Genetics & Breeding<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>27<\/b><\/td><td class='nw'>12 Apr–18 Apr 2027<\/td><td><span class='chip' style='background:#c2185b'>D · Omics breadth<\/span><\/td><td>13<\/td><td>2<\/td><td>SQL module, then P6 wheat text mining<br><span class='sm'>02_FOUNDATIONS/07 + P6 TODO<\/span><\/td><td class='sm'>(continue)<\/td><td class='sm'>Respond to reviews<\/td><td class='sm'>Acquaah, Principles of Plant Genetics & Breeding<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>28<\/b><\/td><td class='nw'>19 Apr–25 Apr 2027<\/td><td><span class='chip' style='background:#c2185b'>D · Omics breadth<\/span><\/td><td>13<\/td><td>2<\/td><td>SQL module, then P6 wheat text mining<br><span class='sm'>02_FOUNDATIONS/07 + P6 TODO<\/span><\/td><td class='sm'>P6 repo public<\/td><td class='sm'>Respond to reviews<\/td><td class='sm'>Acquaah, Principles of Plant Genetics & Breeding<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>29<\/b><\/td><td class='nw'>26 Apr–02 May 2027<\/td><td><span class='chip' style='background:#37474f'>E · Independence<\/span><\/td><td>15<\/td><td>0<\/td><td>Independence ladder: rebuild 3 projects blank; apply 2 to NEW datasets<br><i>📘 An Introduction to Statistical Learning (CV + trees)<\/i><br><span class='sm'>Each TODO Phase 5 + 04_SELF_HELP<\/span><\/td><td class='sm'>(continue)<\/td><td class='sm'><\/td><td class='sm'>Acquaah, Principles of Plant Genetics & Breeding<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>30<\/b><\/td><td class='nw'>03 May–09 May 2027<\/td><td><span class='chip' style='background:#37474f'>E · Independence<\/span><\/td><td>15<\/td><td>0<\/td><td>Independence ladder: rebuild 3 projects blank; apply 2 to NEW datasets<br><span class='sm'>Each TODO Phase 5 + 04_SELF_HELP<\/span><\/td><td class='sm'>(continue)<\/td><td class='sm'><\/td><td class='sm'>Falconer & Mackay core chapters; then Bernardo<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>31<\/b><\/td><td class='nw'>10 May–16 May 2027<\/td><td><span class='chip' style='background:#37474f'>E · Independence<\/span><\/td><td>15<\/td><td>0<\/td><td>Independence ladder: rebuild 3 projects blank; apply 2 to NEW datasets<br><span class='sm'>Each TODO Phase 5 + 04_SELF_HELP<\/span><\/td><td class='sm'>Level 3 self-test ✅<\/td><td class='sm'><\/td><td class='sm'>Falconer & Mackay core chapters; then Bernardo<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>32<\/b><\/td><td class='nw'>17 May–23 May 2027<\/td><td><span class='chip' style='background:#37474f'>E · Independence<\/span><\/td><td>15<\/td><td>0<\/td><td>Expert consolidation: Q&A out loud; scope your own original project<br><span class='sm'>05_EXPERT_QA + 07 §7 + 08<\/span><\/td><td class='sm'>(continue)<\/td><td class='sm'><\/td><td class='sm'>Falconer & Mackay core chapters; then Bernardo<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><tr><td><b>33<\/b><\/td><td class='nw'>24 May–30 May 2027<\/td><td><span class='chip' style='background:#37474f'>E · Independence<\/span><\/td><td>15<\/td><td>0<\/td><td>Expert consolidation: Q&A out loud; scope your own original project<br><span class='sm'>05_EXPERT_QA + 07 §7 + 08<\/span><\/td><td class='sm'>Level 4 checks started<\/td><td class='sm'><\/td><td class='sm'>Falconer & Mackay core chapters; then Bernardo<\/td><td class='sm'>2–4 tailored applications/week + interview practice<\/td><\/tr><\/table><\/div>\n<hr />\n<h2>4. Your personal timetable (the widget)<\/h2>\n<h3>Weeks 1–11: paper + kit (≈ 14 h/week)<\/h3>\n<table>\n<thead>\n<tr>\n<th>Day<\/th>\n<th>07:30–08:00<\/th>\n<th>Evening<\/th>\n<th>What<\/th>\n<\/tr>\n<\/thead>\n<tbody>\n<tr>\n<td>Mon<\/td>\n<td>Taiz<\/td>\n<td>19:00–21:00 <strong>Paper<\/strong><\/td>\n<td>Analysis from the paper track<\/td>\n<\/tr>\n<tr>\n<td>Tue<\/td>\n<td>Taiz<\/td>\n<td>19:00–21:00 <strong>Kit<\/strong><\/td>\n<td>Current module or project<\/td>\n<\/tr>\n<tr>\n<td>Wed<\/td>\n<td>Taiz<\/td>\n<td>19:00–21:00 <strong>Paper<\/strong><\/td>\n<td>Analysis or writing<\/td>\n<\/tr>\n<tr>\n<td>Thu<\/td>\n<td>Taiz<\/td>\n<td>19:00–21:00 <strong>Kit<\/strong><\/td>\n<td>Current module or project<\/td>\n<\/tr>\n<tr>\n<td>Fri<\/td>\n<td>Taiz<\/td>\n<td>19:00–20:30 <strong>Jobs<\/strong><\/td>\n<td>1 application + Anki<\/td>\n<\/tr>\n<tr>\n<td>Sat<\/td>\n<td>—<\/td>\n<td>10:00–13:30 <strong>Kit deep session<\/strong><\/td>\n<td>Last 30 min = GitHub push<\/td>\n<\/tr>\n<tr>\n<td>Sun<\/td>\n<td>—<\/td>\n<td>17:00–18:00 <strong>Paper<\/strong> · 18:00–19:00 <strong>Review<\/strong><\/td>\n<td>Plan the paper week · tick the app<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<h3>Weeks 13–33: kit focus (≈ 15 h/week)<\/h3>\n<table>\n<thead>\n<tr>\n<th>Day<\/th>\n<th>Block<\/th>\n<\/tr>\n<\/thead>\n<tbody>\n<tr>\n<td>Mon–Thu<\/td>\n<td>07:30–08:00 biology reading · 19:00–21:00 read 30 / build 75 / notes 15<\/td>\n<\/tr>\n<tr>\n<td>Fri<\/td>\n<td>19:00–20:30 applications + 5 Q&amp;A questions out loud + Anki<\/td>\n<\/tr>\n<tr>\n<td>Sat<\/td>\n<td>10:00–13:30 deep session · GitHub push or LinkedIn post<\/td>\n<\/tr>\n<tr>\n<td>Sun<\/td>\n<td>17:00–18:00 paper (until submitted) · 18:00–19:00 weekly review<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<h3>The daily ritual (from your mentor roadmap)<\/h3>\n<ol>\n<li>Open the app and look at today's blocks (1 min).<\/li>\n<li>Before coding, write today's <strong>one<\/strong> goal in <code>learning-notes<\/code> (2 min).<\/li>\n<li>Work the block with your phone in another room.<\/li>\n<li>Afterwards, commit and push, even if it's small (<code>wip: …<\/code>) (2 min).<\/li>\n<li>Tick the block in the app and log your hours (1 min).<\/li>\n<\/ol>\n<h3>How to get it on your phone and Mac as a widget<\/h3>\n<ol>\n<li><strong>Calendar widget (best):<\/strong> on your Mac, go to calendar.google.com → ⚙️ Settings → <em>Import &amp; export<\/em> → <em>Import<\/em>. Choose <code>Master_Timetable.ics<\/code> and import it into a <strong>new<\/strong> calendar called \"Study\".\n   - <strong>Samsung A55:<\/strong> the Google Calendar app syncs it. Long-press the home screen → <em>Widgets<\/em> → <em>Google Calendar<\/em> (or <em>Samsung Calendar<\/em> with your Google account added) → choose the <strong>Schedule<\/strong> widget.\n   - <strong>Mac M4:<\/strong> System Settings → Internet Accounts → Google → turn on Calendars. Then right-click the desktop → <em>Edit Widgets<\/em> → <em>Calendar<\/em> → <em>Up Next<\/em>.<\/li>\n<li><strong>App shortcut:<\/strong> open the Sprout app link in Chrome on the A55 → ⋮ → <em>Add to home screen<\/em>. On the Mac, in Safari: <em>File → Add to Dock<\/em>.<\/li>\n<\/ol>\n<hr />\n<h2>5. Mini-projects and the Quarto site (weeks 4–7)<\/h2>\n<p><strong>What they are:<\/strong> small, finished, tested repos. They show you can write clean code, not just run notebooks.<\/p>\n<table>\n<thead>\n<tr>\n<th>#<\/th>\n<th>Mini-project<\/th>\n<th>You learn<\/th>\n<th>Done when<\/th>\n<\/tr>\n<\/thead>\n<tbody>\n<tr>\n<td>1<\/td>\n<td><strong>Sequence toolkit<\/strong>: GC content, reverse complement, translation, ORF finder<\/td>\n<td>functions, strings, <code>pytest<\/code><\/td>\n<td>10 passing tests, README with examples<\/td>\n<\/tr>\n<tr>\n<td>2<\/td>\n<td><strong>FASTA stats CLI<\/strong>: <code>python fasta_stats.py file.fa<\/code> → N50, length histogram<\/td>\n<td><code>argparse<\/code>, files, plotting<\/td>\n<td>Runs on a real plant FASTA (e.g. an Arabidopsis chromosome)<\/td>\n<\/tr>\n<tr>\n<td>3<\/td>\n<td><strong>Phenotype CSV plotter<\/strong>: tidy a trait table → boxplots per variety + ANOVA<\/td>\n<td>pandas, seaborn, statsmodels<\/td>\n<td>One figure you'd put in a talk<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<p><strong>Quarto site (week 7):<\/strong> run <code>quarto create project website my-site<\/code>. Add a page per project (figure + 3 lines + repo link), then publish with <code>quarto publish gh-pages<\/code>. Docs: quarto.org/docs/websites. Later, P1–P7 each get a page too.<\/p>\n<hr />\n<h2>6. How to study each kind of material<\/h2>\n<h3>6.1 A textbook chapter (Taiz, Acquaah, Falconer…)<\/h3>\n<ol>\n<li><strong>Preview (3 min):<\/strong> read the headings, figures and summary. Ask yourself: \"What question does this chapter answer?\"<\/li>\n<li><strong>Read in chunks (20–25 min):<\/strong> one section at a time. Close the book after each section and say aloud what it said.<\/li>\n<li><strong>One page of notes per chapter, in your own words:<\/strong>\n   - 5 key ideas\n   - 5 new terms with definitions\n   - 1 diagram you redraw from memory\n   - 1 question you can't yet answer<\/li>\n<li><strong>Link it:<\/strong> write one line on where this appears in a kit project. For example: \"cell-wall polysaccharides → P4 metabolite block\".<\/li>\n<li><strong>Make 3–5 Anki cards<\/strong> from the chapter (question on the front, short answer on the back).<\/li>\n<li><strong>Next day:<\/strong> 2-minute recall before you start reading again.<\/li>\n<\/ol>\n<h3>6.2 A Foundations module (<code>02_FOUNDATIONS/<\/code>)<\/h3>\n<ol>\n<li>Read the concept section once.<\/li>\n<li><strong>Type every worked example yourself<\/strong>; don't copy-paste. Compare your output with the real output shown.<\/li>\n<li>Do the exercises <strong>before<\/strong> opening the answers. Give each one 10–15 minutes of honest effort.<\/li>\n<li>When you check an answer, write down <em>why<\/em> yours differed. That gap is the lesson.<\/li>\n<li>Finish with the module's \"ready to move on\" checklist. Don't move on until every box is ticked.<\/li>\n<\/ol>\n<h3>6.3 A project phase (<code>03_PROJECTS/Pn/TODO_step_by_step.md<\/code>)<\/h3>\n<ol>\n<li>Read the whole phase first. Note the time budget and any <code>[verify]<\/code> tags.<\/li>\n<li>Do one step at a time. <strong>Compare your output with the \"Check\" numbers<\/strong> before continuing.<\/li>\n<li>If it fails, use the \"If it fails\" line, then the Stuck Protocol (<code>04_SELF_HELP_AND_DEBUGGING<\/code>).<\/li>\n<li>After each notebook section, <strong>explain it aloud in 60 seconds<\/strong> (the \"stop and explain\" prompts).<\/li>\n<li>Log it in <code>notes/YYYY-MM-DD.md<\/code> in the repo: what you ran, what you saw, what surprised you.<\/li>\n<li>Finish the project with its <strong>🎓 Learn it properly<\/strong> section. Quiz score ≥ 12/15 <em>without<\/em> peeking.<\/li>\n<\/ol>\n<h3>6.4 The Expert Q&amp;A banks (<code>05_EXPERT_QA/<\/code>)<\/h3>\n<ul>\n<li><strong>Friday routine:<\/strong> 5 questions, answered <strong>out loud<\/strong> (record yourself on your phone), then compare with the model answer. Grade 0–2 using the rubric in <code>00_How_to_use_QA.md<\/code>.<\/li>\n<li>Anything scoring 0–1 becomes an Anki card.<\/li>\n<li><strong>Order:<\/strong> do each domain's Basic and Intermediate questions during that project; Expert and Industry-scenario questions in Phase E.<\/li>\n<\/ul>\n<h3>6.5 The memory techniques behind all of this<\/h3>\n<table>\n<thead>\n<tr>\n<th>Technique<\/th>\n<th>What it is<\/th>\n<th>Where you use it<\/th>\n<\/tr>\n<\/thead>\n<tbody>\n<tr>\n<td><strong>Active recall<\/strong><\/td>\n<td>Test yourself instead of re-reading<\/td>\n<td>Sunday recall, chapter close-and-say, quizzes<\/td>\n<\/tr>\n<tr>\n<td><strong>Spaced repetition<\/strong><\/td>\n<td>Review just before you'd forget (Anki schedules it)<\/td>\n<td>10–15 min of Anki on 4 days/week<\/td>\n<\/tr>\n<tr>\n<td><strong>Feynman technique<\/strong><\/td>\n<td>Explain it simply, as if to a 16-year-old; the gaps show where you don't understand<\/td>\n<td>\"Stop and explain\" prompts, LinkedIn posts<\/td>\n<\/tr>\n<tr>\n<td><strong>Interleaving<\/strong><\/td>\n<td>Mix topics (biology reading + coding + Q&amp;A)<\/td>\n<td>The weekly routine already does this<\/td>\n<\/tr>\n<tr>\n<td><strong>Retrieval before reference<\/strong><\/td>\n<td>Try to remember the command or concept <em>before<\/em> you look it up<\/td>\n<td>Every coding session<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<hr />\n<h2>7. Templates<\/h2>\n<h3>Sunday weekly review (copy into <code>learning-notes/weekly/YYYY-Www.md<\/code>)<\/h3>\n<pre><code>## Week __ (dates)\nPlanned focus: ...\nHours planned / done: __ / __\n✅ Finished: ...\n❌ Not finished, and why (be honest: time? stuck? avoided?): ...\n🧠 20-min recall: what I remembered without notes: ...\n🔍 Biggest thing I learned: ...\n🐛 Error I solved alone (+ how): ...\n📌 Next week's top 3 tasks: 1. ... 2. ... 3. ...\n📣 Saturday push/post done? Y/N  link: ...\nEnergy 1–5: __   (if ≤2 two weeks in a row → see section 8)\n<\/code><\/pre>\n<h3>Monthly review (last Sunday of the month, 30 min)<\/h3>\n<ol>\n<li>Run the matching <strong>roadmap self-test<\/strong> (<code>08_ROADMAP<\/code>). Pass or not yet?<\/li>\n<li>Compare planned vs actual hours in <code>Progress_Tracker.csv<\/code>. Are you on plan, ahead, or behind?<\/li>\n<li>Re-plan the next 4 weeks if needed, using the rules in section 8.<\/li>\n<li>Update your CV and LinkedIn <strong>only with what's actually finished<\/strong>.<\/li>\n<\/ol>\n<hr />\n<h2>8. When things go wrong: the rules<\/h2>\n<table>\n<thead>\n<tr>\n<th>Situation<\/th>\n<th>What you do<\/th>\n<\/tr>\n<\/thead>\n<tbody>\n<tr>\n<td><strong>Behind by ≤ 1 week<\/strong><\/td>\n<td>Use Friday catch-up time and the next buffer week (8 or 13). Don't change the plan<\/td>\n<\/tr>\n<tr>\n<td><strong>Behind by 2+ weeks<\/strong><\/td>\n<td>Shift the whole timetable later. <strong>Never<\/strong> cut the understanding steps (Phases 1, 3, 8 of each TODO). Cut the optional extensions (Phase 4b) first<\/td>\n<\/tr>\n<tr>\n<td><strong>Stuck &gt; 45 min on one error<\/strong><\/td>\n<td>Stuck Protocol → if still stuck, park it, log it, move to another task. Come back fresh<\/td>\n<\/tr>\n<tr>\n<td><strong>A tool won't install on the Mac<\/strong><\/td>\n<td><code>01_SETUP<\/code> fallback order: conda → <code>CONDA_SUBDIR=osx-64<\/code> (Rosetta) → Docker → BlueBEAR / BEAR Portal<\/td>\n<\/tr>\n<tr>\n<td><strong>BlueBEAR access ends after graduation<\/strong><\/td>\n<td>P7: use the <strong>Mac subset<\/strong> route in <code>REAL_DATA_PLAN.md<\/code> (<code>get_arabidopsis_data.sh subset<\/code>). Everything else runs on the Mac<\/td>\n<\/tr>\n<tr>\n<td><strong>A result differs from the \"Check\" numbers<\/strong><\/td>\n<td>Small differences: check package versions (<code>sessionInfo()<\/code> / <code>pip list<\/code>). Big differences: re-check inputs, environment and the steps you skipped. Document it either way; it's a finding<\/td>\n<\/tr>\n<tr>\n<td><strong>Motivation dips / tired 2 weeks running<\/strong><\/td>\n<td>Take a <strong>light week<\/strong>: reading + Anki only. A rested brain learns faster than a tired one<\/td>\n<\/tr>\n<tr>\n<td><strong>An exciting new idea appears<\/strong><\/td>\n<td>Write it in <code>ideas.md<\/code> and keep going. Pick ideas only in Phase E (or after P7), using the \"next projects\" table in <code>07<\/code> §7<\/td>\n<\/tr>\n<tr>\n<td><strong>Interview invitation arrives<\/strong><\/td>\n<td>Pause the timetable for that week. Use the Q&amp;A banks for the role's domain and your 2-minute project stories<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<hr />\n<h2>9. Reading timetable<\/h2>\n<table>\n<thead>\n<tr>\n<th>Weeks<\/th>\n<th>Biology (morning)<\/th>\n<th>Computational (with the matching module)<\/th>\n<\/tr>\n<\/thead>\n<tbody>\n<tr>\n<td>1–18<\/td>\n<td><strong>Taiz<\/strong>, <em>Plant Physiology and Development<\/em> 7e, cover to cover (~2 chapters/week)<\/td>\n<td><em>Bioinformatics Data Skills<\/em> (W2), <em>Python for Data Analysis<\/em> 3e (W4), R4DS 2e (W8), <em>MSMB<\/em> ch. 1–6 (W13), Snakemake docs (W14)<\/td>\n<\/tr>\n<tr>\n<td>19–29<\/td>\n<td><strong>Acquaah<\/strong>, <em>Principles of Plant Genetics and Breeding<\/em> 3e<\/td>\n<td>Lê Cao &amp; Welham (W21), Xia et al. (W25), ISL (W29)<\/td>\n<\/tr>\n<tr>\n<td>30–33<\/td>\n<td><strong>Falconer &amp; Mackay<\/strong> core chapters → <strong>Bernardo<\/strong><\/td>\n<td>Edwards (<em>Plant Bioinformatics<\/em>), chapters matching your extension<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<hr />\n<h2>10. The applications track (industry first)<\/h2>\n<table>\n<thead>\n<tr>\n<th>Weeks<\/th>\n<th>Do<\/th>\n<\/tr>\n<\/thead>\n<tbody>\n<tr>\n<td>1<\/td>\n<td>Build the target list in a spreadsheet: organisation, role, link, deadline, contact, status<\/td>\n<\/tr>\n<tr>\n<td>2–8<\/td>\n<td>1–2 tailored applications a week. <strong>CV = verified skills only<\/strong> (no Snakemake/PLINK/GAPIT until you've actually done them)<\/td>\n<\/tr>\n<tr>\n<td>9–12<\/td>\n<td>1–2 a week + message one person a week on LinkedIn (short, specific, no attachment)<\/td>\n<\/tr>\n<tr>\n<td>13–33<\/td>\n<td>2–4 a week + interview practice with the Q&amp;A banks<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<p><strong>UAE / Gulf targets:<\/strong><\/p>\n<ul>\n<li>ICBA (Dubai)<\/li>\n<li>KCGEB (UAE University)<\/li>\n<li>MBZUAI Institute for Agriculture and AI<\/li>\n<li>NYU Abu Dhabi<\/li>\n<li>TII<\/li>\n<li>AeroFarms (Abu Dhabi)<\/li>\n<li>KAUST (Saudi Arabia)<\/li>\n<\/ul>\n<p><strong>Netherlands targets:<\/strong><\/p>\n<ul>\n<li>Wageningen University &amp; Research<\/li>\n<li>KeyGene<\/li>\n<li>Rijk Zwaan<\/li>\n<li>Enza Zaden<\/li>\n<li>Bejo<\/li>\n<li>Syngenta / BASF vegetable seeds sites<\/li>\n<\/ul>\n<p>Each week, check each organisation's own careers page. Their openings change and weren't checked for this plan.<\/p>\n<hr />\n<h2>11. Checkpoints<\/h2>\n<table>\n<thead>\n<tr>\n<th>Date (end of week)<\/th>\n<th>Checkpoint<\/th>\n<th>Proof<\/th>\n<\/tr>\n<\/thead>\n<tbody>\n<tr>\n<td>18 Oct 2026 (W1)<\/td>\n<td>Paper restarted<\/td>\n<td>Sample counts done · Jack emailed<\/td>\n<\/tr>\n<tr>\n<td>1 Nov 2026 (W3)<\/td>\n<td><strong>Level 0<\/strong> + GitHub fixed<\/td>\n<td>Profile README live, <code>ssh -T git@github.com<\/code> works<\/td>\n<\/tr>\n<tr>\n<td>29 Nov 2026 (W7)<\/td>\n<td>Portfolio v1<\/td>\n<td>3 mini-projects + Quarto site live<\/td>\n<\/tr>\n<tr>\n<td>27 Dec 2026 (W11)<\/td>\n<td>First omics repo + abstract<\/td>\n<td>P1 public · abstract drafted<\/td>\n<\/tr>\n<tr>\n<td>14 Feb 2027 (W18)<\/td>\n<td><strong>Level 1<\/strong> + pipelines<\/td>\n<td>Your own Snakemake pipeline · P7 on real data<\/td>\n<\/tr>\n<tr>\n<td>14 Mar 2027 (W22)<\/td>\n<td>Paper submitted<\/td>\n<td>Submission email 🎉<\/td>\n<\/tr>\n<tr>\n<td>25 Apr 2027 (W28)<\/td>\n<td><strong>Level 2<\/strong><\/td>\n<td>P1, P7, P2, P4, P3, P5, P6 reproduced and explained<\/td>\n<\/tr>\n<tr>\n<td>30 May 2027 (W33)<\/td>\n<td><strong>Level 3 → 4<\/strong><\/td>\n<td>3 blank rebuilds + 2 new datasets · own project scoped<\/td>\n<\/tr>\n<\/tbody>\n<\/table>\n<hr />\n<h2>12. Day-one checklist (Mon 12 Oct 2026)<\/h2>\n<ul>\n<li>[ ] Open the <strong>Sprout<\/strong> app on your phone and Mac, and add it to your home screen / Dock.<\/li>\n<li>[ ] Import <code>Master_Timetable.ics<\/code> into a <strong>new<\/strong> Google calendar, then add the widget (section 4).<\/li>\n<li>[ ] Install Anki and make a deck called \"Bioinformatics kit\".<\/li>\n<li>[ ] Count your thesis samples (paper track W1), then send Jack the email.<\/li>\n<li>[ ] Start <code>01_SETUP/01_Mac_setup_from_zero.md<\/code>, Steps 1–3.<\/li>\n<\/ul>\n<blockquote>\n<p><strong>Honest note:<\/strong> this is a plan, not a contract. The <strong>\"Done when…\"<\/strong> column matters more than the dates. If a week slips, move the next one along. Don't double up.<\/p>\n<\/blockquote>"}</script>
+<script>
+(function(){
+"use strict";
+const P = JSON.parse(document.getElementById("plan").textContent);
+const DAYS=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
+const ICON={paper:"📝",kit:"💻",read:"📖",jobs:"💼",review:"✅"};
+const BOOKS=[["taiz","Taiz · Plant Physiology & Development 7e",100],["acq","Acquaah · Plant Genetics & Breeding 3e",100],["bds","Buffalo · Bioinformatics Data Skills",100],["msmb","Holmes & Huber · MSMB",100],["r4ds","R for Data Science 2e",100],["pda","McKinney · Python for Data Analysis 3e",100],["fm","Falconer & Mackay",100],["isl","ISL (Python or R)",100]];
+const JSTAT=["idea","researched","applied","interview","offer"];
+const JCOL={idea:"var(--muted)",researched:"var(--sky)",applied:"var(--kit)",interview:"var(--jobs)",offer:"var(--leaf)"};
+const COUNT=[["Plan starts 🌱","2026-10-12"],["IGARSS deadline (optional)","2027-01-11"],["Paper submitted (target)","2027-03-14"],["EAPR 2027, Edinburgh","2027-06-06"],["Journey complete 🌸","2027-05-30"]];
+
+// ---------- state ----------
+let S = {v:1, blocks:{}, ritual:{}, weeks:{}, paper:{}, books:{}, jobs:null, extraJobs:[]};
+let db=null, ref=null, writing=false, dirty=false, timer=null, ro=false;
+const LS="sprout-state-v1";
+function lsGet(){try{const t=localStorage.getItem(LS);return t?JSON.parse(t):null}catch(e){return null}}
+function lsSet(){try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}}
+function merge(d){ if(!d) return; S=Object.assign({v:1,blocks:{},ritual:{},weeks:{},paper:{},books:{},jobs:null,extraJobs:[]},JSON.parse(JSON.stringify(d))); }
+function save(){ lsSet(); if(!ref||ro) return; dirty=true; clearTimeout(timer); timer=setTimeout(flush,700); }
+async function flush(){
+  if(writing||!dirty) return; writing=true; dirty=false;
+  try{ await ref.set(JSON.parse(JSON.stringify(S))); }
+  catch(e){ if(e&&e.code==="invalid_argument"){ro=true;setSync("read-only");} else if(e&&e.code==="unavailable"){dirty=true;setTimeout(flush,1500+Math.random()*1500);} else toast("Couldn't sync just now"); }
+  writing=false; if(dirty) flush();
+}
+function setSync(t,on){const b=document.getElementById("sync");b.textContent=t;b.classList.toggle("on",!!on);}
+
+// ---------- dates ----------
+const pad=n=>String(n).padStart(2,"0");
+const iso=d=>d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+const parse=s=>{const [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
+const START=parse(P.start);
+function today(){const n=new Date();return new Date(n.getFullYear(),n.getMonth(),n.getDate());}
+function weekOf(d){return Math.floor((d-START)/864e5/7)+1;}
+const fmt=(d,o)=>d.toLocaleDateString("en-GB",o||{day:"numeric",month:"short"});
+function dayIdx(d){return (d.getDay()+6)%7;}
+function routineFor(w){ if(w<1||w>33) return null; if(w===12) return null; return w<=11?P.routine.paper:P.routine.full; }
+function weekData(w){return P.weeks.find(x=>x.w===w);}
+
+// ---------- confetti ----------
+function burst(el){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const r=el.getBoundingClientRect(), cx=r.left+r.width/2, cy=r.top+r.height/2;
+  const em=["🌸","🍃","✨","🌱","💖","⭐"];
+  for(let i=0;i<14;i++){
+    const s=document.createElement("span"); s.className="confetti"; s.textContent=em[i%em.length];
+    s.style.left=cx+"px"; s.style.top=cy+"px"; document.body.appendChild(s);
+    const a=Math.random()*Math.PI*2, d=50+Math.random()*80;
+    s.animate([{transform:"translate(-50%,-50%) scale(.4)",opacity:1},{transform:`translate(${Math.cos(a)*d-9}px,${Math.sin(a)*d-40}px) rotate(${Math.random()*360}deg) scale(1)`,opacity:0}],{duration:900+Math.random()*400,easing:"cubic-bezier(.2,.8,.3,1)"}).onfinish=()=>s.remove();
+  }
+}
+function toast(t){const el=document.getElementById("toast");el.textContent=t;el.classList.add("on");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("on"),1800);}
+const CHEER=["Nice one! 🌸","Growing! 🌱","Look at you go ✨","Proud of you 💖","Another leaf! 🍃","Tiny steps, big plant 🌿"];
+
+// ---------- helpers ----------
+function h(tag,attrs,...kids){const e=document.createElement(tag);for(const k in (attrs||{})){if(k==="class")e.className=attrs[k];else if(k==="style")e.style.cssText=attrs[k];else if(k.startsWith("on"))e.addEventListener(k.slice(2),attrs[k]);else e.setAttribute(k,attrs[k]);}for(const c of kids){if(c==null)continue;e.append(c.nodeType?c:document.createTextNode(c));}return e;}
+function plannedHours(){return P.weeks.reduce((a,w)=>a+w.kh+w.ph_h,0);}
+function loggedHours(){let t=0;for(const k in S.weeks){t+=Number(S.weeks[k].hours||0);}return Math.round(t*10)/10;}
+function weekPct(){const d=P.weeks.filter(w=>S.weeks[w.w]&&S.weeks[w.w].done).length;return d/P.weeks.length;}
+function paperItems(){return P.weeks.filter(w=>w.p).map(w=>({w:w.w,t:w.p}));}
+function paperPct(){const it=paperItems();return it.filter(x=>S.paper[x.w]).length/it.length;}
+function overall(){ // weeks 60%, paper 25%, reading 15%
+  const rb=BOOKS.reduce((a,b)=>a+Math.min(1,(S.books[b[0]]||0)/b[2]),0)/BOOKS.length;
+  return .6*weekPct()+.25*paperPct()+.15*rb;
+}
+function streak(){
+  let n=0,d=today();
+  const has=dd=>Object.keys(S.blocks).some(k=>k.startsWith(iso(dd)+"|")&&S.blocks[k]);
+  if(!has(d)) d=new Date(d.getTime()-864e5);
+  while(has(d)){n++;d=new Date(d.getTime()-864e5);}
+  return n;
+}
+
+// ---------- render: today ----------
+function growPlant(p){
+  document.getElementById("stem").style.strokeDashoffset=String(100-Math.max(18,Math.min(100,p*100+18)));
+  const show=(id,on)=>document.getElementById(id).style.transform=on?"scale(1)":"scale(0)";
+  show("lf1",true); show("lf2",p>=.2); show("lf3",p>=.45); show("flw",p>=.8);
+}
+function renderToday(){
+  const t=today(), w=weekOf(t);
+  document.getElementById("dateline").textContent=t.toLocaleDateString("en-GB",{weekday:"long",day:"numeric",month:"long",year:"numeric"});
+  const hr=new Date().getHours();
+  document.getElementById("hello").textContent=(hr<12?"Good morning":hr<18?"Good afternoon":"Good evening")+", Rush 🌱";
+  const p=overall(); growPlant(p);
+  document.getElementById("heroPct").textContent=Math.round(p*100)+"%";
+  document.getElementById("heroBar").style.width=Math.max(2,p*100)+"%";
+  const box=document.getElementById("blocks"); box.replaceChildren();
+  const wkPill=document.getElementById("todayWk");
+  const busyS=parse(P.busy[0]), busyE=parse(P.busy[1]);
+  if(w<1){
+    const days=Math.round((START-t)/864e5);
+    document.getElementById("heroSub").textContent=`Your plan starts in ${days} day${days===1?"":"s"}: Mon 12 Oct.`;
+    wkPill.textContent=(t>=busyS&&t<=busyE)?"🔒 busy week":"before week 1";
+    document.getElementById("todayTitle").textContent="Today";
+    box.append(h("div",{class:"empty"},h("div",{class:"e"},t>=busyS&&t<=busyE?"🛋️":"🌰"),
+      h("h3",{},(t>=busyS&&t<=busyE)?"Busy week: nothing from the plan":"Seed mode"),
+      h("div",{class:"muted"},(t>=busyS&&t<=busyE)?"Do your things. Your sprout will be waiting on Monday 12 Oct.":"Rest up. The busy week (5–11 Oct) comes first, then week 1 starts on Mon 12 Oct."),
+      h("div",{class:"muted",style:"margin-top:8px;font-size:.85rem"},"Week 1 preview: "+weekData(1).f)));
+  } else if(w>33){
+    document.getElementById("heroSub").textContent="Journey complete. You did it! 🌸";
+    wkPill.textContent="done!";
+    box.append(h("div",{class:"empty"},h("div",{class:"e"},"🌸"),h("h3",{},"You finished the 33 weeks"),h("div",{class:"muted"},"Time for your own original project.")));
+  } else {
+    const wd=weekData(w);
+    document.getElementById("heroSub").textContent=`Week ${w} of 33 · ${wd.ph}`;
+    wkPill.textContent="Week "+w;
+    document.getElementById("todayTitle").textContent=DAYS[dayIdx(t)]+"'s blocks";
+    const r=routineFor(w);
+    if(!r){ box.append(h("div",{class:"empty"},h("div",{class:"e"},"🎄"),h("h3",{},"Holiday buffer week"),h("div",{class:"muted"},"Rest. Optional: one LinkedIn post."))); }
+    else{
+      const list=r.days[DAYS[dayIdx(t)]]; const nowHM=pad(new Date().getHours())+":"+pad(new Date().getMinutes());
+      list.forEach((b,i)=>{
+        const key=iso(t)+"|"+i, done=!!S.blocks[key];
+        let label=b[3]; if(b[2]==="paper"&&wd.p) label+=" → "+wd.p; if(b[2]==="kit") label+=" → "+wd.f;
+        const el=h("div",{class:"blk"+(done?" done":"")+(!done&&nowHM>=b[0]&&nowHM<b[1]?" now":""),role:"checkbox","aria-checked":String(done),tabindex:"0"},
+          h("div",{class:"ic k-"+b[2]},ICON[b[2]]),
+          h("div",{class:"t"},h("b",{},label),h("div",{class:"tm tab-num"},b[0]+"–"+b[1])),
+          h("div",{class:"chk"}));
+        const tog=()=>{S.blocks[key]=!S.blocks[key]; if(!S.blocks[key]) delete S.blocks[key]; else {burst(el);toast(CHEER[Math.floor(Math.random()*CHEER.length)]);} save(); renderAll();};
+        el.addEventListener("click",tog); el.addEventListener("keydown",e=>{if(e.key===" "||e.key==="Enter"){e.preventDefault();tog();}});
+        box.append(el);
+      });
+    }
+  }
+  // ritual
+  const rb=document.getElementById("ritual"); rb.replaceChildren();
+  const rk=iso(t); const rd=S.ritual[rk]||[];
+  P.ritual.forEach((txt,i)=>{
+    const done=!!rd[i];
+    const el=h("div",{class:"tick"+(done?" done":""),role:"checkbox","aria-checked":String(done),tabindex:"0"},h("div",{class:"chk"}),h("div",{},txt));
+    el.addEventListener("click",()=>{const a=(S.ritual[rk]||[]).slice();a[i]=!a[i];S.ritual[rk]=a; if(a[i]) burst(el); if(a.filter(Boolean).length===P.ritual.length) toast("Ritual complete! 🌸"); pruneRitual(); save(); renderAll();});
+    rb.append(el);
+  });
+  document.getElementById("streak").textContent=streak();
+  document.getElementById("hoursTot").textContent=loggedHours();
+  document.getElementById("hoursPlan").textContent=plannedHours();
+  const cd=document.getElementById("countdowns"); cd.replaceChildren();
+  COUNT.forEach(([n,d])=>{const days=Math.round((parse(d)-t)/864e5); cd.append(h("div",{class:"cd"},h("div",{class:"n tab-num"},days>0?String(days):days===0?"🎉":"✓"),h("div",{},h("b",{},n),h("div",{class:"muted",style:"font-size:.8rem"},(days>0?"days to go · ":"")+fmt(parse(d),{day:"numeric",month:"short",year:"numeric"})))));});
+}
+function pruneRitual(){const ks=Object.keys(S.ritual).sort();while(ks.length>60){delete S.ritual[ks.shift()];}}
+
+// ---------- render: week ----------
+let viewW=null;
+function renderWeek(){
+  const t=today(); if(viewW==null) viewW=Math.min(33,Math.max(1,weekOf(t)));
+  const wd=weekData(viewW), st=S.weeks[viewW]||{};
+  document.getElementById("wTitle").textContent="Week "+viewW;
+  document.getElementById("wDates").textContent=fmt(parse(wd.s))+" – "+fmt(parse(wd.e),{day:"numeric",month:"short",year:"numeric"});
+  const b=document.getElementById("wBody"); b.replaceChildren();
+  b.append(h("div",{class:"row"},h("span",{class:"pill",style:"background:"+wd.c},wd.ph),h("span",{class:"muted tab-num"},`${wd.kh} h kit · ${wd.ph_h} h paper`)));
+  const items=[["kit","💻 Kit",wd.f+(wd.cr?" · 📘 "+wd.cr:"")],["paper","📝 Paper",wd.p],["read","📖 Reading",wd.rd],["jobs","💼 Jobs",wd.ap]].filter(x=>x[2]);
+  const chk=st.checks||{};
+  items.forEach(([k,lab,txt])=>{
+    const done=!!chk[k];
+    const el=h("div",{class:"tick"+(done?" done":""),role:"checkbox","aria-checked":String(done),tabindex:"0"},h("div",{class:"chk"}),h("div",{style:"min-width:0"},h("b",{},lab),h("div",{},txt)));
+    el.addEventListener("click",()=>{const w=S.weeks[viewW]=Object.assign({},S.weeks[viewW]||{});w.checks=Object.assign({},w.checks||{});w.checks[k]=!w.checks[k];
+      if(k==="paper"&&wd.p){S.paper[viewW]=w.checks[k];}
+      if(w.checks[k]) burst(el); save(); renderAll();});
+    b.append(el);
+  });
+  b.append(h("dl",{class:"dl"},h("dt",{},"Files"),h("dd",{},wd.files),h("dt",{},"Done when"),h("dd",{},wd.d)));
+  const hrs=h("input",{type:"number",min:"0",max:"60",step:"0.5",value:String(st.hours||""),placeholder:"0",style:"width:90px","aria-label":"Hours done this week"});
+  hrs.addEventListener("change",()=>{const w=S.weeks[viewW]=Object.assign({},S.weeks[viewW]||{});w.hours=Math.max(0,Number(hrs.value)||0);save();renderAll();toast("Hours saved ⏱️");});
+  const note=h("input",{type:"text",value:st.note||"",placeholder:"Notes / blockers…",style:"flex:1;min-width:0"});
+  note.addEventListener("change",()=>{const w=S.weeks[viewW]=Object.assign({},S.weeks[viewW]||{});w.note=note.value.slice(0,500);save();});
+  const doneBtn=h("button",{class:"btn "+(st.done?"":"pri")},st.done?"↩︎ Mark not done":"🌸 Week complete!");
+  doneBtn.addEventListener("click",()=>{const w=S.weeks[viewW]=Object.assign({},S.weeks[viewW]||{});w.done=!w.done; if(w.done){burst(doneBtn);toast("Week "+viewW+" done! 🌸");} save(); renderAll();});
+  b.append(h("div",{class:"row",style:"margin-top:12px"},h("label",{class:"muted fred"},"Hours done"),hrs,note),h("div",{style:"margin-top:12px"},doneBtn));
+  // glance grid
+  const r=routineFor(viewW), g=document.getElementById("glance"); g.replaceChildren();
+  document.getElementById("glanceLabel").textContent=r?r.label:"Buffer week: no fixed blocks";
+  DAYS.forEach((d,i)=>{
+    const day=new Date(parse(wd.s).getTime()+i*864e5);
+    const col=h("div",{class:"dcol"+(iso(day)===iso(t)?" today":"")},h("h4",{},d));
+    (r?r.days[d]:[]).forEach((bk,j)=>{const dn=!!S.blocks[iso(day)+"|"+j];col.append(h("div",{class:"dot k-"+bk[2],style:dn?"opacity:.45":""},(dn?"✓ ":"")+bk[0]+" "+ICON[bk[2]]));});
+    g.append(col);
+  });
+}
+
+// ---------- render: plan ----------
+function renderPlan(){
+  const t=today(), cw=weekOf(t); const L=document.getElementById("planList"); L.replaceChildren();
+  document.getElementById("planBar").style.width=Math.max(1,weekPct()*100)+"%";
+  const busy=h("div",{class:"wk"+(cw<1?" cur":"")},h("div",{class:"row"},h("div",{class:"wnum",style:"background:var(--coral)"},"🔒"),h("div",{class:"meta"},h("b",{},"Busy week · 5–11 Oct"),h("div",{class:"muted",style:"font-size:.85rem"},"Your own commitments. No study."))));
+  L.append(busy);
+  P.weeks.forEach(wd=>{
+    const st=S.weeks[wd.w]||{};
+    const det=h("details",{class:"wk"+(wd.w===cw?" cur":"")+(st.done?" fin":"")});
+    if(wd.w===cw) det.open=true;
+    det.append(h("summary",{},h("div",{class:"wnum",style:"background:"+wd.c},st.done?"✓":String(wd.w)),
+      h("div",{class:"meta"},h("b",{},wd.f),h("div",{class:"muted",style:"font-size:.8rem"},fmt(parse(wd.s))+" – "+fmt(parse(wd.e))+" · "+wd.ph+(st.hours?` · ${st.hours} h logged`:"")))));
+    const go=h("button",{class:"btn",style:"margin-top:8px"},"Open week →");
+    go.addEventListener("click",()=>{viewW=wd.w;show("week");});
+    det.append(h("dl",{class:"dl"},h("dt",{},"Done when"),h("dd",{},wd.d),...(wd.p?[h("dt",{},"Paper"),h("dd",{},wd.p)]:[]),h("dt",{},"Reading"),h("dd",{},wd.rd+(wd.cr?" · "+wd.cr:"")),h("dt",{},"Jobs"),h("dd",{},wd.ap)),go);
+    L.append(det);
+  });
+}
+
+// ---------- render: paper ----------
+function renderPaper(){
+  document.getElementById("paperBar").style.width=Math.max(1,paperPct()*100)+"%";
+  const L=document.getElementById("paperList"); L.replaceChildren(); const cw=weekOf(today());
+  paperItems().forEach(it=>{
+    const done=!!S.paper[it.w];
+    const el=h("div",{class:"tick"+(done?" done":""),role:"checkbox","aria-checked":String(done),tabindex:"0",style:it.w===cw?"background:var(--bg2);border-radius:12px;padding-inline:8px":""},
+      h("div",{class:"chk"}),h("div",{style:"min-width:0"},h("b",{class:"tab-num"},"W"+it.w+" · "+fmt(parse(weekData(it.w).s))),h("div",{},it.t)));
+    el.addEventListener("click",()=>{S.paper[it.w]=!S.paper[it.w]; const w=S.weeks[it.w]=Object.assign({},S.weeks[it.w]||{}); w.checks=Object.assign({},w.checks||{}); w.checks.paper=S.paper[it.w]; if(S.paper[it.w]){burst(el);toast(CHEER[it.w%CHEER.length]);} save(); renderAll();});
+    L.append(el);
+  });
+}
+
+// ---------- render: grow ----------
+function defaultJobs(){const o={};for(const k in P.targets) for(const n of P.targets[k]) o[n]="idea";return o;}
+function renderGrow(){
+  const B=document.getElementById("books"); B.replaceChildren();
+  BOOKS.forEach(([k,n,tot])=>{
+    const v=S.books[k]||0;
+    const out=h("span",{class:"muted tab-num"},`${v}%`);
+    const rg=h("input",{type:"range",min:"0",max:String(tot),step:"5",value:String(v),"aria-label":n});
+    rg.addEventListener("input",()=>{out.textContent=`${rg.value}%`;});
+    rg.addEventListener("change",()=>{S.books[k]=Number(rg.value); if(S.books[k]===tot){burst(rg);toast("Book finished! 📚");} save(); renderAll();});
+    B.append(h("div",{style:"padding:6px 0"},h("div",{class:"row",style:"justify-content:space-between"},h("b",{style:"font-size:.9rem;min-width:0"},n),out),rg));
+  });
+  B.append(h("div",{class:"muted",style:"font-size:.75rem"},"Slide to roughly how much of each book you've read."));
+  if(!S.jobs) S.jobs=defaultJobs();
+  const J=document.getElementById("jobs"); J.replaceChildren();
+  const groups=Object.assign({},P.targets,{"Added by you":S.extraJobs||[]});
+  for(const g in groups){
+    if(!groups[g].length) continue;
+    J.append(h("h3",{style:"margin-top:10px"},g));
+    groups[g].forEach(n=>{
+      const s=S.jobs[n]||"idea";
+      const bt=h("button",{class:"st",style:"background:"+JCOL[s]},s);
+      bt.addEventListener("click",()=>{const nx=JSTAT[(JSTAT.indexOf(s)+1)%JSTAT.length];S.jobs=Object.assign({},S.jobs,{[n]:nx}); if(nx==="applied"||nx==="interview"||nx==="offer") burst(bt); if(nx==="offer") toast("AN OFFER!! 🎉🌸"); save(); renderGrow();});
+      J.append(h("div",{class:"job"},h("div",{class:"nm"},n),bt));
+    });
+  }
+}
+
+// ---------- guide ----------
+function renderGuide(){
+  const g=document.getElementById("guide"); if(g.dataset.done) return;
+  g.innerHTML=P.guide_html; g.dataset.done="1";
+  const toc=document.getElementById("toc");
+  g.querySelectorAll("h2").forEach((x,i)=>{x.id="g"+i;const a=h("a",{href:"#g"+i},(t=>t.length>22?t.slice(0,21)+"…":t)(x.textContent.replace(/^\d+\.\s*/,"").split(/[:(]/)[0].trim()));a.addEventListener("click",e=>{e.preventDefault();x.scrollIntoView({behavior:"smooth"});});toc.append(a);});
+}
+
+// ---------- nav ----------
+function show(v){
+  document.querySelectorAll("section.view").forEach(s=>s.classList.toggle("on",s.id==="v-"+v));
+  document.querySelectorAll("nav.tabs button").forEach(b=>b.classList.toggle("on",b.dataset.v===v));
+  if(v==="guide") renderGuide(); renderAll(); window.scrollTo({top:0});
+  try{sessionStorage.setItem("sprout-tab",v)}catch(e){}
+}
+document.querySelectorAll("nav.tabs button").forEach(b=>b.addEventListener("click",()=>show(b.dataset.v)));
+document.getElementById("prevW").addEventListener("click",()=>{viewW=Math.max(1,(viewW||1)-1);renderWeek();});
+document.getElementById("nextW").addEventListener("click",()=>{viewW=Math.min(33,(viewW||1)+1);renderWeek();});
+document.getElementById("addJob").addEventListener("click",()=>{const i=document.getElementById("newJob");const n=i.value.trim().slice(0,80);if(!n)return;S.extraJobs=[...(S.extraJobs||[]),n];S.jobs=Object.assign({},S.jobs||defaultJobs(),{[n]:"idea"});i.value="";save();renderGrow();toast("Added 🌱");});
+// theme toggle (per-device convenience)
+const tb=document.getElementById("themeBtn");
+function applyTheme(t){if(t)document.documentElement.setAttribute("data-theme",t);else document.documentElement.removeAttribute("data-theme");const dark=t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches;tb.textContent=dark?"☀️":"🌙";}
+let th=null;try{th=localStorage.getItem("sprout-theme")}catch(e){} applyTheme(th);
+tb.addEventListener("click",()=>{const dark=document.documentElement.getAttribute("data-theme")?document.documentElement.getAttribute("data-theme")==="dark":matchMedia("(prefers-color-scheme: dark)").matches;const n=dark?"light":"dark";applyTheme(n);try{localStorage.setItem("sprout-theme",n)}catch(e){}});
+
+function renderAll(){
+  const on=document.querySelector("section.view.on").id;
+  if(on==="v-today") renderToday(); if(on==="v-week") renderWeek(); if(on==="v-plan") renderPlan(); if(on==="v-paper") renderPaper(); if(on==="v-grow") renderGrow();
+}
+
+// ---------- boot ----------
+merge(lsGet());
+let tab="today"; try{tab=sessionStorage.getItem("sprout-tab")||"today"}catch(e){}
+show(tab);
+setInterval(()=>{ if(document.querySelector("#v-today.on")) renderToday(); },60000);
+
+(async()=>{
+  try{
+    if(!window.claude||!claude.use) return;
+    const [d,u]=await Promise.all([claude.use("db"),claude.use("user")]);
+    if(!d||!u){ setSync("saved on this device"); return; }
+    const uid=await u.id(); if(!uid){ setSync("saved on this device"); return; }
+    db=d; ref=db.doc("data/users/"+uid+"/sprout");
+    let first=true;
+    ref.onSnapshot(snap=>{
+      if(snap.metadata.hasPendingWrites) return;
+      if(snap.exists){ if(!dirty&&!writing){ merge(snap.data()); lsSet(); renderAll(); } }
+      else if(first){ // first time on synced storage: upload whatever this device had
+        const local=lsGet(); if(local){ merge(local); dirty=true; flush(); }
+      }
+      first=false; setSync(ro?"read-only":"synced",!ro);
+    },err=>{ setSync("saved on this device"); });
+    setSync("syncing…");
+  }catch(e){ setSync("saved on this device"); }
+})();
+})();
+</script>
+
+</body>
+</html>
