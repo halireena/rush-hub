@@ -19,15 +19,18 @@
 :root{
   --bg:#f6f8f3; --bg2:#e9f0e4; --card:#ffffff; --fg:#2c3a2f; --muted:#606e63; --line:#dfe8d9;
   --leaf:#4caf6a; --leaf2:#2a7348; --pink:#ff8fab; --sun:#ffc857; --lilac:#9d8df1; --coral:#ff7b6b; --sky:#6fc3df;
+  --leaf-btn:#1a8745; --coral-btn:#ca4b3f; --on-btn:#fff;
   --code:#f1f5ee; --shadow:0 5px 0 rgba(60,90,60,.08),0 10px 24px rgba(60,90,60,.08);
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#161d19; --bg2:#1f2a23; --card:#223027; --fg:#e8f3ea; --muted:#9db3a3; --line:#2f4035;
   --leaf:#72d48d; --leaf2:#9be3ae; --pink:#ff9fb8; --sun:#ffd27a; --lilac:#b6a9ff; --coral:#ff8f80; --sky:#8fd3ea;
+  --leaf-btn:#72d48d; --coral-btn:#ff8f80; --on-btn:#161d19;
   --code:#1a241e; --shadow:0 5px 0 rgba(0,0,0,.25),0 10px 24px rgba(0,0,0,.25); color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#161d19; --bg2:#1f2a23; --card:#223027; --fg:#e8f3ea; --muted:#9db3a3; --line:#2f4035;
   --leaf:#72d48d; --leaf2:#9be3ae; --pink:#ff9fb8; --sun:#ffd27a; --lilac:#b6a9ff; --coral:#ff8f80; --sky:#8fd3ea;
+  --leaf-btn:#72d48d; --coral-btn:#ff8f80; --on-btn:#161d19;
   --code:#1a241e; --shadow:0 5px 0 rgba(0,0,0,.25),0 10px 24px rgba(0,0,0,.25); color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font:15px/1.55 Nunito,ui-rounded,"Segoe UI",system-ui,sans-serif;margin:0}
@@ -58,7 +61,7 @@ h1{font-size:1.6rem;margin:0}
 .ring circle{fill:none;stroke-width:5}
 .ring .bgc{stroke:var(--bg2)}.ring .fgc{stroke:var(--c);stroke-linecap:round;transition:stroke-dashoffset 1s cubic-bezier(.2,1.2,.4,1)}
 .ring.big{width:76px;height:76px;font-size:2.1rem}
-.done-badge{position:absolute;top:-6px;right:-6px;background:var(--leaf);color:#fff;border-radius:999px;font-size:.7rem;font-weight:800;padding:2px 8px;animation:pop .4s}
+.done-badge{position:absolute;top:-6px;right:-6px;background:var(--leaf-btn);color:var(--on-btn);border-radius:999px;font-size:.7rem;font-weight:800;padding:2px 8px;animation:pop .4s}
 /* item page */
 .ihead{display:flex;gap:14px;align-items:center}
 .ihead .tx{flex:1;min-width:0}
@@ -70,7 +73,7 @@ h1{font-size:1.6rem;margin:0}
 .nextstep{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:14px;background:var(--bg2);margin-bottom:12px}
 .nextstep .t{flex:1;min-width:0;font-size:.88rem}
 .btn{border:0;border-radius:12px;padding:8px 14px;font:800 .85rem Nunito;cursor:pointer;background:var(--c,var(--leaf));color:#fff;white-space:nowrap}
-.btn.ghost{background:var(--bg2);color:var(--fg)}
+.btn.ghost{background:var(--bg2);color:var(--fg)}.btn.pri{background:var(--leaf-btn);color:var(--on-btn)}
 .doc{min-width:0;overflow-wrap:anywhere}
 .doc h1{font-size:1.35rem;color:var(--c)}
 .doc h2{font-size:1.12rem;margin-top:26px;padding:6px 12px;border-radius:12px;background:var(--bg2);border-left:6px solid var(--c)}
@@ -103,7 +106,7 @@ h1{font-size:1.6rem;margin:0}
 .lnk .u{font-size:.72rem;color:var(--muted);overflow-wrap:anywhere}
 .lnk .tx{min-width:0;flex:1}
 .lnk b{display:block;font-size:.88rem;overflow-wrap:anywhere}
-.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:6;border:0;border-radius:999px;padding:12px 18px;font:800 .9rem Nunito;background:var(--coral);color:#fff;box-shadow:var(--shadow);cursor:pointer;animation:wiggle 6s ease-in-out infinite}
+.fab{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:6;border:0;border-radius:999px;padding:12px 18px;font:800 .9rem Nunito;background:var(--coral-btn);color:var(--on-btn);box-shadow:var(--shadow);cursor:pointer;animation:wiggle 6s ease-in-out infinite}
 .back{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:6;border:0;border-radius:999px;padding:12px 18px;font:800 .9rem Nunito;background:var(--fg);color:var(--bg);box-shadow:var(--shadow);cursor:pointer}
 .toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%) translateY(20px);background:var(--fg);color:var(--bg);padding:8px 16px;border-radius:999px;font-weight:800;opacity:0;transition:all .3s;z-index:20;pointer-events:none;max-width:calc(100% - 32px);text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -217,7 +220,7 @@ function home(){
     });
     sec.append(grid);
   }
-  sec.append(h("div",{class:"card",style:"margin-top:18px"},h("b",{},"📅 Your timetable & paper track live in Sprout"),h("div",{class:"muted",style:"font-size:.85rem"},"Compass is the how-to. Sprout is the when."),h("a",{href:D.sprout,target:"_blank",rel:"noopener",class:"btn",style:"display:inline-block;margin-top:8px;text-decoration:none"},"Open Sprout 🌱")));
+  sec.append(h("div",{class:"card",style:"margin-top:18px"},h("b",{},"📅 Your timetable & paper track live in Sprout"),h("div",{class:"muted",style:"font-size:.85rem"},"Compass is the how-to. Sprout is the when."),h("a",{href:D.sprout,target:"_blank",rel:"noopener",class:"btn pri",style:"display:inline-block;margin-top:8px;text-decoration:none"},"Open Sprout 🌱")));
   app.append(sec);
   try{sessionStorage.setItem("compass-view","home")}catch(e){}
 }

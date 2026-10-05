@@ -19,17 +19,20 @@
 :root{
   --bg:#fff8f1; --bg2:#fdeee3; --card:#ffffff; --fg:#3a2e3f; --muted:#756779; --line:#f1e2d8;
   --leaf:#5cb85c; --leaf2:#2f8f5b; --pink:#ff8fab; --lilac:#b39ddb; --sun:#ffc857; --sky:#7ec8e3; --coral:#ff7b6b;
+  --leaf-btn:#27872b; --on-btn:#fff;
   --paper:#ff8fab; --kit:#7c6cf0; --read:#4fb6a8; --jobs:#f2a93b; --review:#5cb85c;
   --shadow:0 6px 0 rgba(120,80,90,.08),0 10px 24px rgba(120,80,90,.08); --soil:#a9744f;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#1d1a26; --bg2:#262233; --card:#2b2739; --fg:#f4ecf6; --muted:#a99fb6; --line:#3a3449;
   --leaf:#7bd389; --leaf2:#9be3a8; --pink:#ff9fb8; --lilac:#c3b1f0; --sun:#ffd27a; --sky:#8fd3ea; --coral:#ff8f80;
+  --leaf-btn:#7bd389; --on-btn:#1d1a26;
   --paper:#ff9fb8; --kit:#9d90ff; --read:#6fd0c2; --jobs:#ffbf5e; --review:#7bd389;
   --shadow:0 6px 0 rgba(0,0,0,.25),0 10px 24px rgba(0,0,0,.25); --soil:#c08a63; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#1d1a26; --bg2:#262233; --card:#2b2739; --fg:#f4ecf6; --muted:#a99fb6; --line:#3a3449;
   --leaf:#7bd389; --leaf2:#9be3a8; --pink:#ff9fb8; --lilac:#c3b1f0; --sun:#ffd27a; --sky:#8fd3ea; --coral:#ff8f80;
+  --leaf-btn:#7bd389; --on-btn:#1d1a26;
   --paper:#ff9fb8; --kit:#9d90ff; --read:#6fd0c2; --jobs:#ffbf5e; --review:#7bd389;
   --shadow:0 6px 0 rgba(0,0,0,.25),0 10px 24px rgba(0,0,0,.25); --soil:#c08a63; color-scheme:dark}
 *{box-sizing:border-box}
@@ -70,7 +73,7 @@ h1{font-size:1.7rem;margin:0}h2{font-size:1.25rem;margin:4px 0 10px}h3{font-size
 .blk.done{border-color:var(--leaf)}
 .blk.done .t b{text-decoration:line-through;text-decoration-color:var(--leaf);text-decoration-thickness:2px}
 .blk.now{border-color:var(--sun);animation:glow 2s infinite}
-.k-paper{background:var(--paper)}.k-kit{background:var(--kit)}.k-read{background:var(--read)}.k-jobs{background:var(--jobs)}.k-review{background:var(--review)}
+.k-paper{background:var(--paper)}.k-kit{background:var(--kit)}.k-read{background:var(--read)}.k-jobs{background:var(--jobs)}.k-review{background:var(--review)}.pill.k-review,.dot.k-review{background:var(--leaf-btn);color:var(--on-btn)}
 /* nav */
 nav.tabs{position:fixed;left:0;right:0;bottom:0;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:color-mix(in srgb,var(--card) 88%,transparent);backdrop-filter:blur(10px);border-top:2px solid var(--line);display:flex;justify-content:center;z-index:5}
 nav.tabs .in{display:flex;gap:4px;max-width:760px;width:100%;justify-content:space-between}
@@ -82,7 +85,7 @@ section.view{display:none;animation:rise .45s cubic-bezier(.2,1.2,.4,1)}
 section.view.on{display:block}
 .pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:.75rem;font-weight:800;color:#fff}
 .btn{border:0;border-radius:14px;padding:9px 14px;font:800 .9rem Nunito,sans-serif;cursor:pointer;background:var(--bg2);color:var(--fg);transition:transform .15s}
-.btn:active{transform:scale(.95)} .btn.pri{background:var(--leaf);color:#fff}
+.btn:active{transform:scale(.95)} .btn.pri{background:var(--leaf-btn);color:var(--on-btn)}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .stat{text-align:center;padding:12px}.stat .big{font-size:1.8rem}
 .cd{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:2px dashed var(--line)}
@@ -280,7 +283,7 @@ const DAYS=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"];
 const ICON={paper:"📝",kit:"💻",read:"📖",jobs:"💼",review:"✅"};
 const BOOKS=[["taiz","Taiz · Plant Physiology & Development 7e",100],["acq","Acquaah · Plant Genetics & Breeding 3e",100],["bds","Buffalo · Bioinformatics Data Skills",100],["msmb","Holmes & Huber · MSMB",100],["r4ds","R for Data Science 2e",100],["pda","McKinney · Python for Data Analysis 3e",100],["fm","Falconer & Mackay",100],["isl","ISL (Python or R)",100]];
 const JSTAT=["idea","researched","applied","interview","offer"];
-const JCOL={idea:"var(--muted)",researched:"var(--sky)",applied:"var(--kit)",interview:"var(--jobs)",offer:"var(--leaf)"};
+const JCOL={idea:"var(--muted)",researched:"var(--sky)",applied:"var(--kit)",interview:"var(--jobs)",offer:"var(--leaf-btn);color:var(--on-btn)"};
 const COUNT=[["Plan starts 🌱","2026-10-12"],["IGARSS deadline (optional)","2027-01-11"],["Paper submitted (target)","2027-03-14"],["EAPR 2027, Edinburgh","2027-06-06"],["Journey complete 🌸","2027-05-30"]];
 
 // ---------- state ----------
