@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Sprout Study Planner</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌱</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
@@ -16,7 +17,7 @@
 
 <style>
 :root{
-  --bg:#fff8f1; --bg2:#fdeee3; --card:#ffffff; --fg:#3a2e3f; --muted:#8a7a8f; --line:#f1e2d8;
+  --bg:#fff8f1; --bg2:#fdeee3; --card:#ffffff; --fg:#3a2e3f; --muted:#756779; --line:#f1e2d8;
   --leaf:#5cb85c; --leaf2:#2f8f5b; --pink:#ff8fab; --lilac:#b39ddb; --sun:#ffc857; --sky:#7ec8e3; --coral:#ff7b6b;
   --paper:#ff8fab; --kit:#7c6cf0; --read:#4fb6a8; --jobs:#f2a93b; --review:#5cb85c;
   --shadow:0 6px 0 rgba(120,80,90,.08),0 10px 24px rgba(120,80,90,.08); --soil:#a9744f;
@@ -130,6 +131,10 @@ input[type=range]{width:100%;accent-color:var(--leaf)}
 .toast{position:fixed;left:50%;bottom:92px;transform:translateX(-50%) translateY(20px);background:var(--fg);color:var(--bg);padding:8px 16px;border-radius:999px;font-weight:800;opacity:0;transition:all .3s;z-index:60;pointer-events:none;max-width:calc(100% - 32px);text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .themebtn{border:0;background:var(--bg2);border-radius:12px;width:38px;height:38px;font-size:1.1rem;cursor:pointer}
+.skip{position:absolute;left:12px;top:-60px;z-index:50;background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:12px;font-weight:800;text-decoration:none}
+.skip:focus{top:12px}
+:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+a.homebtn{display:inline-grid;place-items:center;text-decoration:none;flex:none}
 @keyframes pop{0%{transform:scale(.6)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
 @keyframes sway{0%,100%{transform:rotate(-2.5deg)}50%{transform:rotate(2.5deg)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
@@ -141,13 +146,15 @@ input[type=range]{width:100%;accent-color:var(--leaf)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 
-<div class="wrap">
+<a class="skip" href="#v-today">Skip to content</a>
+<main class="wrap">
   <header class="top" style="margin-bottom:14px">
     <div class="grow">
       <div class="muted fred" id="dateline" style="font-size:.85rem">&nbsp;</div>
       <h1 id="hello">Hi Rush 🌱</h1>
     </div>
     <span class="badge" id="sync">local only</span>
+    <a class="themebtn homebtn" href="index.html" aria-label="Home Base" title="Home Base">🏡</a>
     <button class="themebtn" id="themeBtn" aria-label="Toggle theme">🌙</button>
   </header>
 
@@ -178,7 +185,7 @@ input[type=range]{width:100%;accent-color:var(--leaf)}
       </div>
 
       <div class="card" id="todayCard">
-        <div class="row" style="justify-content:space-between"><h2 id="todayTitle">Today</h2><span class="pill" id="todayWk" style="background:var(--lilac)"></span></div>
+        <div class="row" style="justify-content:space-between"><h2 id="todayTitle">Today</h2><span class="pill" id="todayWk" style="background:var(--lilac);color:#2b2233"></span></div>
         <div class="stack" id="blocks" style="gap:8px"></div>
       </div>
 
@@ -252,7 +259,7 @@ input[type=range]{width:100%;accent-color:var(--leaf)}
   <section class="view" id="v-guide">
     <div class="card"><div class="toc" id="toc"></div><div class="guide" id="guide"></div></div>
   </section>
-</div>
+</main>
 
 <nav class="tabs"><div class="in">
   <button data-v="today" class="on"><span>🌱</span>Today</button>

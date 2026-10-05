@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>Rush's Book Nook</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
@@ -15,7 +16,7 @@
 
 
 <style>
-:root{--bg:#fbf6ef;--bg2:#f1e8dc;--card:#fffdf9;--fg:#3a3140;--muted:#867a8a;--line:#eadfd2;--leaf:#5cb85c;--sun:#ffc857;--pink:#ff8fab;--lilac:#a99bf0;--coral:#ff7b6b;--sky:#6fc3df;--shadow:0 6px 0 rgba(110,80,60,.07),0 12px 26px rgba(110,80,60,.08);--scrim:rgba(40,30,40,.35)}
+:root{--bg:#fbf6ef;--bg2:#f1e8dc;--card:#fffdf9;--fg:#3a3140;--muted:#6d6471;--line:#eadfd2;--leaf:#5cb85c;--sun:#ffc857;--pink:#ff8fab;--lilac:#a99bf0;--coral:#ff7b6b;--sky:#6fc3df;--shadow:0 6px 0 rgba(110,80,60,.07),0 12px 26px rgba(110,80,60,.08);--scrim:rgba(40,30,40,.35)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--lilac:#c0b2ff;--coral:#ff8f80;--sky:#8fd3ea;--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);--scrim:rgba(0,0,0,.55);color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--lilac:#c0b2ff;--coral:#ff8f80;--sky:#8fd3ea;--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);--scrim:rgba(0,0,0,.55);color-scheme:dark}
 *{box-sizing:border-box}
@@ -78,18 +79,23 @@ h1{font-size:1.6rem;margin:0}h2{font-size:1.15rem;margin:18px 4px 10px}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 .confetti{position:fixed;pointer-events:none;z-index:50;font-size:18px}
 .foot{font-size:.75rem;color:var(--muted);text-align:center;margin-top:20px}
+.skip{position:absolute;left:12px;top:-60px;z-index:50;background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:12px;font-weight:800;text-decoration:none}
+.skip:focus{top:12px}
+:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+a.homebtn{display:inline-grid;place-items:center;text-decoration:none;flex:none}
 @keyframes pop{0%{opacity:0;transform:scale(.7)}100%{opacity:1;transform:scale(1)}}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 @keyframes pulse{50%{opacity:.3}}
 @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.book{opacity:1}}
 </style>
-<div class="wrap">
+<a class="skip" href="#app">Skip to content</a>
+<main class="wrap">
   <header class="top"><div class="g"><div class="muted fr" style="font-size:.85rem">Your books, chapter by chapter</div><h1>📚 Book Nook</h1></div>
-  <span class="badge" id="sync">this device</span><button class="ibtn" id="themeBtn" aria-label="Toggle theme">🌙</button></header>
+  <span class="badge" id="sync">this device</span><a class="ibtn homebtn" href="index.html" aria-label="Home Base" title="Home Base">🏡</a><button class="ibtn" id="themeBtn" aria-label="Toggle theme">🌙</button></header>
   <div id="app"></div>
   <div class="foot">Summaries and cards are written in plain words from your PDFs, chapter by chapter. Always read the chapter itself. The cards help you remember, they don't replace reading.</div>
-</div>
+</main>
 <div class="scrim" id="scrim" hidden></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" hidden><div class="grab"></div><div id="sb"></div></div>
 <div class="toast" id="toast"></div>
@@ -160,7 +166,7 @@ function bookView(app){
   if(!b.chapters.length) app.append(h("div",{class:"note"},"No chapter cards yet for this one (the online file was too big to read). Open it with the button above and read it like a normal book."));
   b.chapters.filter(c=>f==="all"||(f==="core"&&c.priority==="core")||(f==="todo"&&!S.read[chKey(b,c)])).forEach((c,i)=>{
     const done=!!S.read[chKey(b,c)];
-    app.append(h("div",{class:"ch"+(done?" done":""),style:`animation-delay:${Math.min(i,12)*30}ms`,role:"button",tabindex:"0",onclick:()=>openCh(b,c)},h("div",{class:"n"},done?"✓":String(c.n)),
+    app.append(h("div",{class:"ch"+(done?" done":""),style:`animation-delay:${Math.min(i,12)*30}ms`,role:"button",tabindex:"0",onclick:()=>openCh(b,c),onkeydown:e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();openCh(b,c);}}},h("div",{class:"n"},done?"✓":String(c.n)),
       h("div",{class:"tx"},h("b",{},c.title),h("div",{class:"s"},`pages ${c.pdf_pages} · ~${c.minutes} min · ${c.cards.length} cards`)),h("span",{class:"tag t-"+c.priority},c.priority)));});
 }
 
