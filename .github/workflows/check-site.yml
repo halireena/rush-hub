@@ -1,0 +1,21 @@
+name: Check site
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Check every page's data block is valid JSON
+        run: python3 tools/edit_data.py check
+      - name: Check local links and pictures
+        run: python3 tools/check_links.py
