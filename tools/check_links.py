@@ -26,10 +26,7 @@ from urllib.parse import unquote, urlsplit
 ROOT = Path(__file__).resolve().parent.parent
 
 # Markdown files that are not part of this site and are not checked.
-SKIP_FILES = {
-    # A README copied in from another project; its links point at that project.
-    "cs/README.md",
-}
+SKIP_FILES: set[str] = set()
 
 # Pictures that the project write-ups in Compass show once you have run that
 # project (they live in the project's own repository, not in this website).
