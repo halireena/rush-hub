@@ -1,10 +1,10 @@
-<!DOCTYPE html><html lang="en-GB"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🌐 Your website: publish it, change it, grow it</title><style>body{max-width:860px;margin:0 auto;padding:24px 16px;font:10.5pt/1.55 'Segoe UI',Roboto,Arial,sans-serif;color:#1f2430;background:#fff}
+<!DOCTYPE html><html lang="en-GB"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>"><title>🌐 Your website: publish it, change it, grow it</title><style>body{max-width:860px;margin:0 auto;padding:24px 16px;font:10.5pt/1.55 'Segoe UI',Roboto,Arial,sans-serif;color:#1f2430;background:#fff}
 h1{color:#2e7d32;border-bottom:3px solid #2e7d32}h2{color:#1f6fb2;border-bottom:1px solid #e3e6ec;margin-top:1.6em}h3{color:#6a3fa0}
 table{border-collapse:collapse;width:100%;font-size:9.3pt;margin:8px 0}th,td{border:1px solid #e3e6ec;padding:4px 6px;vertical-align:top}th{background:#eef0f4}
-code{background:#f3f4f7;padding:1px 4px;border-radius:4px;font-size:9pt}pre{background:#f3f4f7;padding:10px;border-radius:8px;overflow-x:auto;white-space:pre-wrap}
+code{background:#f3f4f7;padding:1px 4px;border-radius:4px;font-size:9pt;overflow-wrap:anywhere}pre{background:#f3f4f7;padding:10px;border-radius:8px;overflow-x:auto;white-space:pre-wrap}
 blockquote{border-left:4px solid #d9730d;background:#fdf3e8;margin:8px 0;padding:6px 12px}details{border:1px solid #e3e6ec;border-radius:6px;padding:4px 8px;margin:4px 0}
 .contains-task-list{list-style:none;padding-left:8px}.task-list-item-checkbox{margin-right:6px}a{color:#1f6fb2;overflow-wrap:anywhere}
-@media print{details{display:block}details>*{display:block}a{color:#1f2430}}@page{size:A4;margin:12mm}html{-webkit-print-color-adjust:exact;print-color-adjust:exact}</style></head><body><p><a href="index.html">← Home Base</a></p><h1>🌐 Your website: publish it, change it, grow it</h1>
+@media print{details{display:block}details>*{display:block}a{color:#1f2430}}@page{size:A4;margin:12mm}html{-webkit-print-color-adjust:exact;print-color-adjust:exact}</style></head><body><p><a href="index.html">← Home Base</a></p><main><h1>🌐 Your website: publish it, change it, grow it</h1>
 <p><strong>What this is:</strong> your apps (Home Base, Sprout, Project Compass, Book Nook, The Gentle Path) as a real website, free on <strong>GitHub Pages</strong>. It works on your phone and Mac like any website, and it doesn't need Claude.</p>
 <p><strong>Time:</strong> about 45 minutes the first time, then 2 minutes per change.</p>
 <hr />
@@ -53,6 +53,11 @@ blockquote{border-left:4px solid #d9730d;background:#fdf3e8;margin:8px 0;padding
 <td><code>tools/edit_data.py</code></td>
 <td>A helper that lets you edit an app's content safely</td>
 <td>Every time you change content</td>
+</tr>
+<tr>
+<td><code>tools/check_links.py</code></td>
+<td>Finds links and pictures that point to a missing file</td>
+<td>Before you push (GitHub also runs it for you)</td>
 </tr>
 <tr>
 <td><code>.nojekyll</code></td>
@@ -149,10 +154,10 @@ blockquote{border-left:4px solid #d9730d;background:#fdf3e8;margin:8px 0;padding
 <h3>Step 4: Check it works</h3>
 <p>Open <strong><a target="_blank" rel="noopener" href="https://halireena.github.io/rush-hub/">https://halireena.github.io/rush-hub/</a></strong> and check:</p>
 <ul class="contains-task-list">
-<li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox"> Home Base loads and shows this week's 3 things.</li>
-<li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox"> Each app card opens (Sprout, Compass, Book Nook, Gentle Path).</li>
-<li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox"> Compass → Learn Python → lesson 09 shows pictures.</li>
-<li class="task-list-item"><input class="task-list-item-checkbox" type="checkbox"> On your phone: open the address in Chrome → ⋮ → <strong>Add to home screen</strong>. It now looks like an app icon.</li>
+<li class="task-list-item"><label><input class="task-list-item-checkbox" type="checkbox"> Home Base loads and shows this week's 3 things.</label></li>
+<li class="task-list-item"><label><input class="task-list-item-checkbox" type="checkbox"> Each app card opens (Sprout, Compass, Book Nook, Gentle Path).</label></li>
+<li class="task-list-item"><label><input class="task-list-item-checkbox" type="checkbox"> Compass → Learn Python → lesson 09 shows pictures.</label></li>
+<li class="task-list-item"><label><input class="task-list-item-checkbox" type="checkbox"> On your phone: open the address in Chrome → ⋮ → <strong>Add to home screen</strong>. It now looks like an app icon.</label></li>
 </ul>
 <p><strong>If you see a 404 page:</strong> wait 5 more minutes (the first build can be slow). Check that <code>index.html</code> is in the <em>top level</em> of the repository, not inside a subfolder.</p>
 <hr />
@@ -364,4 +369,4 @@ git commit -m &quot;Update app links&quot;
 git push
 </code></pre>
 <p><code>git log --oneline</code> lists your history; <code>git revert &lt;id&gt;</code> undoes one commit safely.</p>
-</body></html>
+</main></body></html>

@@ -1,0 +1,5 @@
+# Working copies made by tools/edit_data.py (see WEBSITE_GUIDE.md section 4)
+data/
+*.html.bak
+# macOS
+.DS_Store

@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>The Gentle Path</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌷</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
@@ -15,9 +16,9 @@
 
 
 <style>
-:root{--bg:#fdf6ee;--bg2:#f6e8da;--card:#fffdf9;--fg:#3b3040;--muted:#8b7d8e;--line:#efdccb;--trail:#e6c9a8;--leaf:#5cb85c;--sun:#ffc857;--pink:#ff8fab;--lilac:#a99bf0;--sky:#7ec8e3;--shadow:0 6px 0 rgba(120,80,60,.07),0 12px 26px rgba(120,80,60,.08)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--trail:#5a4c6a;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--lilac:#c0b2ff;--sky:#8fd3ea;--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--trail:#5a4c6a;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--lilac:#c0b2ff;--sky:#8fd3ea;--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);color-scheme:dark}
+:root{--bg:#fdf6ee;--bg2:#f6e8da;--card:#fffdf9;--fg:#3b3040;--muted:#706573;--line:#efdccb;--trail:#e6c9a8;--leaf:#5cb85c;--sun:#ffc857;--pink:#ff8fab;--lilac:#a99bf0;--sky:#7ec8e3;--n1:#796abb;--n2:#bc5371;--n3:#028478;--on-btn:#fff;--shadow:0 6px 0 rgba(120,80,60,.07),0 12px 26px rgba(120,80,60,.08)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--trail:#5a4c6a;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--lilac:#c0b2ff;--sky:#8fd3ea;--n1:#a99bf0;--n2:#ff8fab;--n3:#4fb6a8;--on-btn:#1b1824;--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--trail:#5a4c6a;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--lilac:#c0b2ff;--sky:#8fd3ea;--n1:#a99bf0;--n2:#ff8fab;--n3:#4fb6a8;--on-btn:#1b1824;--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font:15px/1.55 Nunito,ui-rounded,system-ui,sans-serif;margin:0}
 .wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:16px 60px}
@@ -40,7 +41,7 @@ h1{font-size:1.7rem;margin:0}
 .stop.l{margin-right:auto}.stop.r{margin-left:auto}
 .bub{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:14px 16px;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s,border-color .25s}
 .bub:active{transform:scale(.98)}
-.stop.past .bub{opacity:.6}
+.stop.past .em{opacity:.6}.stop.past h3{color:var(--muted)}
 .stop.here .bub{border-color:var(--sun);box-shadow:0 0 0 5px color-mix(in srgb,var(--sun) 30%,transparent),var(--shadow)}
 .stop .hd{display:flex;gap:10px;align-items:center}
 .stop .em{width:46px;height:46px;border-radius:16px;display:grid;place-items:center;font-size:1.5rem;flex:none;background:var(--c)}
@@ -63,13 +64,17 @@ h1{font-size:1.7rem;margin:0}
 .fcard.now{border-color:var(--sun)}
 .big3{display:grid;gap:10px;margin-top:10px}
 .one{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:16px;background:var(--bg2)}
-.one .n{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:700 .95rem Fredoka;color:#fff;flex:none}
+.one .n{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:700 .95rem Fredoka;color:var(--on-btn);flex:none}
 .one .tx{min-width:0}
-.later{opacity:.7}
+.later{color:var(--muted)}
 .links{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
 .links a{flex:1;min-width:140px;text-align:center;text-decoration:none;font-weight:800;padding:12px;border-radius:16px;background:var(--card);border:2px solid var(--line);color:var(--fg);box-shadow:var(--shadow)}
 .tips{display:grid;gap:8px;margin-top:6px}
 .tip{display:flex;gap:10px;padding:10px 12px;border-radius:14px;background:var(--bg2);font-size:.9rem}
+.skip{position:absolute;left:12px;top:-60px;z-index:50;background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:12px;font-weight:800;text-decoration:none}
+.skip:focus{top:12px}
+:focus-visible{outline:3px solid var(--fg);outline-offset:2px}
+a.homebtn{display:inline-grid;place-items:center;text-decoration:none;flex:none}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
 @keyframes breathe{0%,100%{transform:scale(.7);opacity:.6}50%{transform:scale(1.15);opacity:1}}
 @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
@@ -77,14 +82,16 @@ h1{font-size:1.7rem;margin:0}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}.stop{opacity:1;transform:none}}
 </style>
 
-<div class="wrap">
+<a class="skip" href="#now">Skip to content</a>
+<main class="wrap">
   <header class="top">
     <div class="g"><div class="muted fr" style="font-size:.85rem">Rush · Oct 2026 → May 2027</div><h1>🌷 The Gentle Path</h1>
     <div class="muted" style="font-size:.9rem;margin-top:4px">You don't walk the whole path today. You only take the next step.</div></div>
+    <a class="ibtn homebtn" href="index.html" aria-label="Home Base" title="Home Base">🏡</a>
     <button class="ibtn" id="themeBtn" aria-label="Toggle theme">🌙</button>
   </header>
 
-  <div class="seg" role="tablist">
+  <div class="seg">
     <button data-m="now" class="on">🎯 Just this week</button>
     <button data-m="trail">🗺️ The whole path</button>
     <button data-m="calm">🫧 Feeling overwhelmed?</button>
@@ -98,7 +105,7 @@ h1{font-size:1.7rem;margin:0}
     <a href="sprout.html">🌱 Sprout<br><span class="muted" style="font-weight:600;font-size:.78rem">tick today's blocks</span></a>
     <a href="compass.html">🧭 Compass<br><span class="muted" style="font-weight:600;font-size:.78rem">how to do each step</span></a>
   </div>
-</div>
+</main>
 
 <script type="application/json" id="weeks">[{"w": 1, "s": "2026-10-12", "e": "2026-10-18", "f": "Setup: Mac (conda, R, Python, Jupyter), GitHub SSH, Anki; BlueBEAR access check", "p": "Count images/samples per class, per variety, per plant/plot; email Jack (draft ready)", "d": "Setup steps 1–9 work", "rd": "Taiz, Plant Physiology & Development (cover to cover)"}, {"w": 2, "s": "2026-10-19", "e": "2026-10-25", "f": "Bash refresher", "p": "One-page plan to Lindsey: question, data counts, analyses, target venue", "d": "All exercises without peeking", "rd": "Taiz, Plant Physiology & Development (cover to cover)"}, {"w": 3, "s": "2026-10-26", "e": "2026-11-01", "f": "Git + GitHub; fix GitHub profile (README, pinned repos, study board)", "p": "Grouped validation: split by plant/plot (no leakage) and re-score macro-F1", "d": "Profile live · learning-notes repo pushed", "rd": "Taiz, Plant Physiology & Development (cover to cover)"}, {"w": 4, "s": "2026-11-02", "e": "2026-11-08", "f": "Python + 3 biology mini-projects (sequence toolkit · FASTA stats CLI · phenotype CSV plotter)", "p": "Vegetation-index (VI) baseline model, same grouped splits", "d": "(continue)", "rd": "Taiz, Plant Physiology & Development (cover to cover)"}, {"w": 5, "s": "2026-11-09", "e": "2026-11-15", "f": "Python + 3 biology mini-projects (sequence toolkit · FASTA stats CLI · phenotype CSV plotter)", "p": "Maturity/stage check: does accuracy hold within each stage?", "d": "(continue)", "rd": "Taiz, Plant Physiology & Development (cover to cover)"}, {"w": 6, "s": "2026-11-16", "e": "2026-11-22", "f": "Python + 3 biology mini-projects (sequence toolkit · FASTA stats CLI · phenotype CSV plotter)", "p": "Variety ranking: per-variety results + confusion matrix", "d": "3 small repos public, each with README + tests", "rd": "Taiz, Plant Physiology & Development (cover to cover)"}, {"w": 7, "s": "2026-11-23", "e": "2026-11-29", "f": "Quarto portfolio website (GitHub Pages)", "p": "CNN comparison (ResNet transfer learning) vs your thesis model", "d": "Site live with 3 project pages", "rd": "Taiz, Plant Physiology & Development (cover to cover)"}, {"w": 8, "s": "2026-11-30", "e": "2026-12-06", "f": "R consolidation (your strongest language: go fast)", "p": "CNN comparison: finish, 3 seeds, confidence intervals", "d": "Module checklist ✅", "rd": "Taiz, Plant Physiology & Development (cover to cover)"}, {"w": 9, "s": "2026-12-07", "e": "2026-12-13", "f": "P1 GWAS potato: Phases 0–7", "p": "Figures (4 max) + results table; send to Lindsey for feedback", "d": "(continue)", "rd": "Taiz, Plant Physiology & Development (cover to cover)"}, {"w": 10, "s": "2026-12-14", "e": "2026-12-20", "f": "P1 GWAS potato: Phases 0–7", "p": "Write the abstract (250 words); decide on IGARSS (deadline 11 Jan 2027, optional)", "d": "(continue)", "rd": "Taiz, Plant Physiology & Development (cover to cover)"}, {"w": 11, "s": "2026-12-21", "e": "2026-12-27", "f": "P1 GWAS potato: Phases 0–7", "p": "Draft the short paper (IGARSS: 4 pages) or extended abstract", "d": "P1 repo public · quiz ≥12/15", "rd": "Taiz, Plant Physiology & Development (cover to cover)"}, {"w": 12, "s": "2026-12-28", "e": "2027-01-03", "f": "Holiday week: rest. Optional: one LinkedIn post", "p": "", "d": "Rested", "rd": "Taiz, Plant Physiology & Development (cover to cover)"}, {"w": 13, "s": "2027-01-04", "e": "2027-01-10", "f": "Statistics for omics (incl. SPSS→R table)", "p": "Submit IGARSS by 11 Jan 2027 (optional) · otherwise start the journal draft", "d": "All exercises ✅", "rd": "Taiz, Plant Physiology & Development (cover to cover)"}, {"w": 14, "s": "2027-01-11", "e": "2027-01-17", "f": "Snakemake (first time: go slowly)", "p": "Journal draft: Methods", "d": "Your own 3-rule pipeline runs", "rd": "Taiz, Plant Physiology & Development (cover to cover)"}, {"w": 15, "s": "2027-01-18", "e": "2027-01-24", "f": "P7 variant calling: test run on Mac, Phases 0–3", "p": "Journal draft: Results", "d": "(continue)", "rd": "Taiz, Plant Physiology & Development (cover to cover)"}, {"w": 16, "s": "2027-01-25", "e": "2027-01-31", "f": "P7 variant calling: test run on Mac, Phases 0–3", "p": "Journal draft: Introduction + Discussion", "d": "Recall ≈0.979 / precision ≈0.951 reproduced", "rd": "Taiz, Plant Physiology & Development (cover to cover)"}, {"w": 17, "s": "2027-02-01", "e": "2027-02-07", "f": "P7 real Arabidopsis data (BlueBEAR or Mac subset), Phases 4–7", "p": "Supervisor comments → revise", "d": "(continue)", "rd": "Taiz, Plant Physiology & Development (cover to cover)"}, {"w": 18, "s": "2027-02-08", "e": "2027-02-14", "f": "P7 real Arabidopsis data (BlueBEAR or Mac subset), Phases 4–7", "p": "Check EAPR 2027 / ECPP 2027 abstract deadlines [verify] and submit", "d": "P7 repo public · Level 1 self-test ✅", "rd": "Taiz, Plant Physiology & Development (cover to cover)"}, {"w": 19, "s": "2027-02-15", "e": "2027-02-21", "f": "P2 DIA proteomics", "p": "Revise draft with co-author comments", "d": "(continue)", "rd": "Acquaah, Principles of Plant Genetics & Breeding"}, {"w": 20, "s": "2027-02-22", "e": "2027-02-28", "f": "P2 DIA proteomics", "p": "Pick a journal; format references", "d": "P2 repo public", "rd": "Acquaah, Principles of Plant Genetics & Breeding"}, {"w": 21, "s": "2027-03-01", "e": "2027-03-07", "f": "P4 multi-omics (mixOmics)", "p": "Final checks (data + code availability statement)", "d": "(continue)", "rd": "Acquaah, Principles of Plant Genetics & Breeding"}, {"w": 22, "s": "2027-03-08", "e": "2027-03-14", "f": "P4 multi-omics (mixOmics)", "p": "Submit the paper 🎉", "d": "P4 repo public", "rd": "Acquaah, Principles of Plant Genetics & Breeding"}, {"w": 23, "s": "2027-03-15", "e": "2027-03-21", "f": "P3 metabolomics (Python)", "p": "Buffer for reviewer/supervisor delays", "d": "(continue)", "rd": "Acquaah, Principles of Plant Genetics & Breeding"}, {"w": 24, "s": "2027-03-22", "e": "2027-03-28", "f": "P3 metabolomics (Python)", "p": "Prepare poster/talk if accepted", "d": "P3 repo public", "rd": "Acquaah, Principles of Plant Genetics & Breeding"}, {"w": 25, "s": "2027-03-29", "e": "2027-04-04", "f": "P5 plant microbiome", "p": "Prepare poster/talk", "d": "(continue)", "rd": "Acquaah, Principles of Plant Genetics & Breeding"}, {"w": 26, "s": "2027-04-05", "e": "2027-04-11", "f": "P5 plant microbiome", "p": "Respond to reviews if back", "d": "P5 repo public · Level 2 self-test ✅", "rd": "Acquaah, Principles of Plant Genetics & Breeding"}, {"w": 27, "s": "2027-04-12", "e": "2027-04-18", "f": "SQL module, then P6 wheat text mining", "p": "Respond to reviews", "d": "(continue)", "rd": "Acquaah, Principles of Plant Genetics & Breeding"}, {"w": 28, "s": "2027-04-19", "e": "2027-04-25", "f": "SQL module, then P6 wheat text mining", "p": "Respond to reviews", "d": "P6 repo public", "rd": "Acquaah, Principles of Plant Genetics & Breeding"}, {"w": 29, "s": "2027-04-26", "e": "2027-05-02", "f": "Independence ladder: rebuild 3 projects blank; apply 2 to NEW datasets", "p": "", "d": "(continue)", "rd": "Acquaah, Principles of Plant Genetics & Breeding"}, {"w": 30, "s": "2027-05-03", "e": "2027-05-09", "f": "Independence ladder: rebuild 3 projects blank; apply 2 to NEW datasets", "p": "", "d": "(continue)", "rd": "Falconer & Mackay core chapters; then Bernardo"}, {"w": 31, "s": "2027-05-10", "e": "2027-05-16", "f": "Independence ladder: rebuild 3 projects blank; apply 2 to NEW datasets", "p": "", "d": "Level 3 self-test ✅", "rd": "Falconer & Mackay core chapters; then Bernardo"}, {"w": 32, "s": "2027-05-17", "e": "2027-05-23", "f": "Expert consolidation: Q&A out loud; scope your own original project", "p": "", "d": "(continue)", "rd": "Falconer & Mackay core chapters; then Bernardo"}, {"w": 33, "s": "2027-05-24", "e": "2027-05-30", "f": "Expert consolidation: Q&A out loud; scope your own original project", "p": "", "d": "Level 4 checks started", "rd": "Falconer & Mackay core chapters; then Bernardo"}]</script>
 <script>
@@ -145,7 +152,7 @@ function nowView(){
   box.append(h("div",{class:"fcard",style:"margin-top:14px"},h("div",{class:"lbl",style:"margin-top:0"},"How you'll feel about this chapter"),h("div",{class:"fr",style:"font-size:1.05rem"},"“"+c.feel+"”")));
 }
 function threeThings(w){
-  const items=[["#a99bf0","💻",w.f]]; if(w.p) items.push(["#ff8fab","📝",w.p]); items.push(["#4fb6a8","📖",w.rd.split("(")[0].trim()+" · a little each morning"]);
+  const items=[["var(--n1)","💻",w.f]]; if(w.p) items.push(["var(--n2)","📝",w.p]); items.push(["var(--n3)","📖",w.rd.split("(")[0].trim()+" · a little each morning"]);
   return h("div",{class:"big3"},...items.map(([col,em,t],i)=>h("div",{class:"one"},h("div",{class:"n",style:"background:"+col},String(i+1)),h("div",{class:"tx"},h("b",{},em+" "),t))));
 }
 
