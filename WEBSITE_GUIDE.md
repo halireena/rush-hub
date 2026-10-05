@@ -19,6 +19,7 @@
 | `path.html` | The Gentle Path timeline | Change chapter text or calm tips |
 | `cs/` | Pictures used by the Code School lessons inside Compass | Only if you add lesson images |
 | `tools/edit_data.py` | A helper that lets you edit an app's content safely | Every time you change content |
+| `tools/check_links.py` | Finds links and pictures that point to a missing file | Before you push (GitHub also runs it for you) |
 | `.nojekyll` | An empty file that tells GitHub "serve these files exactly as they are" | Never (don't delete it) |
 | `WEBSITE_GUIDE.md` | This guide | — |
 
