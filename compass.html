@@ -25,12 +25,12 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#161d19; --bg2:#1f2a23; --card:#223027; --fg:#e8f3ea; --muted:#9db3a3; --line:#2f4035;
   --leaf:#72d48d; --leaf2:#9be3ae; --pink:#ff9fb8; --sun:#ffd27a; --lilac:#b6a9ff; --coral:#ff8f80; --sky:#8fd3ea;
-  --leaf-btn:#72d48d; --coral-btn:#ff8f80; --on-btn:#161d19;
+  --leaf-btn:#72d48d; --coral-btn:#ff8f80; --on-btn:#161d19; --mark-fg:#161d19;
   --code:#1a241e; --shadow:0 5px 0 rgba(0,0,0,.25),0 10px 24px rgba(0,0,0,.25); color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#161d19; --bg2:#1f2a23; --card:#223027; --fg:#e8f3ea; --muted:#9db3a3; --line:#2f4035;
   --leaf:#72d48d; --leaf2:#9be3ae; --pink:#ff9fb8; --sun:#ffd27a; --lilac:#b6a9ff; --coral:#ff8f80; --sky:#8fd3ea;
-  --leaf-btn:#72d48d; --coral-btn:#ff8f80; --on-btn:#161d19;
+  --leaf-btn:#72d48d; --coral-btn:#ff8f80; --on-btn:#161d19; --mark-fg:#161d19;
   --code:#1a241e; --shadow:0 5px 0 rgba(0,0,0,.25),0 10px 24px rgba(0,0,0,.25); color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font:15px/1.55 Nunito,ui-rounded,"Segoe UI",system-ui,sans-serif;margin:0}
@@ -69,10 +69,10 @@ h1{font-size:1.6rem;margin:0}
 .tabs{display:flex;gap:6px;overflow-x:auto;padding:4px 2px 8px;margin:12px 0 4px;scrollbar-width:none;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:3}
 .tabs::-webkit-scrollbar{display:none}
 .tabs button{flex:none;border:2px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:6px 14px;font:800 .82rem Nunito;cursor:pointer;transition:all .2s}
-.tabs button.on{background:var(--c);border-color:var(--c);color:#fff;transform:translateY(-2px)}
+.tabs button.on{background:var(--cb,var(--c));border-color:var(--cb,var(--c));color:var(--co,#fff);transform:translateY(-2px)}
 .nextstep{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:14px;background:var(--bg2);margin-bottom:12px}
 .nextstep .t{flex:1;min-width:0;font-size:.88rem}
-.btn{border:0;border-radius:12px;padding:8px 14px;font:800 .85rem Nunito;cursor:pointer;background:var(--c,var(--leaf));color:#fff;white-space:nowrap}
+.btn{border:0;border-radius:12px;padding:8px 14px;font:800 .85rem Nunito;cursor:pointer;background:var(--cb,var(--leaf-btn));color:var(--co,var(--on-btn));white-space:nowrap}
 .btn.ghost{background:var(--bg2);color:var(--fg)}.btn.pri{background:var(--leaf-btn);color:var(--on-btn)}
 .doc{min-width:0;overflow-wrap:anywhere}
 .doc h1{font-size:1.35rem;color:var(--c)}
@@ -114,7 +114,7 @@ h1{font-size:1.6rem;margin:0}
 .search{width:100%;font:inherit;color:var(--fg);background:var(--card);border:2px solid var(--line);border-radius:14px;padding:10px 14px;margin-top:12px}
 .hit{padding:10px 12px;border-radius:14px;background:var(--card);border:2px solid var(--line);margin:6px 0;cursor:pointer}
 .hit small{color:var(--muted)}
-mark{background:color-mix(in srgb,var(--sun) 60%,transparent);color:inherit;border-radius:4px}
+mark{background:color-mix(in srgb,var(--sun) 60%,transparent);color:var(--mark-fg,inherit);border-radius:4px}
 .skip{position:absolute;left:12px;top:-60px;z-index:50;background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:12px;font-weight:800;text-decoration:none}
 .skip:focus{top:12px}
 :focus-visible{outline:3px solid var(--fg);outline-offset:2px}
@@ -175,6 +175,17 @@ function burst(x,y){ if(matchMedia("(prefers-reduced-motion: reduce)").matches) 
   s.animate([{transform:"translate(-50%,-50%) scale(.4)",opacity:1},{transform:`translate(${Math.cos(a)*d}px,${Math.sin(a)*d-30}px) scale(1)`,opacity:0}],{duration:900,easing:"cubic-bezier(.2,.8,.3,1)"}).onfinish=()=>s.remove();}}
 const CHEER=["Step done! 🌱","You're getting it ✨","Competence +1 🧠","Nice! 🍃","Keep going 💪","Look at you 🌸"];
 
+// Item colours come from the data block. For text on them (buttons, active tab) keep white where it
+// reaches WCAG AA 4.5:1, else use dark text if that does, else darken the colour (same hue) until white does.
+function cvars(hex){
+  let bg=hex, fg="#fff";
+  if(/^#[0-9a-f]{6}$/i.test(hex||"")){
+    const lin=v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4, lum=x=>{const c=x.slice(1).match(/../g).map(v=>lin(parseInt(v,16)/255));return .2126*c[0]+.7152*c[1]+.0722*c[2];};
+    const T=4.6, DARK="#161d19", L=lum(hex);
+    if(1.05/(L+.05)<T){ if((L+.05)/(lum(DARK)+.05)>=T) fg=DARK; else { const k=(1.05/T-.05)/L; bg="#"+hex.slice(1).match(/../g).map(v=>{const l=lin(parseInt(v,16)/255)*k;return Math.round(255*(l<=.0031308?12.92*l:1.055*l**(1/2.4)-.055)).toString(16).padStart(2,"0");}).join(""); } }
+  }
+  return "--c:"+hex+";--cb:"+bg+";--co:"+fg;
+}
 function doneCount(it){let n=0;for(const t of it.tabs){for(let i=0;i<t.n;i++) if(S.checks[t.key+":"+i]) n++;}return n;}
 function pct(it){return it.total?doneCount(it)/it.total:0;}
 function ring(it,big){const r=big?33:23,c=2*Math.PI*r,p=pct(it);const sz=big?76:54;
@@ -199,7 +210,7 @@ function home(){
     h("div",{class:"tnum",style:"margin-top:8px;font-weight:800"},`${dn} / ${tot} steps ticked`),
     h("div",{class:"next",onclick:()=>openItem(nx.id,true)},h("span",{class:"e"},nx.emoji),
       h("div",{class:"t"},h("div",{class:"muted",style:"font-size:.75rem;font-weight:800"},w<1?"FIRST UP (from Mon 12 Oct)":"UP NEXT · week "+w),h("b",{},nx.title),h("div",{class:"muted",style:"font-size:.8rem"},nextStepText(nx))),
-      h("span",{class:"btn",style:"--c:"+nx.color},"Go →")));
+      h("span",{class:"btn",style:cvars(nx.color)},"Go →")));
   sec.append(hero);
   const search=h("input",{class:"search",type:"search",placeholder:"🔎 Search every step, lesson and answer…","aria-label":"Search"});
   const results=h("div"); sec.append(search,results);
@@ -250,7 +261,7 @@ let cur=null;
 function openItem(id,jump,tabIdx,findText){
   const it=BY[id]; cur=it; document.getElementById("back").hidden=false;
   const app=document.getElementById("app"); app.replaceChildren(); window.scrollTo({top:0});
-  const sec=h("section",{style:"--c:"+it.color});
+  const sec=h("section",{style:cvars(it.color)});
   const rg=ring(it,true);
   sec.append(h("div",{class:"card"},h("div",{class:"ihead"},rg,h("div",{class:"tx"},h("h2",{style:"margin:0;font-size:1.3rem"},it.title),
     h("div",{},...[it.weeks&&h("span",{class:"pill"},"📅 "+it.weeks),it.lang&&h("span",{class:"pill"},"🛠 "+it.lang),it.total&&h("span",{class:"pill tnum",id:"cnt"},`✅ ${doneCount(it)}/${it.total}`)].filter(Boolean)))),

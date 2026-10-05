@@ -16,9 +16,9 @@
 
 
 <style>
-:root{--bg:#fdf6ee;--bg2:#f6e8da;--card:#fffdf9;--fg:#3b3040;--muted:#706573;--line:#efdccb;--trail:#e6c9a8;--leaf:#5cb85c;--sun:#ffc857;--pink:#ff8fab;--lilac:#a99bf0;--sky:#7ec8e3;--shadow:0 6px 0 rgba(120,80,60,.07),0 12px 26px rgba(120,80,60,.08)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--trail:#5a4c6a;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--lilac:#c0b2ff;--sky:#8fd3ea;--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--trail:#5a4c6a;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--lilac:#c0b2ff;--sky:#8fd3ea;--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);color-scheme:dark}
+:root{--bg:#fdf6ee;--bg2:#f6e8da;--card:#fffdf9;--fg:#3b3040;--muted:#706573;--line:#efdccb;--trail:#e6c9a8;--leaf:#5cb85c;--sun:#ffc857;--pink:#ff8fab;--lilac:#a99bf0;--sky:#7ec8e3;--n1:#796abb;--n2:#bc5371;--n3:#028478;--on-btn:#fff;--shadow:0 6px 0 rgba(120,80,60,.07),0 12px 26px rgba(120,80,60,.08)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--trail:#5a4c6a;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--lilac:#c0b2ff;--sky:#8fd3ea;--n1:#a99bf0;--n2:#ff8fab;--n3:#4fb6a8;--on-btn:#1b1824;--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--trail:#5a4c6a;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--lilac:#c0b2ff;--sky:#8fd3ea;--n1:#a99bf0;--n2:#ff8fab;--n3:#4fb6a8;--on-btn:#1b1824;--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font:15px/1.55 Nunito,ui-rounded,system-ui,sans-serif;margin:0}
 .wrap{max-width:720px;margin:0 auto;padding-inline:16px;padding-block:16px 60px}
@@ -41,7 +41,7 @@ h1{font-size:1.7rem;margin:0}
 .stop.l{margin-right:auto}.stop.r{margin-left:auto}
 .bub{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:14px 16px;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s,border-color .25s}
 .bub:active{transform:scale(.98)}
-.stop.past .bub{opacity:.6}
+.stop.past .em{opacity:.6}.stop.past h3{color:var(--muted)}
 .stop.here .bub{border-color:var(--sun);box-shadow:0 0 0 5px color-mix(in srgb,var(--sun) 30%,transparent),var(--shadow)}
 .stop .hd{display:flex;gap:10px;align-items:center}
 .stop .em{width:46px;height:46px;border-radius:16px;display:grid;place-items:center;font-size:1.5rem;flex:none;background:var(--c)}
@@ -64,9 +64,9 @@ h1{font-size:1.7rem;margin:0}
 .fcard.now{border-color:var(--sun)}
 .big3{display:grid;gap:10px;margin-top:10px}
 .one{display:flex;gap:12px;align-items:flex-start;padding:12px;border-radius:16px;background:var(--bg2)}
-.one .n{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:700 .95rem Fredoka;color:#fff;flex:none}
+.one .n{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font:700 .95rem Fredoka;color:var(--on-btn);flex:none}
 .one .tx{min-width:0}
-.later{opacity:.7}
+.later{color:var(--muted)}
 .links{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
 .links a{flex:1;min-width:140px;text-align:center;text-decoration:none;font-weight:800;padding:12px;border-radius:16px;background:var(--card);border:2px solid var(--line);color:var(--fg);box-shadow:var(--shadow)}
 .tips{display:grid;gap:8px;margin-top:6px}
@@ -152,7 +152,7 @@ function nowView(){
   box.append(h("div",{class:"fcard",style:"margin-top:14px"},h("div",{class:"lbl",style:"margin-top:0"},"How you'll feel about this chapter"),h("div",{class:"fr",style:"font-size:1.05rem"},"“"+c.feel+"”")));
 }
 function threeThings(w){
-  const items=[["#a99bf0","💻",w.f]]; if(w.p) items.push(["#ff8fab","📝",w.p]); items.push(["#4fb6a8","📖",w.rd.split("(")[0].trim()+" · a little each morning"]);
+  const items=[["var(--n1)","💻",w.f]]; if(w.p) items.push(["var(--n2)","📝",w.p]); items.push(["var(--n3)","📖",w.rd.split("(")[0].trim()+" · a little each morning"]);
   return h("div",{class:"big3"},...items.map(([col,em,t],i)=>h("div",{class:"one"},h("div",{class:"n",style:"background:"+col},String(i+1)),h("div",{class:"tx"},h("b",{},em+" "),t))));
 }
 

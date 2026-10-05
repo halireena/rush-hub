@@ -16,9 +16,9 @@
 
 
 <style>
-:root{--bg:#fbf6ef;--bg2:#f1e8dc;--card:#fffdf9;--fg:#3a3140;--muted:#6d6471;--line:#eadfd2;--leaf:#5cb85c;--sun:#ffc857;--pink:#ff8fab;--lilac:#a99bf0;--coral:#ff7b6b;--sky:#6fc3df;--leaf-btn:#27872b;--coral-btn:#ca4b3f;--on-btn:#fff;--shadow:0 6px 0 rgba(110,80,60,.07),0 12px 26px rgba(110,80,60,.08);--scrim:rgba(40,30,40,.35)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--lilac:#c0b2ff;--coral:#ff8f80;--sky:#8fd3ea;--leaf-btn:#7bd389;--coral-btn:#ff8f80;--on-btn:#1b1824;--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);--scrim:rgba(0,0,0,.55);color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--lilac:#c0b2ff;--coral:#ff8f80;--sky:#8fd3ea;--leaf-btn:#7bd389;--coral-btn:#ff8f80;--on-btn:#1b1824;--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);--scrim:rgba(0,0,0,.55);color-scheme:dark}
+:root{--bg:#fbf6ef;--bg2:#f1e8dc;--card:#fffdf9;--fg:#3a3140;--muted:#6d6471;--line:#eadfd2;--leaf:#5cb85c;--sun:#ffc857;--pink:#ff8fab;--lilac:#a99bf0;--coral:#ff7b6b;--sky:#6fc3df;--leaf-btn:#27872b;--coral-btn:#ca4b3f;--on-btn:#fff;--skim-fg:#69606d;--shadow:0 6px 0 rgba(110,80,60,.07),0 12px 26px rgba(110,80,60,.08);--scrim:rgba(40,30,40,.35)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--lilac:#c0b2ff;--coral:#ff8f80;--sky:#8fd3ea;--leaf-btn:#7bd389;--coral-btn:#ff8f80;--on-btn:#1b1824;--skim-fg:var(--muted);--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);--scrim:rgba(0,0,0,.55);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--lilac:#c0b2ff;--coral:#ff8f80;--sky:#8fd3ea;--leaf-btn:#7bd389;--coral-btn:#ff8f80;--on-btn:#1b1824;--skim-fg:var(--muted);--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);--scrim:rgba(0,0,0,.55);color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font:15px/1.55 Nunito,ui-rounded,system-ui,sans-serif;margin:0}
 .wrap{max-width:740px;margin:0 auto;padding-inline:16px;padding-block:16px 60px}
@@ -41,12 +41,12 @@ h1{font-size:1.6rem;margin:0}h2{font-size:1.15rem;margin:18px 4px 10px}
 .book{position:relative;border:0;text-align:left;font:inherit;color:#fff;border-radius:6px 16px 16px 6px;padding:14px 12px 12px 18px;min-height:150px;cursor:pointer;box-shadow:var(--shadow);display:flex;flex-direction:column;justify-content:space-between;transition:transform .2s cubic-bezier(.2,1.6,.4,1);opacity:0;animation:pop .5s cubic-bezier(.2,1.4,.4,1) forwards;overflow:hidden}
 .book::before{content:"";position:absolute;left:6px;top:0;bottom:0;width:3px;background:rgba(255,255,255,.35)}
 .book:hover{transform:translateY(-4px) rotate(-1deg)}.book:active{transform:scale(.97)}
-.book b{font-family:Fredoka;font-size:.95rem;line-height:1.2;text-shadow:0 1px 2px rgba(0,0,0,.25)}
-.book .m{font-size:.72rem;opacity:.95}
+.book b{font-family:Fredoka;font-size:.95rem;line-height:1.2;text-shadow:var(--ts,0 1px 2px rgba(0,0,0,.25))}
+.book .m{font-size:.72rem}
 .book .bar{height:6px;border-radius:9px;background:rgba(255,255,255,.35);overflow:hidden;margin-top:8px}
 .book .bar i{display:block;height:100%;background:#fff;border-radius:9px}
 .tag{display:inline-block;font-size:.66rem;font-weight:800;padding:2px 8px;border-radius:999px;background:var(--bg2);color:var(--fg)}
-.t-core{background:var(--leaf-btn);color:var(--on-btn)}.t-useful{background:var(--sun);color:#3a3140}.t-skim{background:var(--line);color:var(--muted)}
+.t-core{background:var(--leaf-btn);color:var(--on-btn)}.t-useful{background:var(--sun);color:#3a3140}.t-skim{background:var(--line);color:var(--skim-fg)}
 .ch{display:flex;gap:12px;align-items:center;padding:12px;border-radius:16px;background:var(--card);border:2px solid var(--line);margin-bottom:8px;cursor:pointer;animation:rise .35s both}
 .ch .n{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font:700 .95rem Fredoka;background:var(--bg2);flex:none}
 .ch.done .n{background:var(--leaf-btn);color:var(--on-btn)}
@@ -126,6 +126,17 @@ function dueCards(){const t=today(),out=[];for(const b of BOOKS) for(const c of 
 function learned(){return Object.values(S.box).filter(v=>v[0]>=3).length;}
 function streak(){let n=0,d=today(); if(!S.log[d]) d=addDays(d,-1); while(S.log[d]){n++;d=addDays(d,-1);} return n;}
 
+// Book cover colours come from the data block. Keep white text where it reaches WCAG AA 4.5:1,
+// else use dark text if that does, else darken the cover colour (same hue) until white does.
+function ink(hex){
+  if(!/^#[0-9a-f]{6}$/i.test(hex||"")) return "background:"+hex;
+  const lin=v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4, lum=x=>{const c=x.slice(1).match(/../g).map(v=>lin(parseInt(v,16)/255));return .2126*c[0]+.7152*c[1]+.0722*c[2];};
+  const T=4.6, DARK="#1b1824", L=lum(hex);
+  if(1.05/(L+.05)>=T) return "background:"+hex+";color:#fff";
+  if((L+.05)/(lum(DARK)+.05)>=T) return "background:"+hex+";color:"+DARK+";--ts:none";
+  const k=(1.05/T-.05)/L, out=hex.slice(1).match(/../g).map(v=>{const l=lin(parseInt(v,16)/255)*k;return Math.round(255*(l<=.0031308?12.92*l:1.055*l**(1/2.4)-.055)).toString(16).padStart(2,"0");});
+  return "background:#"+out.join("")+";color:#fff";
+}
 let view={mode:"home",slug:null};
 function render(){ const app=document.getElementById("app"); app.replaceChildren(); if(view.mode==="book") bookView(app); else if(view.mode==="review") reviewView(app); else home(app); try{sessionStorage.setItem("nook-view",JSON.stringify(view))}catch(e){} window.scrollTo({top:0}); }
 
@@ -144,7 +155,7 @@ function home(app){
   app.append(rv);
   for(const g of D.shelves){ app.append(h("h2",{},g.t)); const sh=h("div",{class:"shelf"});
     g.slugs.forEach((s,i)=>{const b=BY[s]; if(!b) return; const p=bookPct(b);
-      sh.append(h("button",{class:"book",style:`background:${b.color};animation-delay:${i*50}ms`,onclick:()=>{view={mode:"book",slug:s};render();}},
+      sh.append(h("button",{class:"book",style:`${ink(b.color)};animation-delay:${i*50}ms`,onclick:()=>{view={mode:"book",slug:s};render();}},
         h("div",{},h("div",{style:"font-size:1.5rem"},b.emoji),h("b",{},b.short)),h("div",{},h("div",{class:"m tnum"},`${b.chapters.length} ch · ${b.chapters.reduce((a,c)=>a+c.cards.length,0)} cards`),h("div",{class:"bar"},h("i",{style:`width:${Math.max(2,p*100)}%`})))));});
     app.append(sh);}
   app.append(h("div",{class:"note",style:"margin-top:16px"},"💛 How to use this: read one chapter section in the morning (the Taiz block in your timetable). When you finish a chapter, tap 'I've read it'. Its flashcards then join your daily review. 15 minutes of cards a day is enough."));

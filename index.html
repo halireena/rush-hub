@@ -16,9 +16,9 @@
 
 
 <style>
-:root{--bg:#fbf6ef;--bg2:#f1e8dc;--card:#fffdf9;--fg:#3a3140;--muted:#6d6471;--line:#eadfd2;--leaf:#5cb85c;--sun:#ffc857;--pink:#ff8fab;--shadow:0 6px 0 rgba(110,80,60,.07),0 12px 26px rgba(110,80,60,.08)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);color-scheme:dark}
+:root{--bg:#fbf6ef;--bg2:#f1e8dc;--card:#fffdf9;--fg:#3a3140;--muted:#6d6471;--line:#eadfd2;--leaf:#5cb85c;--sun:#ffc857;--pink:#ff8fab;--n1:#7362e5;--n2:#bc5371;--n3:#aa6600;--on-btn:#fff;--shadow:0 6px 0 rgba(110,80,60,.07),0 12px 26px rgba(110,80,60,.08)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--n1:#9d90ff;--n2:#ff8fab;--n3:#f2a93b;--on-btn:#1b1824;--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1b1824;--bg2:#252133;--card:#2a2638;--fg:#f3ecf5;--muted:#a89fb4;--line:#3a3449;--leaf:#7bd389;--sun:#ffd27a;--pink:#ff9fb8;--n1:#9d90ff;--n2:#ff8fab;--n3:#f2a93b;--on-btn:#1b1824;--shadow:0 6px 0 rgba(0,0,0,.25),0 12px 26px rgba(0,0,0,.25);color-scheme:dark}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font:15px/1.55 Nunito,ui-rounded,system-ui,sans-serif;margin:0}
 .wrap{max-width:760px;margin:0 auto;padding-inline:16px;padding-block:18px 50px}
@@ -32,7 +32,7 @@ h1{font-size:1.75rem;margin:0}h2{font-size:1.15rem;margin:22px 4px 10px}
 .today .lbl{font-size:.7rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .three{display:grid;gap:8px;margin-top:10px}
 .three a{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:14px;background:var(--bg2);color:var(--fg);text-decoration:none;transition:transform .15s}
-.three a:active{transform:scale(.98)}.three .n{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:700 .9rem Fredoka;color:#fff;flex:none}
+.three a:active{transform:scale(.98)}.three .n{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:700 .9rem Fredoka;color:var(--on-btn);flex:none}
 .three .tx{min-width:0;flex:1}
 .apps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .app{display:flex;gap:12px;align-items:center;padding:14px;border-radius:20px;background:var(--card);border:2px solid var(--line);box-shadow:var(--shadow);color:var(--fg);text-decoration:none;transition:transform .2s cubic-bezier(.2,1.6,.4,1);opacity:0;animation:pop .5s cubic-bezier(.2,1.4,.4,1) forwards}
@@ -113,9 +113,9 @@ if(!w){td.append(h("h3",{style:"margin:6px 0 0"},T<P(D.start)?"🛋️ Rest. Wee
   if(T<P(D.start)) td.append(h("div",{class:"muted",style:"font-size:.9rem;margin-top:4px"},"When it starts, this card will only ever show you 3 things."));}
 else{const three=h("div",{class:"three"});
   const proj=D.weekProject[wk];
-  three.append(ext(D.apps.compass+(proj?"#"+proj:""),h("span",{class:"n",style:"background:#7c6cf0"},"1"),h("div",{class:"tx"},h("b",{},"💻 "),w.f)));
-  if(w.p) three.append(ext(D.apps.sprout,h("span",{class:"n",style:"background:#ff8fab"},"2"),h("div",{class:"tx"},h("b",{},"📝 "),w.p)));
-  three.append(ext(D.apps.nook,h("span",{class:"n",style:"background:#f2a93b"},w.p?"3":"2"),h("div",{class:"tx"},h("b",{},"📚 "),"Read a little + 20 flashcards (Book Nook)")));
+  three.append(ext(D.apps.compass+(proj?"#"+proj:""),h("span",{class:"n",style:"background:var(--n1)"},"1"),h("div",{class:"tx"},h("b",{},"💻 "),w.f)));
+  if(w.p) three.append(ext(D.apps.sprout,h("span",{class:"n",style:"background:var(--n2)"},"2"),h("div",{class:"tx"},h("b",{},"📝 "),w.p)));
+  three.append(ext(D.apps.nook,h("span",{class:"n",style:"background:var(--n3)"},w.p?"3":"2"),h("div",{class:"tx"},h("b",{},"📚 "),"Read a little + 20 flashcards (Book Nook)")));
   td.append(three);}
 // apps
 const A=document.getElementById("apps");
