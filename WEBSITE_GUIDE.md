@@ -13,7 +13,7 @@
 | File / folder | What it is | When you'd touch it |
 |---|---|---|
 | `index.html` | **Home Base**, the front page. Its address is just your site's address | Change links, the app list, the free-books list, the credit tips |
-| `sprout.html` | Sprout: today's blocks, the plan, the paper track, the study guide | Change the timetable, weeks, tasks |
+| `sprout.html` | Sprout: your one step today, the 271-step path, weeks, the paper track, the study guide | Change steps, weeks, tasks |
 | `compass.html` | Project Compass: all projects + Code School | Rarely (it's big; see section 5.4) |
 | `books.html` | Book Nook: **public version, free books only** | Add a free book or fix a card |
 | `path.html` | The Gentle Path timeline | Change chapter text or calm tips |
@@ -172,11 +172,14 @@ Run `python3 tools/edit_data.py check` at any time to test every page.
   - `w` (number), `s`/`e` (start/end date `YYYY-MM-DD`), `ph` (phase name), `c` (phase colour)
   - `kh`/`ph_h` (kit/paper hours), `f` (kit focus), `files`, `d` (done when)
   - `p` (paper task), `rd` (reading), `cr` (computational reading), `ap` (applications)
-- `"routine"`: the daily blocks, as `["19:00", "21:00", "kit", "label"]`. The kinds are `paper`, `kit`, `read`, `jobs` and `review`, and each kind has its own colour and icon.
+- `"path"`: the steps, in order. Each is `{id, st (stage), src (where it comes from), t (title), d (detail), m (minutes), c (the Compass item it opens)}`. **Never change an existing step's `id`**: your ticks are stored against it. To add a step, add it at the end of its stage with a new, unused `id`.
+  - Each week also has `steps`: the list of step ids planned for that week, and `r`: `"main"` (normal week) or `null` (holiday).
+- `"count"`: the countdowns, as `["name", "YYYY-MM-DD"]`. `"nweeks"`: the number of weeks in the plan.
+- `"routine"`: `{"main": {...}}`, the daily blocks, as `["19:00", "20:00", "kit", "label"]`. The kinds are `paper`, `kit`, `read`, `jobs` and `review`, and each kind has its own colour and icon.
 - `"ritual"`: the daily ritual lines.
 - `"targets"`: the job-target lists.
 - **To remove names** (for example "Lindsey" or "Jack"): use VS Code's **Find and Replace (⌘ + Option + F)** inside `data/sprout.json`. Also change them in `path.html` (5.4) and `index.html`.
-- **Moving the whole plan by a week** (if life happens): change every `s` and `e` date, plus `"start"`. It's easier to ask free Claude: "Here is my JSON; shift every date by 7 days and give it back".
+- **Behind schedule?** You don't need to move anything: the path is self-paced and *Today* always shows your next unticked step. The week dates are only an estimate.
 
 ### 5.3 Book Nook: add a free book (`books.html`)
 `extract books.html` → in `data/books.json`, add a book to `"books"`:
@@ -201,7 +204,7 @@ Then add its `slug` to one of the `"shelves"` lists, or the book won't appear on
 
 ### 5.4 The Gentle Path (`path.html`)
 - Its weekly data is in the `id="weeks"` block (use the tool).
-- The **chapter cards** (titles, "how you'll feel", skills lists) and **calm tips** are written directly in the code. In VS Code, search for `const CH=[` and `const tips=[`: each chapter is one `{…}` line with `em` (emoji), `t` (title), `s`/`e` (dates), `why`, `kit` (a list), `paper` (a list) and `feel`. Edit the text **inside the quotes** only.
+- The **chapter cards** (titles, "how you'll feel", skills lists) and **calm tips** are written directly in the code. In VS Code, search for `const CH=` (the chapters, all on one long line) and `const tips=[`. Each chapter is one `{…}` block with `em` (emoji), `t` (title), `s`/`e` (dates), `why`, `kit` (a list), `paper` (a list) and `feel`. Edit the text **inside the quotes** only.
 
 ### 5.5 Colours and fonts (any page)
 At the top of each file, in `<style>`, the colours are named "tokens":

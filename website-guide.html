@@ -1,10 +1,10 @@
-<!DOCTYPE html><html lang="en-GB"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🌐 Your website: publish it, change it, grow it</title><style>body{max-width:860px;margin:0 auto;padding:24px 16px;font:10.5pt/1.55 'Segoe UI',Roboto,Arial,sans-serif;color:#1f2430;background:#fff}
+<!DOCTYPE html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>🌐 Your website: publish it, change it, grow it</title><style>body{max-width:860px;margin:0 auto;padding:24px 16px;font:10.5pt/1.55 'Segoe UI',Roboto,Arial,sans-serif;color:#1f2430;background:#fff}
 h1{color:#2e7d32;border-bottom:3px solid #2e7d32}h2{color:#1f6fb2;border-bottom:1px solid #e3e6ec;margin-top:1.6em}h3{color:#6a3fa0}
 table{border-collapse:collapse;width:100%;font-size:9.3pt;margin:8px 0}th,td{border:1px solid #e3e6ec;padding:4px 6px;vertical-align:top}th{background:#eef0f4}
 code{background:#f3f4f7;padding:1px 4px;border-radius:4px;font-size:9pt}pre{background:#f3f4f7;padding:10px;border-radius:8px;overflow-x:auto;white-space:pre-wrap}
 blockquote{border-left:4px solid #d9730d;background:#fdf3e8;margin:8px 0;padding:6px 12px}details{border:1px solid #e3e6ec;border-radius:6px;padding:4px 8px;margin:4px 0}
 .contains-task-list{list-style:none;padding-left:8px}.task-list-item-checkbox{margin-right:6px}a{color:#1f6fb2;overflow-wrap:anywhere}
-@media print{details{display:block}details>*{display:block}a{color:#1f2430}}@page{size:A4;margin:12mm}html{-webkit-print-color-adjust:exact;print-color-adjust:exact}</style></head><body><p><a href="index.html">← Home Base</a></p><h1>🌐 Your website: publish it, change it, grow it</h1>
+@media print{details{display:block}details>*{display:block}a{color:#1f2430}}@page{size:A4;margin:12mm}html{-webkit-print-color-adjust:exact;print-color-adjust:exact}</style></head><body><h1>🌐 Your website: publish it, change it, grow it</h1>
 <p><strong>What this is:</strong> your apps (Home Base, Sprout, Project Compass, Book Nook, The Gentle Path) as a real website, free on <strong>GitHub Pages</strong>. It works on your phone and Mac like any website, and it doesn't need Claude.</p>
 <p><strong>Time:</strong> about 45 minutes the first time, then 2 minutes per change.</p>
 <hr />
@@ -26,8 +26,8 @@ blockquote{border-left:4px solid #d9730d;background:#fdf3e8;margin:8px 0;padding
 </tr>
 <tr>
 <td><code>sprout.html</code></td>
-<td>Sprout: today's blocks, the plan, the paper track, the study guide</td>
-<td>Change the timetable, weeks, tasks</td>
+<td>Sprout: your one step today, the 271-step path, weeks, the paper track, the study guide</td>
+<td>Change steps, weeks, tasks</td>
 </tr>
 <tr>
 <td><code>compass.html</code></td>
@@ -264,11 +264,17 @@ If your JSON has a mistake, the tool tells you the <strong>line and column</stro
 <li><code>p</code> (paper task), <code>rd</code> (reading), <code>cr</code> (computational reading), <code>ap</code> (applications)</li>
 </ul>
 </li>
-<li><code>&quot;routine&quot;</code>: the daily blocks, as <code>[&quot;19:00&quot;, &quot;21:00&quot;, &quot;kit&quot;, &quot;label&quot;]</code>. The kinds are <code>paper</code>, <code>kit</code>, <code>read</code>, <code>jobs</code> and <code>review</code>, and each kind has its own colour and icon.</li>
+<li><code>&quot;path&quot;</code>: the steps, in order. Each is <code>{id, st (stage), src (where it comes from), t (title), d (detail), m (minutes), c (the Compass item it opens)}</code>. <strong>Never change an existing step's <code>id</code></strong>: your ticks are stored against it. To add a step, add it at the end of its stage with a new, unused <code>id</code>.
+<ul>
+<li>Each week also has <code>steps</code>: the list of step ids planned for that week, and <code>r</code>: <code>&quot;main&quot;</code> (normal week) or <code>null</code> (holiday).</li>
+</ul>
+</li>
+<li><code>&quot;count&quot;</code>: the countdowns, as <code>[&quot;name&quot;, &quot;YYYY-MM-DD&quot;]</code>. <code>&quot;nweeks&quot;</code>: the number of weeks in the plan.</li>
+<li><code>&quot;routine&quot;</code>: <code>{&quot;main&quot;: {...}}</code>, the daily blocks, as <code>[&quot;19:00&quot;, &quot;20:00&quot;, &quot;kit&quot;, &quot;label&quot;]</code>. The kinds are <code>paper</code>, <code>kit</code>, <code>read</code>, <code>jobs</code> and <code>review</code>, and each kind has its own colour and icon.</li>
 <li><code>&quot;ritual&quot;</code>: the daily ritual lines.</li>
 <li><code>&quot;targets&quot;</code>: the job-target lists.</li>
 <li><strong>To remove names</strong> (for example &quot;Lindsey&quot; or &quot;Jack&quot;): use VS Code's <strong>Find and Replace (⌘ + Option + F)</strong> inside <code>data/sprout.json</code>. Also change them in <code>path.html</code> (5.4) and <code>index.html</code>.</li>
-<li><strong>Moving the whole plan by a week</strong> (if life happens): change every <code>s</code> and <code>e</code> date, plus <code>&quot;start&quot;</code>. It's easier to ask free Claude: &quot;Here is my JSON; shift every date by 7 days and give it back&quot;.</li>
+<li><strong>Behind schedule?</strong> You don't need to move anything: the path is self-paced and <em>Today</em> always shows your next unticked step. The week dates are only an estimate.</li>
 </ul>
 <h3>5.3 Book Nook: add a free book (<code>books.html</code>)</h3>
 <p><code>extract books.html</code> → in <code>data/books.json</code>, add a book to <code>&quot;books&quot;</code>:</p>
@@ -291,7 +297,7 @@ If your JSON has a mistake, the tool tells you the <strong>line and column</stro
 <h3>5.4 The Gentle Path (<code>path.html</code>)</h3>
 <ul>
 <li>Its weekly data is in the <code>id=&quot;weeks&quot;</code> block (use the tool).</li>
-<li>The <strong>chapter cards</strong> (titles, &quot;how you'll feel&quot;, skills lists) and <strong>calm tips</strong> are written directly in the code. In VS Code, search for <code>const CH=[</code> and <code>const tips=[</code>: each chapter is one <code>{…}</code> line with <code>em</code> (emoji), <code>t</code> (title), <code>s</code>/<code>e</code> (dates), <code>why</code>, <code>kit</code> (a list), <code>paper</code> (a list) and <code>feel</code>. Edit the text <strong>inside the quotes</strong> only.</li>
+<li>The <strong>chapter cards</strong> (titles, &quot;how you'll feel&quot;, skills lists) and <strong>calm tips</strong> are written directly in the code. In VS Code, search for <code>const CH=</code> (the chapters, all on one long line) and <code>const tips=[</code>. Each chapter is one <code>{…}</code> block with <code>em</code> (emoji), <code>t</code> (title), <code>s</code>/<code>e</code> (dates), <code>why</code>, <code>kit</code> (a list), <code>paper</code> (a list) and <code>feel</code>. Edit the text <strong>inside the quotes</strong> only.</li>
 </ul>
 <h3>5.5 Colours and fonts (any page)</h3>
 <p>At the top of each file, in <code>&lt;style&gt;</code>, the colours are named &quot;tokens&quot;:</p>
